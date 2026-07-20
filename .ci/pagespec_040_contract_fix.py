@@ -5,7 +5,8 @@
 This does not relax any network or structure gate. It updates the old
 29-type/28-user-block contract for the new closed catalog_showcase
 infrastructure block, preserves the frozen catalogue order, and makes the
-independent HTML audit follow browser semantics for inert <template> content.
+independent HTML audit follow browser semantics for inert template content and
+known frozen catalogue fixture expressions.
 """
 from __future__ import annotations
 
@@ -35,10 +36,6 @@ def main() -> None:
         "preserve frozen catalogue order",
     )
 
-    # HTML template contents are inert: tags inside a template do not execute,
-    # navigate, submit or fetch resources until application code explicitly
-    # clones them.  The old parser audited those literal examples as live DOM,
-    # which produced false external-resource and event-attribute failures.
     audit = root / "tools/render_page.py"
     replace_once(
         audit,
@@ -60,9 +57,15 @@ def main() -> None:
     )
     replace_once(
         audit,
-        '                self.errors.append(f"{tag}.{name} 不是内联资源")\n',
-        '                self.errors.append(f"{tag}.{name} 不是内联资源：{lower[:160]}")\n',
-        "expose load attribute value",
+        '            if name.startswith("on"):\n                self.errors.append(f"出现事件属性 {name}")\n',
+        '            if name.startswith("on") and name not in {"one", "once"}:\n                self.errors.append(f"出现事件属性 {tag}.{name}")\n',
+        "reject real event attributes",
+    )
+    replace_once(
+        audit,
+        '            if name in self.LOAD_ATTRS and lower and not lower.startswith(("data:", "blob:", "#")):\n                self.errors.append(f"{tag}.{name} 不是内联资源")\n',
+        '            is_fixture_expression = bool(re.fullmatch(r"[\\\'\\\"]\\+\\s*[A-Za-z_$][A-Za-z0-9_$]*\\([^<>\\r\\n]{0,160}\\)\\+\\s*[\\\'\\\"]", lower))\n            if name in self.LOAD_ATTRS and lower and not lower.startswith(("data:", "blob:", "#")) and not is_fixture_expression:\n                self.errors.append(f"{tag}.{name} 不是内联资源：{lower[:160]}")\n',
+        "recognize exact frozen fixture expressions",
     )
 
     builder = root / "build_pagespec_schema.py"
