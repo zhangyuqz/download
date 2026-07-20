@@ -1,8 +1,8 @@
 Downloading...
 From (original): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y
-From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=2e6ba798-badc-40a9-9956-108c6c8c88a7
+From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=8276d898-a0bf-4534-adb4-1d1a0d4e97a8
 To: /home/runner/work/download/download/baseline_delivery.zip
-  0%|          | 0.00/40.6M [00:00<?, ?B/s] 36%|███▌      | 14.7M/40.6M [00:00<00:00, 139MB/s] 85%|████████▌ | 34.6M/40.6M [00:00<00:00, 173MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 173MB/s]
+  0%|          | 0.00/40.6M [00:00<?, ?B/s]  5%|▌         | 2.10M/40.6M [00:00<00:01, 19.6MB/s] 12%|█▏        | 4.72M/40.6M [00:00<00:01, 20.2MB/s] 27%|██▋       | 11.0M/40.6M [00:00<00:00, 34.7MB/s] 37%|███▋      | 15.2M/40.6M [00:00<00:00, 30.1MB/s] 65%|██████▍   | 26.2M/40.6M [00:00<00:00, 36.7MB/s] 96%|█████████▌| 38.8M/40.6M [00:00<00:00, 49.3MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 42.6MB/s]
 [1/9] Apply PageSpec 0.4.0 source patch
 PageSpec 0.4.0 patch applied
 PageSpec 0.4.0 contract synchronization applied
@@ -14,9 +14,9 @@ FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showca
 Traceback (most recent call last):
   File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
     self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
-AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child audit failed: HTML 根节点或 body 未正确闭合', 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: HTML 根节点或 body 未正确闭合']
+AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': "渲染失败：catalog child audit failed: HTML 根节点或 body 未正确闭合：start={'html': 1, 'body': 1}; end={'html': 2, 'body", 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: HTML 根节点或 body 未正确闭合：start={&amp;#x27;html&amp;#x27;: 1, &amp;#x27;body&amp;#x27;: 1}; end={&amp;#x27;html&amp;#x27;: 2, &amp;#x27;body&amp;#x27;: 2}']
 
 ----------------------------------------------------------------------
-Ran 155 tests in 16.514s
+Ran 155 tests in 16.477s
 
 FAILED (failures=1)
