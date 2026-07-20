@@ -4,9 +4,12 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - '.ci/pagespec_040_post_release_audit.py'
+      - '.github/workflows/pagespec_040_audit_summary.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   summarize:
@@ -25,9 +28,10 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run concise audit
+      - name: Run audit and persist exact findings
         env:
           GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.0-20260720
         shell: bash
         run: |
           set -euo pipefail
@@ -40,21 +44,34 @@ jobs:
           status=$?
           set -e
           python - <<'PY'
-          import json
+          import json, pathlib
           report=json.load(open('audit.json',encoding='utf-8'))
-          print('=== AUDIT SUMMARY ===')
-          print(json.dumps(report.get('summary',{}),ensure_ascii=False,sort_keys=True))
-          print('=== FAILED CHECKS ===')
-          for error in report.get('errors',[]):
-              print(error)
-          print('=== TRANSPORT MATRIX ===')
+          lines=[]
+          lines.append('AUDIT_SUMMARY='+json.dumps(report.get('summary',{}),ensure_ascii=False,sort_keys=True))
+          lines.append('FAILED_CHECKS:')
+          lines.extend(report.get('errors',[]) or ['NONE'])
+          lines.append('TRANSPORT_MATRIX:')
           for item in report.get('checks',{}).get('transport',[]):
-              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
-          print('=== SOURCE CHECKS ===')
+              lines.append(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          lines.append('SOURCE_CHECKS:')
           for item in report.get('checks',{}).get('source',[]):
-              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
-          print('=== WORKFLOW CHECKS ===')
+              lines.append(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          lines.append('WORKFLOW_CHECKS:')
           for item in report.get('checks',{}).get('workflows',[]):
-              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+              lines.append(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          pathlib.Path('findings.txt').write_text('\n'.join(lines)+'\n',encoding='utf-8')
           PY
+          put_file() {
+            local local_file="$1" repo_path="$2" content endpoint existing
+            content="$(base64 -w0 "$local_file")"
+            endpoint="repos/${GITHUB_REPOSITORY}/contents/${repo_path}"
+            existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+            if [ -n "$existing" ]; then
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec post-release findings [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+            else
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec post-release findings [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+            fi
+          }
+          put_file audit.json .ci/generated/pagespec_040_post_release_audit.json
+          put_file findings.txt .ci/generated/pagespec_040_post_release_findings.txt
           exit "$status"
