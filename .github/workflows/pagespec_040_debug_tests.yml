@@ -41,12 +41,26 @@ jobs:
           PY
           python /tmp/patch.py "$ROOT"
           echo "ROOT=$ROOT" >> "$GITHUB_ENV"
-      - name: Run tests with concise failure log
+      - name: Run tests and capture full result
         shell: bash
         run: |
-          set -o pipefail
+          set +e
           cd "$ROOT"
-          python -m unittest discover -s tests -p 'test_*.py' > /tmp/tests.log 2>&1
+          python -m unittest discover -s tests -p 'test_*.py' > "$GITHUB_WORKSPACE/tests.log" 2>&1
           status=$?
-          tail -n 180 /tmp/tests.log
-          exit $status
+          echo "$status" > "$GITHUB_WORKSPACE/tests.status"
+          tail -n 80 "$GITHUB_WORKSPACE/tests.log"
+          exit 0
+      - name: Upload test log
+        uses: actions/upload-artifact@v4
+        with:
+          name: pagespec-040-test-log
+          path: |
+            tests.log
+            tests.status
+          if-no-files-found: error
+          retention-days: 1
+      - name: Enforce test status
+        shell: bash
+        run: |
+          test "$(cat tests.status)" = "0"
