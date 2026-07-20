@@ -1,0 +1,384 @@
+app:
+  description: 固定发布验证底稿：按 172 库目录一对一裁剪；卷4案例数 33。候选包版本、SHA 与浏览器结果必须由外部发布门禁重新绑定，底稿不声称任何旧包验证结果。
+  icon: 🧪
+  icon_background: '#EFF1F5'
+  mode: advanced-chat
+  name: 全库有意义测试·卷4·固定发布验证底稿
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: package
+  value:
+    plugin_unique_identifier: zhangyu/html_offline_exporter:0.0.0@0000000000000000000000000000000000000000000000000000000000000000
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: 发送任意消息生成测试文件。下载后必须断网并以 file:// 打开，等待页面标题变为 PASS 或 FAIL。
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1960000004000-source-1960000004101-target
+      selected: false
+      source: '1960000004000'
+      sourceHandle: source
+      target: '1960000004101'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1960000004101-source-1960000004102-target
+      selected: false
+      source: '1960000004101'
+      sourceHandle: source
+      target: '1960000004102'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: answer
+      id: 1960000004102-source-1960000004103-target
+      selected: false
+      source: '1960000004102'
+      sourceHandle: source
+      target: '1960000004103'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 无需输入，直接生成离线测试文件
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      id: '1960000004000'
+      position:
+        x: 40
+        y: 260
+      positionAbsolute:
+        x: 40
+        y: 260
+      type: custom
+      width: 244
+      height: 90
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - data:
+        code: |
+          def main() -> dict:
+              html = r'''<!doctype html>
+          <html lang="zh-CN"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width,initial-scale=1">
+          <title>全库有意义测试·卷4·兼容与文档生成 · 固定发布验证语料</title>
+          <style>
+          :root{--bg:#111827;--card:#1f2937;--line:#374151;--text:#e5e7eb;--muted:#9ca3af;--ok:#34d399;--bad:#fb7185;--accent:#60a5fa}
+          *{box-sizing:border-box}html,body{margin:0;background:var(--bg)!important;color:var(--text)!important;font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          main{max-width:1180px;margin:auto;padding:24px}h1{font-size:24px;margin:0 0 8px;color:#f8fafc!important}.lede{color:var(--muted)!important;margin:0 0 16px}
+          .summary{display:grid;grid-template-columns:repeat(5,minmax(110px,1fr));gap:8px;margin:14px 0}.metric{background:var(--card);color:var(--text)!important;border:1px solid var(--line);border-radius:10px;padding:10px}.metric span{color:#cbd5e1!important}.metric b{display:block;font-size:20px;color:#f8fafc!important}
+          #suite-root .yb-stage table{width:100%;border-collapse:collapse;background:#fff;color:#111827;border:1px solid #cbd5e1}#suite-root .yb-stage th,#suite-root .yb-stage td{position:static;border-bottom:1px solid #cbd5e1;padding:8px;text-align:left;vertical-align:top;background:#fff;color:#111827}code{white-space:pre-wrap;word-break:break-word;color:#bfdbfe}
+          .yb-badge{display:inline-block;padding:2px 7px;border-radius:999px;background:#374151;color:#e5e7eb}.foot{color:var(--muted);margin-top:12px}
+          .yb-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.yb-card{min-width:0;border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--text);padding:16px;overflow:hidden}.yb-card.pass{border-color:#166534}.yb-card.fail{border-color:#9f1239}.yb-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.yb-head h2{font-size:18px;margin:0;color:#f8fafc}.yb-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.yb-meta div{padding:8px;border-radius:8px;background:#111827}.yb-meta span{display:block;color:var(--muted);font-size:11px}.yb-stage{position:relative;min-height:190px;padding:14px;border-radius:12px;background:#f8fafc;color:#111827;overflow:auto;isolation:isolate}.yb-stage [data-library-artifact]{max-width:100%}.yb-checks{margin:10px 0 0;padding:0;list-style:none}.yb-checks li{margin-top:5px;padding:7px;border-radius:7px;background:#111827}.yb-checks .ok{color:var(--ok)}.yb-checks .bad{color:var(--bad)}.result-box{padding:14px;border:2px solid #0f766e;border-radius:12px;background:#ecfeff;color:#134e4a;white-space:pre-wrap;overflow-wrap:anywhere}.yb-download,.download{display:inline-block;padding:10px 14px;border-radius:9px;background:#2563eb;color:white;text-decoration:none}.static-dialog{display:grid;gap:8px;width:min(100%,360px);padding:16px;border-radius:12px;background:white;box-shadow:0 8px 28px #0003}.static-dialog h3,.static-dialog p{margin:0}.bootstrap-proof{padding:14px;border:1px solid #86efac;border-radius:8px;background:#f0fdf4;color:#166534}.document-proof{display:grid;gap:8px;justify-items:start}.foot{grid-column:1/-1}@media(max-width:900px){.yb-grid{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,1fr)}.yb-meta{grid-template-columns:1fr}}
+          </style>
+          <script>(function(){window.__LIB_HANDLES__={};window.__CSS_MUTATION_TARGETS__=[];window.__SUITE_BOOT__=performance.now();window.__RUNTIME_ISSUES__=[];window.__YEARBOOK_CLEANUPS__=[];function add(kind,value){window.__RUNTIME_ISSUES__.push({kind:kind,message:String(value&&value.stack||value).slice(0,2000)})}window.addEventListener('error',function(e){add('window.error',e.error||e.message)});window.addEventListener('unhandledrejection',function(e){add('unhandledrejection',e.reason)});['error','warn'].forEach(function(k){var original=console[k];console[k]=function(){try{add('console.'+k,Array.prototype.map.call(arguments,String).join(' '))}catch(_){}return original.apply(console,arguments)}})})();</script>
+
+          </head><body><main id="suite-root" class="suite-shell"><p class="lede"><b>固定发布验证语料：</b>按 172 库目录重建；功能断言与可见证据保留在语料中，候选包版本、SHA 与浏览器结果由外部发布门禁绑定。</p>
+          <h1>全库有意义测试·卷4·兼容与文档生成</h1>
+          <p class="lede">本卷 33 个库。每项都保留真实可见产物；页面展示的结构化检查就是最终 PASS 的唯一数据源。</p>
+          <div class="summary"><div class="metric"><span>总数</span><b id="m-total">33</b></div><div class="metric"><span>完成</span><b id="m-done">0</b></div><div class="metric"><span>通过</span><b id="m-pass">0</b></div><div class="metric"><span>失败</span><b id="m-fail">0</b></div><div class="metric"><span>离线环境门</span><b id="m-offline">运行中</b></div></div>
+          <section id="results" class="yb-grid" aria-label="卷04全部真实库产物"></section>
+          <p class="foot">最终机器结果：<code>window.__MEANINGFUL_SUITE__</code>。浏览器验证必须从导出后的本地 <code>file://</code> 文件读取该对象。</p>
+          </main>
+          <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.min.js"></script>
+          <script>window.__LIB_HANDLES__["vue@2"]=window["Vue"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+          <script>window.__LIB_HANDLES__["chart.js@2"]=window["Chart"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+          <script>window.__LIB_HANDLES__["jquery"]=window["jQuery"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+          <script>window.__LIB_HANDLES__["bootstrap@4"]=window["bootstrap"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+          <script>window.__LIB_HANDLES__["react"]=window["React"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+          <script>window.__LIB_HANDLES__["react-dom"]=window["ReactDOM"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.7/babel.min.js"></script>
+          <script>window.__LIB_HANDLES__["@babel/standalone"]=window["Babel"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+          <script>window.__LIB_HANDLES__["phaser"]=window["Phaser"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist-min@2.35.2/plotly.min.js"></script>
+          <script>window.__LIB_HANDLES__["plotly.js"]=window["Plotly"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/datatables.net@2.3.8/js/dataTables.min.js"></script>
+          <script>window.__LIB_HANDLES__["datatables.net"]=window["DataTable"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.5.2/dist/js/tabulator.min.js"></script>
+          <script>window.__LIB_HANDLES__["tabulator-tables"]=window["Tabulator"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.min.js"></script>
+          <script>window.__LIB_HANDLES__["fuse.js"]=window["Fuse"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/handlebars@4.7.9/dist/handlebars.min.js"></script>
+          <script>window.__LIB_HANDLES__["handlebars"]=window["Handlebars"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.25/dist/sweetalert2.min.js"></script>
+          <script>window.__LIB_HANDLES__["sweetalert2"]=window["Swal"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.7/Sortable.min.js"></script>
+          <script>window.__LIB_HANDLES__["sortablejs"]=window["Sortable"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/lucide@1.24.0/dist/umd/lucide.min.js"></script>
+          <script>window.__LIB_HANDLES__["lucide"]=window["lucide"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
+          <script>window.__LIB_HANDLES__["jspdf"]=window["jspdf"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/exifr@7.1.3/dist/full.umd.js"></script>
+          <script>window.__LIB_HANDLES__["exifr"]=window["exifr"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/compressorjs@1.3.0/dist/compressor.min.js"></script>
+          <script>window.__LIB_HANDLES__["compressorjs"]=window["Compressor"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.2.0/crypto-js.js"></script>
+          <script>window.__LIB_HANDLES__["crypto-js"]=window["CryptoJS"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/decimal.js@10.6.0/decimal.js"></script>
+          <script>window.__LIB_HANDLES__["decimal.js"]=window["Decimal"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
+          <script>window.__LIB_HANDLES__["lz-string"]=window["LZString"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.13.8/bundle/libphonenumber-js.min.js"></script>
+          <script>window.__LIB_HANDLES__["libphonenumber-js"]=window["libphonenumber"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/validator@13.15.35/validator.min.js"></script>
+          <script>window.__LIB_HANDLES__["validator"]=window["validator"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/tldts@7.4.8/dist/index.umd.min.js"></script>
+          <script>window.__LIB_HANDLES__["tldts"]=window["tldts"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+          <script>window.__LIB_HANDLES__["jszip"]=window["JSZip"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/docx@9.7.1/dist/index.iife.js"></script>
+          <script>window.__LIB_HANDLES__["docx"]=window["docx"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@4.0.1/dist/pptxgen.min.js"></script>
+          <script>window.__LIB_HANDLES__["pptxgenjs"]=window["PptxGenJS"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/mammoth@1.12.0/mammoth.browser.min.js"></script>
+          <script>window.__LIB_HANDLES__["mammoth"]=window["mammoth"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+          <script>window.__LIB_HANDLES__["@popperjs/core"]=window["Popper"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/tippy.js@6.3.7/dist/tippy.umd.min.js"></script>
+          <script>window.__LIB_HANDLES__["tippy.js"]=window["tippy"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/choices.js@10.2.0/public/assets/scripts/choices.min.js"></script>
+          <script>window.__LIB_HANDLES__["choices.js"]=window["Choices"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/nouislider@15.8.1/dist/nouislider.min.js"></script>
+          <script>window.__LIB_HANDLES__["nouislider"]=window["noUiSlider"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/swiper@12.1.2/swiper-bundle.min.js"></script>
+          <script>window.__LIB_HANDLES__["swiper"]=window["Swiper"];</script>
+          <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js"></script>
+          <script>window.__LIB_HANDLES__["howler"]=window["Howl"];</script>
+          <style id="suite-final-guard">
+          html,body{margin:0!important;padding:0!important;width:100%!important;max-width:none!important;min-width:0!important;position:static!important;transform:none!important;translate:none!important;overflow-x:hidden!important;background:#111827!important;color:#e5e7eb!important;font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          body>#suite-root.suite-shell{display:block!important;isolation:isolate!important;position:static!important;inset:auto!important;float:none!important;transform:none!important;translate:none!important;scale:none!important;rotate:none!important;width:min(100%,1180px)!important;max-width:1180px!important;min-width:0!important;margin:0 auto!important;padding:24px!important;overflow:visible!important;background:#111827!important;color:#e5e7eb!important;font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          #suite-root,#suite-root *{box-sizing:border-box}
+          #suite-root>h1{display:block!important;position:static!important;float:none!important;transform:none!important;margin:0 0 8px!important;padding:0!important;background:transparent!important;color:#f8fafc!important;font:700 24px/1.55 system-ui,"Microsoft YaHei",sans-serif!important;letter-spacing:normal!important;text-align:left!important}
+          #suite-root>.lede,#suite-root>.foot{display:block!important;position:static!important;transform:none!important;color:#9ca3af!important;margin:0 0 16px!important}
+          #suite-root>.summary{display:grid!important;position:static!important;transform:none!important;grid-template-columns:repeat(5,minmax(110px,1fr))!important;gap:8px!important;margin:14px 0!important}
+          #suite-root>.summary>.metric{display:block!important;position:static!important;transform:none!important;background:#1f2937!important;color:#e5e7eb!important;border:1px solid #374151!important;border-radius:10px!important;padding:10px!important;margin:0!important}
+          #suite-root>.yb-grid{display:grid!important;position:static!important;transform:none!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important;align-items:start!important;width:100%!important;max-width:100%!important;min-width:0!important}
+          #suite-root .yb-card{display:block!important;position:static!important;transform:none!important;align-self:start!important;min-width:0!important;width:auto!important;max-width:100%!important;height:auto!important;margin:0!important;padding:16px!important;overflow:hidden!important;border:1px solid #374151!important;border-radius:16px!important;background:#1f2937!important;color:#e5e7eb!important}
+          #suite-root .yb-card.pass{border-color:#166534!important}#suite-root .yb-card.fail{border-color:#9f1239!important}
+          #suite-root .yb-head{display:flex!important;position:static!important;transform:none!important;justify-content:space-between!important;gap:10px!important;align-items:flex-start!important}#suite-root .yb-head h2{margin:0!important;color:#f8fafc!important;font:700 18px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          #suite-root .yb-meta{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;margin:10px 0!important}#suite-root .yb-meta>div{display:block!important;padding:8px!important;border-radius:8px!important;background:#111827!important;color:#e5e7eb!important}
+          #suite-root .yb-stage{display:block;position:relative;transform:none;min-height:190px;max-width:100%;padding:14px;border-radius:12px;background:#f8fafc;color:#111827;overflow:auto;isolation:isolate}
+          #suite-root .yb-stage [data-library-artifact]{max-width:100%}#suite-root .result-box{max-height:18rem;overflow:auto}
+          #suite-root .yb-checks{display:block!important;margin:10px 0 0!important;padding:0!important;list-style:none!important}#suite-root .yb-checks li{display:block!important;margin:5px 0 0!important;padding:7px!important;border-radius:7px!important;background:#111827!important;color:#e5e7eb!important}
+          #suite-root .yb-checks code[data-visible-actual]{display:block;max-height:14em;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+          #suite-root .yb-stage table{display:table;position:static!important;float:none!important;transform:none!important;width:100%!important;max-width:100%!important;border-collapse:collapse!important;background:#fff!important;color:#111827!important;font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          #suite-root .yb-stage table thead{display:table-header-group!important}#suite-root .yb-stage table tbody{display:table-row-group!important}#suite-root .yb-stage table tr{display:table-row!important;position:static!important;transform:none!important}
+          #suite-root .yb-stage table th,#suite-root .yb-stage table td{display:table-cell!important;position:static!important;float:none!important;transform:none!important;min-width:0!important;padding:8px!important;border:0!important;border-bottom:1px solid #cbd5e1!important;background:#fff!important;color:#111827!important;text-align:left!important;vertical-align:top!important;white-space:normal!important;font:14px/1.55 system-ui,"Microsoft YaHei",sans-serif!important}
+          @media(max-width:900px){#suite-root>.yb-grid{grid-template-columns:minmax(0,1fr)!important}#suite-root>.summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}#suite-root .yb-meta{grid-template-columns:minmax(0,1fr)!important}}
+          </style>
+          <script>
+          (function(){
+          'use strict';
+          function ck(name,actual,op,expected){return {name:name,actual:actual,op:op,expected:expected}}
+          var cases=[
+          {key:"vue@2",operation:"Vue 2 计算属性并挂载",api:"new Vue / nextTick",input:"n=41，页面显示 n+1",run:async function(ctx){var V=ctx.h('vue@2'),wrap=ctx.mount('<div></div>'),v=new V({el:wrap.firstChild,data:{n:41},template:'<b>{{n+1}}</b>'});ctx.keep(v,function(){v.$destroy()});await V.nextTick();var node=ctx.artifact(wrap.firstChild);return {checks:[ck('DOM 文本',node.textContent,'eq','42'),ck('渲染标签',node.tagName,'eq','B')]}}},
+          {key:"chart.js@2",operation:"绘制三项柱状图并读取像素",api:"new Chart / getDatasetMeta",input:"A=1，B=2，C=3",run:async function(ctx){var C=ctx.h('chart.js@2'),wrap=ctx.mount('<canvas width="320" height="180"></canvas>'),canvas=ctx.artifact(wrap.firstChild),chart=new C(canvas.getContext('2d'),{type:'bar',data:{labels:['A','B','C'],datasets:[{label:'数量',data:[1,2,3],backgroundColor:['#0ea5e9','#14b8a6','#f59e0b']}]},options:{responsive:false,animation:{duration:0},legend:{display:false}}});chart.update(0);await ctx.wait(40);var meta=chart.getDatasetMeta(0).data.length,data=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data,painted=0;for(var i=3;i<data.length;i+=4)if(data[i])painted++;var snapshot=document.createElement('canvas');snapshot.width=canvas.width;snapshot.height=canvas.height;snapshot.getContext('2d').drawImage(canvas,0,0);canvas.removeAttribute('data-library-artifact');wrap.appendChild(snapshot);ctx.artifact(snapshot);chart.destroy();return {checks:[ck('图表数据元数量',meta,'eq',3),ck('画布非透明像素',painted,'gt',100),ck('画布宽度',canvas.width,'eq',320)]}}},
+          {key:"bootstrap@4",operation:"Modal 完成打开与关闭事件",api:"jQuery.fn.modal",input:"标题=周末计划",run:async function(ctx){var jq=ctx.h('jquery'),wrap=ctx.mount('<div class="modal" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h3>周末计划</h3></div><div class="modal-body">阅读与散步</div></div></div></div>'),modal=wrap.firstChild,m=jq(modal);m.modal({show:false});m.modal('show');await ctx.until(function(){return modal.classList.contains('show')&&modal.style.display!=='none'},1500);var shown=modal.classList.contains('show');m.modal('hide');await ctx.until(function(){return !modal.classList.contains('show')&&modal.style.display==='none'},1500);var hidden=!modal.classList.contains('show');m.modal('dispose');document.querySelectorAll('.modal-backdrop').forEach(function(n){n.remove()});var proof=ctx.mount('<div class="bootstrap-proof"><b>Bootstrap Modal 生命周期</b><br>已打开 → 已关闭</div>');ctx.artifact(proof.firstChild);return {checks:[ck('modal 插件类型',typeof jq.fn.modal,'eq','function'),ck('打开状态被观测',shown,'eq',true),ck('关闭状态被观测',hidden,'eq',true)]}}},
+          {key:"react",operation:"React 元素创建并可见渲染",api:"React.createElement",input:"strong children=42",run:async function(ctx){var R=ctx.h('react'),D=ctx.h('react-dom'),host=ctx.artifact(ctx.mount('<div></div>').firstChild),element=R.createElement('strong',{'data-react-proof':'yes'},'42'),root=D.createRoot(host);ctx.keep(root,function(){root.unmount()});root.render(element);await ctx.until(function(){return host.textContent==='42'});return {checks:[ck('元素 type',element.type,'eq','strong'),ck('children',element.props.children,'eq','42'),ck('可见 DOM',host.textContent,'eq','42')]}}},
+          {key:"react-dom",operation:"React 根节点完成更新",api:"createRoot / render",input:"初始=离线，更新=已更新",run:async function(ctx){var R=ctx.h('react'),D=ctx.h('react-dom'),host=ctx.artifact(ctx.mount('<div></div>').firstChild),root=D.createRoot(host);ctx.keep(root,function(){root.unmount()});root.render(R.createElement('strong',null,'离线'));await ctx.until(function(){return host.textContent==='离线'});root.render(R.createElement('strong',null,'已更新'));await ctx.until(function(){return host.textContent==='已更新'});return {checks:[ck('更新后 DOM 文本',host.textContent,'eq','已更新'),ck('strong 数量',host.querySelectorAll('strong').length,'eq',1)]}}},
+          {key:"@babel/standalone",operation:"JSX 转换为可执行调用",api:"Babel.transform",input:"const x=<b>42</b>",run:async function(ctx){var B=ctx.h('@babel/standalone'),code=B.transform('const x=<b>42</b>',{presets:['react']}).code;ctx.show('转换结果',code);return {checks:[ck('包含 React.createElement',code,'includes','React.createElement'),ck('不再含 JSX 标签',code.includes('<b>'),'eq',false)]}}},
+          {key:"phaser",operation:"启动 CANVAS 场景并绘制图形",api:"new Phaser.Game",input:"240×120 场景、矩形与文字",run:async function(ctx){var P=ctx.h('phaser'),host=ctx.mount('<div style="width:240px;height:120px"></div>').firstChild,game=new P.Game({type:P.CANVAS,parent:host,width:240,height:120,backgroundColor:'#0f766e',banner:false,audio:{noAudio:true},scene:{key:'demo',create:function(){this.add.rectangle(120,60,90,50,0xf59e0b);this.add.text(72,50,'PHASER',{font:'18px sans-serif',color:'#ffffff'})}}});ctx.keep(game);await ctx.until(function(){return game.canvas&&game.scene&&game.scene.getScenes(true).length===1},3000);await ctx.wait(80);var canvas=ctx.artifact(game.canvas),pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data,painted=0;for(var i=3;i<pixels.length;i+=4)if(pixels[i])painted++;if(game.loop&&game.loop.stop)game.loop.stop();return {checks:[ck('渲染器类型',game.renderer.type,'eq',P.CANVAS),ck('活动场景数',game.scene.getScenes(true).length,'eq',1),ck('画布尺寸',[canvas.width,canvas.height],'eq',[240,120]),ck('非透明像素',painted,'gt',1000)]}}},
+          {key:"plotly.js",operation:"保留两点散点图",api:"Plotly.newPlot",input:"x=[1,2]，y=[3,4]",run:async function(ctx){var P=ctx.h('plotly.js'),plot=ctx.artifact(ctx.mount('<div style="width:320px;height:200px"></div>').firstChild);await P.newPlot(plot,[{x:[1,2],y:[3,4],mode:'markers',marker:{size:14,color:'#0ea5e9'}}],{width:320,height:200,margin:{l:35,r:15,t:20,b:35}},{staticPlot:true,displayModeBar:false,responsive:false});ctx.keep(plot,function(){P.purge(plot)});plot.setAttribute('data-required-selector','.scatterlayer .point');plot.setAttribute('data-required-count','2');var svg=plot.querySelector('.plot-container .main-svg'),box=svg&&svg.getBoundingClientRect(),points=Array.prototype.slice.call(plot.querySelectorAll('.scatterlayer .point')),pointBoxes=points.map(function(p){var b=p.getBoundingClientRect();return [Math.round(b.width),Math.round(b.height)]});return {checks:[ck('trace 数量',plot.data.length,'eq',1),ck('数据点数量',plot.data[0].x.length,'eq',2),ck('Plotly SVG 存在',!!svg,'eq',true),ck('Plotly SVG 宽度',box&&Math.round(box.width),'gt',100),ck('实际 marker 节点数',points.length,'eq',2),ck('每个 marker 有真实几何',pointBoxes.every(function(b){return b[0]>=8&&b[1]>=8}),'truthy',true)]}}},
+          {key:"datatables.net",operation:"增强表格并读取两行",api:"new DataTable / rows().count",input:"A、B 两行",run:async function(ctx){var D=ctx.h('datatables.net'),wrap=ctx.mount('<table><thead><tr><th>项目</th><th>数量</th></tr></thead><tbody><tr><td>A</td><td>1</td></tr><tr><td>B</td><td>2</td></tr></tbody></table>'),table=wrap.firstChild,dt=new D(table,{paging:false,searching:false,info:false});ctx.keep(dt);var container=ctx.artifact(dt.table().container());return {checks:[ck('数据行数',dt.rows().count(),'eq',2),ck('增强 class',table.classList.contains('dataTable'),'eq',true),ck('可见单元格',container.querySelectorAll('tbody td').length,'eq',4)]}}},
+          {key:"tabulator-tables",operation:"构建两行数据表",api:"new Tabulator / getDataCount",input:"两条阅读记录",run:async function(ctx){var T=ctx.h('tabulator-tables'),target=ctx.artifact(ctx.mount('<div></div>').firstChild),builtResolve,built=new Promise(function(r){builtResolve=r}),table=new T(target,{data:[{id:1,n:'散步',m:30},{id:2,n:'阅读',m:45}],columns:[{title:'项目',field:'n'},{title:'分钟',field:'m'}],tableBuilt:function(){builtResolve()}});ctx.keep(table);await ctx.until(function(){return target.classList.contains('tabulator')&&target.querySelectorAll('.tabulator-row').length===2},2500);return {checks:[ck('数据模型行数',table.getDataCount(),'eq',2),ck('可见表格行数',target.querySelectorAll('.tabulator-row').length,'eq',2),ck('表头数量',target.querySelectorAll('.tabulator-col').length,'eq',2)]}}},
+          {key:"fuse.js",operation:"错字条件下的模糊检索",api:"new Fuse().search",input:"查询“周末骑型计划”",run:async function(ctx){var F=ctx.h('fuse.js'),f=new F([{id:1,t:'周末骑行计划'},{id:2,t:'家庭食谱整理'},{id:3,t:'读书摘录'}],{keys:['t'],includeScore:true,threshold:.45}),r=f.search('周末骑型计划'),first=r[0]||{};ctx.show('模糊检索结果',{id:first.item&&first.item.id,title:first.item&&first.item.t,score:first.score});return {checks:[ck('首个命中 id',first.item&&first.item.id,'eq',1),ck('命中标题',first.item&&first.item.t,'eq','周末骑行计划'),ck('模糊得分',first.score,'lt',.45)]}}},
+          {key:"handlebars",operation:"编译并展示模板卡片",api:"Handlebars.compile",input:"标题=阅读清单，count=3",run:async function(ctx){var H=ctx.h('handlebars'),html=H.compile('<article><h3>{{title}}</h3><p>{{count}} 项</p></article>')({title:'阅读清单',count:3}),wrap=ctx.mount('<div></div>');wrap.firstChild.innerHTML=html;var artifact=ctx.artifact(wrap.firstChild);return {checks:[ck('标题文本',artifact.querySelector('h3').textContent,'eq','阅读清单'),ck('数量文本',artifact.querySelector('p').textContent,'eq','3 项'),ck('article 数量',artifact.querySelectorAll('article').length,'eq',1)]}}},
+          {key:"sweetalert2",operation:"显示提示并保留可见快照",api:"Swal.fire / isVisible",input:"标题=离线提示，隐藏确认按钮",run:async function(ctx){var S=ctx.h('sweetalert2'),promise=S.fire({title:'离线提示',text:'资料已保存在本机',showConfirmButton:false,allowOutsideClick:false,showClass:{popup:''},hideClass:{popup:''}});await ctx.until(function(){return S.isVisible()&&S.getPopup()},2000);var popup=S.getPopup(),wasVisible=S.isVisible()&&!!popup,title=S.getTitle().textContent,button=S.getConfirmButton(),hidden=!!button&&getComputedStyle(button).display==='none',snapshot=popup.cloneNode(true);snapshot.classList.add('static-dialog');snapshot.style.cssText='position:static;display:grid;opacity:1;transform:none;visibility:visible;width:min(100%,360px)';ctx.artifact(snapshot);ctx.stage.appendChild(snapshot);S.close();await promise;return {checks:[ck('原弹窗曾可见',wasVisible,'eq',true),ck('标题文本',title,'eq','离线提示'),ck('确认按钮隐藏',hidden,'eq',true),ck('快照包含正文',snapshot.textContent,'includes','资料已保存在本机')]}}},
+          {key:"sortablejs",operation:"程序化重排并核对模型和 DOM",api:"Sortable.sort / toArray",input:"a,b,c → c,a,b",run:async function(ctx){var S=ctx.h('sortablejs'),list=ctx.artifact(ctx.mount('<ul><li data-id="a">A</li><li data-id="b">B</li><li data-id="c">C</li></ul>').firstChild),sortable=S.create(list,{animation:0});ctx.keep(sortable);sortable.sort(['c','a','b'],false);var model=sortable.toArray(),dom=Array.prototype.map.call(list.children,function(n){return n.getAttribute('data-id')});return {checks:[ck('模型顺序',model,'eq',['c','a','b']),ck('DOM 顺序',dom,'eq',['c','a','b']),ck('首项可见文本',list.firstElementChild.textContent,'eq','C')]}}},
+          {key:"lucide",operation:"把图标占位符转换为 SVG",api:"lucide.createIcons",input:"data-lucide=check",run:async function(ctx){var L=ctx.h('lucide'),wrap=ctx.mount('<i data-lucide="check"></i>');L.createIcons();var svg=ctx.artifact(wrap.querySelector('svg.lucide-check'));return {checks:[ck('SVG 数量',wrap.querySelectorAll('svg.lucide-check').length,'eq',1),ck('viewBox',svg.getAttribute('viewBox'),'eq','0 0 24 24'),ck('图形节点数',svg.children.length,'gt',0)]}}},
+          {key:"jspdf",operation:"生成并验证两页 PDF",api:"jsPDF.output",input:"两页英文离线报告",run:async function(ctx){var J=ctx.h('jspdf'),pdf=new J.jsPDF({compress:false});pdf.text('offline report',10,10);pdf.addPage();pdf.text('page two',10,10);var buffer=pdf.output('arraybuffer'),bytes=new Uint8Array(buffer),raw=new TextDecoder('latin1').decode(bytes),blob=new Blob([buffer],{type:'application/pdf'}),url=ctx.keepUrl(URL.createObjectURL(blob)),box=ctx.mount('<div class="document-proof"><b>PDF 已生成：2 页</b></div>'),a=document.createElement('a');a.className='download';a.href=url;a.download='offline-report.pdf';a.textContent='打开 PDF';ctx.artifact(a);box.firstChild.appendChild(a);return {checks:[ck('PDF magic',raw.slice(0,5),'eq','%PDF-'),ck('PDF EOF',raw,'includes','%%EOF'),ck('页数',pdf.internal.getNumberOfPages(),'eq',2),ck('第一页文本',raw,'includes','offline report'),ck('第二页文本',raw,'includes','page two'),ck('文件大小',bytes.length,'gt',500)]}}},
+          {key:"exifr",operation:"解析 JPEG EXIF 方向",api:"exifr.orientation",input:"最小 APP1，orientation=6",run:async function(ctx){var E=ctx.h('exifr'),bytes=new Uint8Array([255,216,255,225,0,34,69,120,105,102,0,0,73,73,42,0,8,0,0,0,1,0,18,1,3,0,1,0,0,0,6,0,0,0,0,0,0,0,255,217]),orientation=await E.orientation(bytes);ctx.show('EXIF Orientation',orientation);return {checks:[ck('方向值',orientation,'eq',6),ck('输入 JPEG magic',Array.from(bytes.slice(0,2)),'eq',[255,216])]}}},
+          {key:"compressorjs",operation:"缩放并压缩可解码 JPEG",api:"new Compressor / createImageBitmap",input:"320×180 JPEG → 160×90 JPEG",run:async function(ctx){var Compressor=ctx.h('compressorjs'),canvas=document.createElement('canvas');canvas.width=320;canvas.height=180;var g=canvas.getContext('2d'),gradient=g.createLinearGradient(0,0,320,180);gradient.addColorStop(0,'#0ea5e9');gradient.addColorStop(1,'#f59e0b');g.fillStyle=gradient;g.fillRect(0,0,320,180);for(var y=0;y<180;y+=6)for(var x=0;x<320;x+=6){g.fillStyle='rgb('+((x*7+y*3)%256)+','+((x*2+y*9)%256)+','+((x*11+y)%256)+')';g.fillRect(x,y,4,4)}g.fillStyle='white';g.font='28px sans-serif';g.fillText('OFFLINE',88,100);var inputBlob=await new Promise(function(ok){canvas.toBlob(ok,'image/jpeg',.96)});if(!inputBlob)throw new Error('无法生成 JPEG 输入');var file=new File([inputBlob],'source.jpg',{type:'image/jpeg'}),output=await new Promise(function(ok,no){new Compressor(file,{mimeType:'image/jpeg',quality:.55,maxWidth:160,maxHeight:90,strict:true,success:ok,error:no})}),bitmap=await createImageBitmap(output),url=ctx.keepUrl(URL.createObjectURL(output)),wrap=ctx.mount('<div></div>'),img=document.createElement('img');img.src=url;img.alt='压缩后的离线示例';img.style.cssText='display:block;width:320px;height:auto';wrap.firstChild.appendChild(img);await ctx.until(function(){return img.complete&&img.naturalWidth>0},2000);ctx.artifact(img);var width=bitmap.width,height=bitmap.height;bitmap.close();return {checks:[ck('输出 MIME',output.type,'eq','image/jpeg'),ck('解码宽度',width,'eq',160),ck('解码高度',height,'eq',90),ck('img naturalWidth',img.naturalWidth,'eq',160),ck('输出小于输入',output.size,'lt',inputBlob.size),ck('输出非空',output.size,'gt',500)]}}},
+          {key:"crypto-js",operation:"AES 加密再解密",api:"CryptoJS.AES.encrypt / decrypt",input:"密钥=k，明文=离线资料",run:async function(ctx){var C=ctx.h('crypto-js'),cipher=C.AES.encrypt('离线资料','k').toString(),plain=C.AES.decrypt(cipher,'k').toString(C.enc.Utf8);ctx.show('AES 回环',{cipher:cipher.slice(0,32)+'…',plain:plain});return {checks:[ck('解密明文',plain,'eq','离线资料'),ck('密文不同于明文',cipher==='离线资料','eq',false),ck('密文长度',cipher.length,'gt',20)]}}},
+          {key:"decimal.js",operation:"十进制精确加法",api:"new Decimal().plus",input:"0.1 + 0.2",run:async function(ctx){var D=ctx.h('decimal.js'),value=new D('0.1').plus('0.2').toString();ctx.show('精确计算','0.1 + 0.2 = '+value);return {checks:[ck('十进制结果',value,'eq','0.3')]}}},
+          {key:"lz-string",operation:"压缩并完整解压中文文本",api:"compressToUTF16 / decompressFromUTF16",input:"离线资料×20",run:async function(ctx){var L=ctx.h('lz-string'),source='离线资料'.repeat(20),compressed=L.compressToUTF16(source),restored=L.decompressFromUTF16(compressed);ctx.show('压缩回环',{roundTrip:restored===source,inputChars:source.length,compressedChars:compressed.length});return {checks:[ck('解压内容一致',restored,'eq',source),ck('压缩字符数',compressed.length,'lt',source.length),ck('压缩结果非空',compressed.length,'gt',0)]}}},
+          {key:"libphonenumber-js",operation:"解析并验证手机号",api:"parsePhoneNumber",input:"+8613812345678",run:async function(ctx){var L=ctx.h('libphonenumber-js'),phone=L.parsePhoneNumber('+8613812345678'),valid=phone.isValid();ctx.show('号码解析',{country:phone.country,nationalNumber:phone.nationalNumber,valid:valid});return {checks:[ck('国家代码',phone.country,'eq','CN'),ck('号码有效',valid,'eq',true),ck('国内号码',phone.nationalNumber,'eq','13812345678')]}}},
+          {key:"validator",operation:"邮箱正反样本校验",api:"validator.isEmail",input:"reader@example.com 与 bad",run:async function(ctx){var V=ctx.h('validator'),good=V.isEmail('reader@example.com'),bad=V.isEmail('bad');ctx.show('邮箱校验',{validSample:good,invalidSample:bad});return {checks:[ck('合法邮箱',good,'eq',true),ck('非法文本',bad,'eq',false)]}}},
+          {key:"tldts",operation:"拆解多级域名",api:"tldts.parse",input:"sub.example.co.uk",run:async function(ctx){var T=ctx.h('tldts'),parsed=T.parse('https://sub.example.co.uk/path');ctx.show('域名结构',{domain:parsed.domain,subdomain:parsed.subdomain,publicSuffix:parsed.publicSuffix});return {checks:[ck('注册域名',parsed.domain,'eq','example.co.uk'),ck('子域名',parsed.subdomain,'eq','sub'),ck('公共后缀',parsed.publicSuffix,'eq','co.uk')]}}},
+          {key:"docx",operation:"生成并解包验证 DOCX",api:"docx.Packer / JSZip",input:"标题与两段正文",run:async function(ctx){var D=ctx.h('docx'),Z=ctx.h('jszip'),documentFile=new D.Document({sections:[{children:[new D.Paragraph({text:'离线阅读报告',heading:D.HeadingLevel.HEADING_1}),new D.Paragraph('第一段：阅读'),new D.Paragraph('第二段：散步')]}]}),blob=await D.Packer.toBlob(documentFile),head=new Uint8Array(await blob.slice(0,2).arrayBuffer()),zip=await Z.loadAsync(blob),entry=zip.file('word/document.xml'),xml=entry&&await entry.async('string'),paragraphs=(xml.match(/<w:p(?: |\>)/g)||[]).length,url=ctx.keepUrl(URL.createObjectURL(blob)),box=ctx.mount('<div class="document-proof"><b>DOCX 已生成并解包验证</b></div>'),a=document.createElement('a');a.className='download';a.href=url;a.download='reading-report.docx';a.textContent='下载 DOCX';ctx.artifact(a);box.firstChild.appendChild(a);return {checks:[ck('ZIP magic',Array.from(head),'eq',[80,75]),ck('document.xml 存在',!!entry,'eq',true),ck('Content Types 存在',!!zip.file('[Content_Types].xml'),'eq',true),ck('段落数量',paragraphs,'gte',3),ck('标题文本',xml,'includes','离线阅读报告'),ck('文件大小',blob.size,'gt',1000)]}}},
+          {key:"pptxgenjs",operation:"生成并解包验证两页 PPTX",api:"PptxGenJS.write / JSZip",input:"两页生活计划",run:async function(ctx){var P=ctx.h('pptxgenjs'),Z=ctx.h('jszip'),ppt=new P();ppt.addSlide().addText('阅读计划',{x:1,y:1,w:4,h:1});ppt.addSlide().addText('散步计划',{x:1,y:1,w:4,h:1});var buffer=await ppt.write({outputType:'arraybuffer'}),bytes=new Uint8Array(buffer),zip=await Z.loadAsync(buffer),slides=Object.keys(zip.files).filter(function(k){return /^ppt\/slides\/slide\d+\.xml$/.test(k)}).sort(),xml1=await zip.file(slides[0]).async('string'),xml2=await zip.file(slides[1]).async('string'),blob=new Blob([buffer],{type:'application/vnd.openxmlformats-officedocument.presentationml.presentation'}),url=ctx.keepUrl(URL.createObjectURL(blob)),box=ctx.mount('<div class="document-proof"><b>PPTX 已生成：2 页</b></div>'),a=document.createElement('a');a.className='download';a.href=url;a.download='life-plan.pptx';a.textContent='下载 PPTX';ctx.artifact(a);box.firstChild.appendChild(a);return {checks:[ck('ZIP magic',Array.from(bytes.slice(0,2)),'eq',[80,75]),ck('幻灯片数量',slides.length,'eq',2),ck('第一页文本',xml1,'includes','阅读计划'),ck('第二页文本',xml2,'includes','散步计划'),ck('文件大小',bytes.length,'gt',1000)]}}},
+          {key:"mammoth",operation:"DOCX 转换为可见 HTML",api:"mammoth.convertToHtml",input:"段落=离线阅读报告",run:async function(ctx){var D=ctx.h('docx'),M=ctx.h('mammoth'),doc=new D.Document({sections:[{children:[new D.Paragraph('离线阅读报告')]}]}),blob=await D.Packer.toBlob(doc),result=await M.convertToHtml({arrayBuffer:await blob.arrayBuffer()}),wrap=ctx.mount('<div></div>');wrap.firstChild.innerHTML=result.value;var artifact=ctx.artifact(wrap.firstChild);return {checks:[ck('HTML 包含文本',result.value,'includes','离线阅读报告'),ck('段落数量',artifact.querySelectorAll('p').length,'eq',1),ck('可见文本',artifact.textContent,'eq','离线阅读报告'),ck('转换消息数',result.messages.length,'eq',0)]}}},
+          {key:"@popperjs/core",operation:"计算并验证真实浮层几何",api:"Popper.createPopper / update",input:"reference 下方放置 popper",run:async function(ctx){var P=ctx.h('@popperjs/core'),wrap=ctx.mount('<div style="position:relative;height:150px;width:300px"><button style="position:absolute;left:110px;top:25px;width:80px;height:32px">参考</button><div class="popper-proof" style="width:100px;height:38px;padding:8px;background:#0f766e;color:white">浮层</div></div>'),ref=wrap.querySelector('button'),pop=ctx.artifact(wrap.querySelector('.popper-proof')),instance=P.createPopper(ref,pop,{placement:'bottom',modifiers:[{name:'flip',enabled:false},{name:'preventOverflow',enabled:false}]});ctx.keep(instance);await instance.update();await ctx.until(function(){return pop.getAttribute('data-popper-placement')==='bottom'});var rr=ref.getBoundingClientRect(),pr=pop.getBoundingClientRect(),offsets=instance.state.modifiersData.popperOffsets||{},gap=pr.top-rr.bottom;return {checks:[ck('placement 属性',pop.getAttribute('data-popper-placement'),'eq','bottom'),ck('x offset 有限',Number.isFinite(offsets.x),'eq',true),ck('y offset 有限',Number.isFinite(offsets.y),'eq',true),ck('浮层位于参考下方',gap,'gte',-1),ck('垂直间距',gap,'lte',20),ck('浮层宽度',Math.round(pr.width),'eq',100)]}}},
+          {key:"tippy.js",operation:"显示本实例提示气泡",api:"tippy instance.show",input:"content=离线提示",run:async function(ctx){var T=ctx.h('tippy.js'),host=ctx.mount('<div style="position:relative;height:130px;padding:45px"><button>目标</button></div>').firstChild,button=host.querySelector('button'),instance=T(button,{content:'离线提示',animation:false,duration:0,trigger:'manual',appendTo:function(){return host}});ctx.keep(instance);instance.show();await ctx.until(function(){return instance.state.isVisible&&instance.popper.getBoundingClientRect().width>0},2000);var popper=ctx.artifact(instance.popper),box=popper.getBoundingClientRect();return {checks:[ck('本实例可见',instance.state.isVisible,'eq',true),ck('本实例内容',popper.textContent,'includes','离线提示'),ck('属于当前舞台',host.contains(popper),'eq',true),ck('浮层宽度',box.width,'gt',0),ck('浮层高度',box.height,'gt',0)]}}},
+          {key:"choices.js",operation:"增强下拉并选择 b",api:"new Choices / setChoiceByValue",input:"A、B，选择 B",run:async function(ctx){var C=ctx.h('choices.js'),wrap=ctx.mount('<select><option value="a">A</option><option value="b">B</option></select>'),select=wrap.firstChild,choices=new C(select,{searchEnabled:false,shouldSort:false,allowHTML:false});ctx.keep(choices);choices.setChoiceByValue('b');var root=ctx.artifact(wrap.querySelector('.choices'));return {checks:[ck('选中值',choices.getValue(true),'eq','b'),ck('可见标签',root.querySelector('.choices__item--selectable').textContent,'eq','B'),ck('增强根节点',root.classList.contains('choices'),'eq',true)]}}},
+          {key:"nouislider",operation:"范围滑块从 10 设置为 42",api:"noUiSlider.create / set / get",input:"范围 0–100，设 42",run:async function(ctx){var N=ctx.h('nouislider'),slider=ctx.artifact(ctx.mount('<div style="margin:40px 20px"></div>').firstChild);N.create(slider,{start:[10],range:{min:0,max:100}});ctx.keep(slider.noUiSlider);slider.noUiSlider.set(42);var value=Math.round(Number(slider.noUiSlider.get())),handle=slider.querySelector('[role="slider"]');return {checks:[ck('模型值',value,'eq',42),ck('ARIA 当前值',Math.round(Number(handle.getAttribute('aria-valuenow'))),'eq',42),ck('handle 数量',slider.querySelectorAll('.noUi-handle').length,'eq',1)]}}},
+          {key:"swiper",operation:"轮播从第一页切到第二页",api:"new Swiper / slideNext",input:"A、B、C，0→1",run:async function(ctx){var S=ctx.h('swiper'),root=ctx.artifact(ctx.mount('<div class="swiper" style="width:240px;height:90px"><div class="swiper-wrapper"><div class="swiper-slide">A</div><div class="swiper-slide">B</div><div class="swiper-slide">C</div></div></div>').firstChild),swiper=new S(root,{speed:0});ctx.keep(swiper);swiper.slideNext(0);await ctx.wait(20);var active=root.querySelector('.swiper-slide-active');return {checks:[ck('activeIndex',swiper.activeIndex,'eq',1),ck('活动页文本',active&&active.textContent,'eq','B'),ck('活动页数量',root.querySelectorAll('.swiper-slide-active').length,'eq',1)]}}},
+          {key:"howler",operation:"构建内嵌 WAV 音频配置并核对状态",api:"new Howl / state / volume / loop",input:"data:audio/wav 静音样本，preload=false",run:async function(ctx){var Howl=ctx.h('howler'),src='data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=',howl=new Howl({src:[src],preload:false,volume:.4,loop:true}),state=howl.state(),volume=howl.volume(),loop=howl.loop(),codec=window.Howler.codecs('wav');ctx.show('音频配置',{state:state,volume:volume,loop:loop,wavCodec:codec});howl.unload();return {checks:[ck('未预加载状态',state,'eq','unloaded'),ck('音量配置',volume,'eq',.4),ck('循环配置',loop,'eq',true),ck('WAV 编解码支持',codec,'eq',true)]}}}
+          ];
+          var rows=[],body=document.getElementById('results'),keptUrls=[],DISPLAY_LIMIT=800,lateProbeDelay=Number((location.hash.match(/^#late-error-(600|3500|10500)$/)||[])[1]||0);window.__YEARBOOK_INSTANCES__=[];if(lateProbeDelay)setTimeout(function(){Promise.reject(new Error('late-probe-'+lateProbeDelay))},lateProbeDelay);
+          function valueText(value){if(typeof value==='string')return value;try{return JSON.stringify(value)}catch(_){return String(value)}}
+          function displayText(value){var full=valueText(value);if(full.length<=760)return full;return full.slice(0,710)+'\n…[已截断；完整机器值保留，原长 '+full.length+']'}
+          function same(a,b){if(Object.is(a,b))return true;try{return JSON.stringify(a)===JSON.stringify(b)}catch(_){return false}}
+          function compare(check){switch(check.op){case 'eq':case 'deepEq':return same(check.actual,check.expected);case 'truthy':return check.actual===true;case 'includes':return check.actual!=null&&typeof check.actual.indexOf==='function'&&check.actual.indexOf(check.expected)>=0;case 'gt':return Number.isFinite(Number(check.actual))&&Number(check.actual)>Number(check.expected);case 'gte':return Number.isFinite(Number(check.actual))&&Number(check.actual)>=Number(check.expected);case 'lt':return Number.isFinite(Number(check.actual))&&Number(check.actual)<Number(check.expected);case 'lte':return Number.isFinite(Number(check.actual))&&Number(check.actual)<=Number(check.expected);case 'finite':return Number.isFinite(Number(check.actual));case 'nonEmpty':return check.actual!=null&&String(check.actual).trim().length>0;default:throw new Error('未知 evaluator operator: '+check.op)}}
+          function evaluate(checks){if(!Array.isArray(checks)||checks.length===0)throw new Error('必须返回至少一个结构化检查');return checks.map(function(check){if(!check||typeof check.name!=='string'||!Object.prototype.hasOwnProperty.call(check,'actual')||!Object.prototype.hasOwnProperty.call(check,'expected')||typeof check.op!=='string')throw new Error('结构化检查字段不完整');if(Object.prototype.hasOwnProperty.call(check,'pass'))throw new Error('案例不得提供 pass，必须由中央 evaluator 计算');return {name:check.name,operator:check.op,op:check.op,expected:check.expected,actual:check.actual,pass:compare(check)}})}
+          function visible(node){if(!node||!node.isConnected)return false;var style=getComputedStyle(node),box=node.getBoundingClientRect();return !node.hidden&&style.display!=='none'&&style.visibility!=='hidden'&&Number(style.opacity||1)>.01&&box.width>0&&box.height>0}
+          function canvasPaint(c){var out={painted:false,mode:'none',sampled:0,signal:0};if(!visible(c)||!c.width||!c.height)return out;try{var x=c.getContext('2d');if(x){var d=x.getImageData(0,0,c.width,c.height).data,step=Math.max(4,Math.floor(d.length/(4096*4))*4);out.mode='2d';for(var i=0;i<d.length;i+=step){out.sampled++;if(d[i+3]>8&&(d[i]<245||d[i+1]<245||d[i+2]<245))out.signal++}out.painted=out.signal>=1;return out}}catch(_){}
+           try{var gl=c.getContext('webgl2')||c.getContext('webgl')||c.getContext('experimental-webgl');if(gl){var p=new Uint8Array(c.width*c.height*4);gl.readPixels(0,0,c.width,c.height,gl.RGBA,gl.UNSIGNED_BYTE,p);var stride=Math.max(4,Math.floor(p.length/(4096*4))*4);out.mode='webgl';for(var j=0;j<p.length;j+=stride){out.sampled++;if(p[j+3]>8&&(p[j]<245||p[j+1]<245||p[j+2]<245))out.signal++}out.painted=out.signal>=1}}catch(_){}
+           return out}
+          function svgPaint(svg){if(!visible(svg))return {painted:false,geometry:0};var geometry=0,els=svg.querySelectorAll('path,rect,circle,ellipse,line,polyline,polygon,text,use,image');for(var i=0;i<els.length;i++){var e=els[i];if(!visible(e))continue;try{var b=e.getBBox();if(b&&(b.width>0||b.height>0))geometry++}catch(_){var r=e.getBoundingClientRect();if(r.width>0||r.height>0)geometry++}}return {painted:geometry>0,geometry:geometry}}
+          function artifactInfo(node){var info={visible:visible(node),textLength:0,canvas:[],svg:[],decodedImages:0,controls:0,cssGeometry:0,requiredSelector:null,requiredCount:0,requiredActual:0,requiredPass:true,meaningful:false};if(!info.visible)return info;var clone=node.cloneNode(true);clone.querySelectorAll&&clone.querySelectorAll('script,style').forEach(function(n){n.remove()});info.textLength=((clone.innerText||clone.textContent)||'').trim().length;var canvases=node.matches&&node.matches('canvas')?[node]:Array.prototype.slice.call(node.querySelectorAll?node.querySelectorAll('canvas'):[]),svgs=node.matches&&node.matches('svg')?[node]:Array.prototype.slice.call(node.querySelectorAll?node.querySelectorAll('svg'):[]),imgs=node.matches&&node.matches('img')?[node]:Array.prototype.slice.call(node.querySelectorAll?node.querySelectorAll('img'):[]);info.canvas=canvases.map(canvasPaint);info.svg=svgs.map(svgPaint);info.decodedImages=imgs.filter(function(img){return visible(img)&&img.complete&&img.naturalWidth>0&&img.naturalHeight>0}).length;var geometryNodes=[node].concat(Array.prototype.slice.call(node.querySelectorAll?node.querySelectorAll('*'):[]));info.controls=Array.prototype.filter.call(node.querySelectorAll?node.querySelectorAll('input,button,select,textarea,a,table,[contenteditable=true]'):[],visible).length;info.cssGeometry=geometryNodes.filter(function(el){if(!visible(el))return false;var st=getComputedStyle(el),bg=st.backgroundColor,border=parseFloat(st.borderTopWidth)+parseFloat(st.borderRightWidth)+parseFloat(st.borderBottomWidth)+parseFloat(st.borderLeftWidth);return (bg&&bg!=='rgba(0, 0, 0, 0)'&&bg!=='transparent')||border>0}).length;info.requiredSelector=node.getAttribute&&node.getAttribute('data-required-selector');if(info.requiredSelector){info.requiredCount=Number(node.getAttribute('data-required-count')||1);var required=Array.prototype.slice.call(node.querySelectorAll(info.requiredSelector));info.requiredActual=required.filter(visible).length;info.requiredPass=info.requiredActual>=info.requiredCount}var base=info.textLength>0||info.decodedImages>0||info.controls>0||info.cssGeometry>0||info.canvas.some(function(x){return x.painted})||info.svg.some(function(x){return x.painted});info.meaningful=base&&info.requiredPass;return info}
+          function artifactStats(stage){var nodes=Array.prototype.slice.call(stage.querySelectorAll('[data-library-artifact]')),details=nodes.map(artifactInfo);return {count:nodes.length,visible:details.filter(function(x){return x.visible}).length,meaningful:details.filter(function(x){return x.meaningful}).length,details:details}}
+          function artifactEvaluatorProbe(){var stage=document.createElement('div');stage.style.cssText='position:fixed;left:-10000px;top:0;width:100px;height:70px';var label=document.createElement('b');label.textContent='固定标签不得计入产物';stage.appendChild(label);var artifact=document.createElement('div');artifact.setAttribute('data-library-artifact','');artifact.style.cssText='width:40px;height:40px';stage.appendChild(artifact);document.body.appendChild(stage);var blankRejected=artifactStats(stage).meaningful===0,c=document.createElement('canvas');c.width=c.height=20;artifact.appendChild(c);var blankCanvasRejected=artifactStats(stage).meaningful===0,x=c.getContext('2d');x.fillStyle='#dc2626';x.fillRect(2,2,12,12);var paintedCanvasAccepted=artifactStats(stage).meaningful===1;x.clearRect(0,0,20,20);var clearedCanvasRejected=artifactStats(stage).meaningful===0;x.fillStyle='#dc2626';x.fillRect(2,2,12,12);artifact.style.display='none';var hiddenRejected=artifactStats(stage).meaningful===0;artifact.style.display='block';c.remove();var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('width','30');svg.setAttribute('height','30');var rect=document.createElementNS('http://www.w3.org/2000/svg','rect');rect.setAttribute('width','20');rect.setAttribute('height','20');rect.setAttribute('fill','#2563eb');svg.appendChild(rect);artifact.appendChild(svg);var svgAccepted=artifactStats(stage).meaningful===1;rect.remove();var clearedSvgRejected=artifactStats(stage).meaningful===0;stage.remove();var facts={fixed_label_rejected:blankRejected,blank_canvas_rejected:blankCanvasRejected,painted_canvas_accepted:paintedCanvasAccepted,cleared_canvas_rejected:clearedCanvasRejected,hidden_rejected:hiddenRejected,svg_geometry_accepted:svgAccepted,cleared_svg_rejected:clearedSvgRejected};facts.pass=Object.keys(facts).every(function(k){return k==='pass'||facts[k]===true});return facts}
+          function registerCleanup(fn){if(typeof fn==='function')window.__YEARBOOK_CLEANUPS__.push(fn)}
+          function disposeValue(v){if(!v)return;var methods=['deactivate','destroy','dispose','stop','remove','unload'];for(var i=0;i<methods.length;i++){if(typeof v[methods[i]]==='function'){try{v[methods[i]]()}catch(_){}break}}}
+          function makeCtx(stage,controller,state){var signal=controller.signal;function open(){if(state.closed||signal.aborted)throw new DOMException('测试上下文已关闭','AbortError')}return {stage:stage,signal:signal,h:function(key){var handle=window.__LIB_HANDLES__[key];if(!handle)throw new Error('缺少库 handle: '+key);return handle},mount:function(html){open();var section=document.createElement('section');section.innerHTML=html;stage.appendChild(section);return section},artifact:function(node){open();if(!node)throw new Error('真实产物节点为空');node.setAttribute('data-library-artifact','');return node},show:function(title,value){open();var box=document.createElement('div');box.className='result-box';box.setAttribute('data-library-artifact','');box.textContent=title+'\n'+displayText(value);stage.appendChild(box);return box},keep:function(instance,cleanup){open();window.__YEARBOOK_INSTANCES__.push(instance);registerCleanup(typeof cleanup==='function'?cleanup:function(){disposeValue(instance)});return instance},keepUrl:function(url){open();keptUrls.push(url);registerCleanup(function(){try{URL.revokeObjectURL(url)}catch(_){}});return url},wait:function(ms){open();return new Promise(function(resolve,reject){var timer=setTimeout(done,ms);function done(){signal.removeEventListener('abort',abort);resolve()}function abort(){clearTimeout(timer);reject(new DOMException('测试已取消','AbortError'))}signal.addEventListener('abort',abort,{once:true})})},until:async function(predicate,timeout){var limit=timeout||2500,start=performance.now();while(true){open();if(predicate())return true;if(performance.now()-start>=limit)throw new Error('等待条件超时 '+limit+'ms');await this.wait(20)}}}}
+          function update(){var passed=rows.filter(function(row){return row.pass}).length;document.getElementById('m-done').textContent=rows.length;document.getElementById('m-pass').textContent=passed;document.getElementById('m-fail').textContent=rows.length-passed}
+          function renderChecks(card,checks){var list=card.querySelector('.yb-checks');checks.forEach(function(check){var li=document.createElement('li'),label=document.createElement('b'),expected=document.createElement('code'),actual=document.createElement('code');label.className=check.pass?'ok':'bad';label.textContent=(check.pass?'PASS ':'FAIL ')+check.name+' ['+(check.operator||check.op)+']';expected.textContent='\n期望 '+displayText(check.expected);actual.setAttribute('data-visible-actual','');actual.textContent='\n实际 '+displayText(check.actual);li.appendChild(label);li.appendChild(expected);li.appendChild(actual);list.appendChild(li)})}
+          async function one(c,index){var card=document.createElement('article');card.className='yb-card';card.setAttribute('data-test-key',c.key);card.innerHTML='<div class="yb-head"><div><small></small><h2></h2><code class="api"></code></div><span class="yb-badge">运行中</span></div><div class="yb-meta"><div><span>真实场景</span><b class="operation"></b></div><div><span>输入</span><b class="input"></b></div></div><div class="yb-stage"></div><ul class="yb-checks"></ul>';body.appendChild(card);card.querySelector('small').textContent='LIBRARY '+String(index+1).padStart(2,'0');card.querySelector('h2').textContent=c.key;card.querySelector('.api').textContent=c.api;card.querySelector('.operation').textContent=c.operation;card.querySelector('.input').textContent=c.input;var stage=card.querySelector('.yb-stage'),controller=new AbortController(),state={closed:false},ctx=makeCtx(stage,controller,state),timer,started=performance.now(),raw;
+           try{var timeout=new Promise(function(_,reject){timer=setTimeout(function(){controller.abort();reject(new Error('单库测试超时 7000ms'))},7000)});raw=await Promise.race([c.run(ctx),timeout]);if(!raw||Object.prototype.hasOwnProperty.call(raw,'pass'))throw new Error('禁止返回自由 pass；必须返回 checks');}catch(error){raw={checks:[ck('执行无异常',String(error&&error.stack||error),'eq','no error')]}}finally{clearTimeout(timer);state.closed=true;controller.abort()}
+           var checks;try{checks=evaluate(raw.checks)}catch(error){checks=evaluate([ck('检查结构有效',String(error&&error.stack||error),'eq','valid')])}var stats=artifactStats(stage),artifactCheck=evaluate([ck('专属可见产物含真实内容/像素/几何',stats.meaningful,'gte',1)])[0];checks.push(artifactCheck);var pass=checks.every(function(check){return check.pass}),row={key:c.key,operation:c.operation,api:c.api,input:c.input,checks:checks,pass:pass,artifact_count:stats.count,visible_artifact_count:stats.visible,meaningful_artifact_count:stats.meaningful,artifact_facts:stats,duration_ms:Math.round(performance.now()-started)};rows.push(row);card.classList.add(pass?'pass':'fail');card.querySelector('.yb-badge').textContent=pass?'PASS':'FAIL';renderChecks(card,checks);update()}
+          async function delay(ms){return new Promise(function(resolve){setTimeout(resolve,ms)})}
+          async function run(){for(var i=0;i<cases.length;i++)await one(cases[i],i);var delayedStabilityMs=10800,preDelayIssueCount=window.__RUNTIME_ISSUES__.length;await delay(delayedStabilityMs);await new Promise(function(r){requestAnimationFrame(function(){requestAnimationFrame(r)})});var evaluatorProbe=artifactEvaluatorProbe();window.scrollTo(0,0);await delay(60);var external=performance.getEntriesByType('resource').filter(function(entry){return /^https?:/i.test(entry.name)}).map(function(entry){return entry.name}),blocked=(window.__OFFLINE_POLICY_AUDIT__&&window.__OFFLINE_POLICY_AUDIT__.blocked)||[],protocol=location.protocol,runtimeIssues=window.__RUNTIME_ISSUES__.slice(),offlinePass=protocol==='file:'&&external.length===0&&blocked.length===0,runtimePass=runtimeIssues.length===0,failed=rows.filter(function(row){return !row.pass}).length,stability=rows.map(function(row){var card=body.querySelector('[data-test-key="'+row.key.replace(/"/g,'\\"')+'"]'),stats=card?artifactStats(card.querySelector('.yb-stage')):{count:0,visible:0,meaningful:0};return {library:row.key,case_pass:row.pass,artifact_count:stats.count,visible_artifact_count:stats.visible,meaningful_artifact_count:stats.meaningful,stable:row.pass&&stats.meaningful>0}}),visibleCount=stability.filter(function(x){return x.stable}).length,stabilityPass=visibleCount===cases.length&&runtimePass,root=document.getElementById('suite-root'),h1=root.querySelector(':scope>h1'),hs=getComputedStyle(h1),rs=getComputedStyle(root),rootBox=root.getBoundingClientRect(),gridStyle=getComputedStyle(document.getElementById('results')),actualLengths=Array.prototype.map.call(root.querySelectorAll('[data-visible-actual]'),function(n){return n.textContent.length}),maxVisibleActual=actualLengths.length?Math.max.apply(Math,actualLengths):0,cards=Array.prototype.slice.call(root.querySelectorAll('.yb-card')),maxCardHeight=cards.length?Math.max.apply(Math,cards.map(function(c){return Math.round(c.getBoundingClientRect().height)})):0,tables=Array.prototype.slice.call(root.querySelectorAll('.yb-stage table')),tableUnpolluted=tables.length>0&&tables.every(function(t){var st=getComputedStyle(t),ths=Array.prototype.slice.call(t.querySelectorAll('th'));return st.position==='static'&&st.transform==='none'&&st.color==='rgb(17, 24, 39)'&&st.backgroundColor==='rgb(255, 255, 255)'&&ths.every(function(th){return getComputedStyle(th).position==='static'})}),selfcheckCount=document.querySelectorAll('[data-offline-selfcheck]').length,layoutChecks=evaluate([
+           ck('文档无水平溢出',document.documentElement.scrollWidth<=document.documentElement.clientWidth+1&&document.body.scrollWidth<=document.documentElement.clientWidth+1,'truthy',true),
+           ck('最终滚动原点未改变',Math.round(window.scrollY),'eq',0),
+           ck('主壳未被 transform/定位污染',rs.transform==='none'&&rs.position==='static'&&rootBox.top>=0&&rootBox.top<=48,'truthy',true),
+           ck('标题文本未污染',h1.textContent.trim(),'eq','全库有意义测试·卷4·兼容与文档生成'),
+           ck('标题关键样式未污染',[hs.fontSize,hs.color,hs.transform,hs.position],'deepEq',['24px','rgb(248, 250, 252)','none','static']),
+           ck('卡片网格不再等高拉伸',gridStyle.alignItems,'eq','start'),
+           ck('表格未被全局测试壳样式污染',tableUnpolluted,'truthy',true),
+           ck('插件自检浮标不存在',selfcheckCount,'eq',0),
+           ck('单项可见 actual 不超过800字符',maxVisibleActual,'lte',800),
+           ck('单卡高度受控',maxCardHeight,'lte',5000),
+           ck('可见产物 evaluator 变异探针通过',evaluatorProbe.pass,'truthy',true)
+          ]),layoutPass=layoutChecks.every(function(c){return c.pass}),asyncStability={delay_ms:delayedStabilityMs,issues_before:preDelayIssueCount,issues_after:runtimeIssues.length,late_issue_delta:runtimeIssues.length-preDelayIssueCount,pass:runtimePass},allPass=failed===0&&visibleCount===cases.length&&offlinePass&&runtimePass&&stabilityPass&&layoutPass,off=document.getElementById('m-offline');off.textContent=offlinePass&&runtimePass?'PASS':'FAIL';off.style.color=offlinePass&&runtimePass?'var(--ok)':'var(--bad)';window.__MEANINGFUL_SUITE__={version:4,schema:'artifact-evidence-central-evaluator/v2',volume:'04',done:true,total:cases.length,passed:cases.length-failed,failed:failed,visible_count:visibleCount,protocol:protocol,external_resources:external,policy_blocked:blocked,runtime_issues:runtimeIssues,offline_gate_pass:offlinePass,runtime_gate_pass:runtimePass,async_stability:asyncStability,delayed_stability_ms:delayedStabilityMs,delayed_stability_pass:stabilityPass,layout_checks:layoutChecks,layout_pass:layoutPass,artifact_evaluator_probe:evaluatorProbe,late_probe_delay_ms:lateProbeDelay,max_visible_actual_chars:maxVisibleActual,max_card_height:maxCardHeight,stability:stability,rows:rows,elapsed_ms:Math.round(performance.now()-window.__SUITE_BOOT__)};window.__YEARBOOK_SUITE__={version:4,volume:'04',done:true,total:cases.length,unique_libraries:(new Set(rows.map(function(row){return row.key}))).size,visible_count:visibleCount,cards:stability};window.__LIB_TEST_RESULTS__=rows.map(function(row){return {library:row.key,status:row.pass?'PASS':'FAIL',checks:row.checks,artifact_facts:row.artifact_facts,duration_ms:row.duration_ms}});window.__ALL_TESTS_DONE__=true;document.title=(allPass?'PASS ':'FAIL ')+'全库有意义测试·卷4·兼容与文档生成'}
+          window.addEventListener('pagehide',function(){var fns=window.__YEARBOOK_CLEANUPS__.splice(0);fns.reverse().forEach(function(fn){try{fn()}catch(_){}})},{once:true});
+          run();
+          })();
+          </script></body></html>'''
+              return {'html': html}
+        code_language: python3
+        desc: 生成卷04测试输入 HTML
+        outputs:
+          html:
+            children: null
+            type: string
+        selected: false
+        title: 测试HTML·卷04
+        type: code
+        variables: []
+      id: '1960000004101'
+      position:
+        x: 350
+        y: 220
+      positionAbsolute:
+        x: 350
+        y: 220
+      type: custom
+      width: 244
+      height: 120
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - data:
+        desc: 严格离线转换并输出单文件 HTML
+        provider_id: zhangyu/html_offline_exporter/html_offline_exporter
+        provider_name: zhangyu/html_offline_exporter/html_offline_exporter
+        provider_type: builtin
+        selected: false
+        title: 导出离线HTML·卷04
+        tool_configurations:
+          html:
+            type: mixed
+            value: '{{#1960000004101.html#}}'
+          filename:
+            type: mixed
+            value: 全库有意义测试_卷04.html
+          auto_companion_css:
+            type: constant
+            value: true
+          diagnostic_badge:
+            type: constant
+            value: false
+          strict_offline:
+            type: constant
+            value: true
+        tool_description: 把 HTML 中精确版本 CDN 库转换为自包含文件
+        tool_label: 导出离线 HTML
+        tool_name: export_html
+        tool_node_version: '2'
+        tool_parameters: {}
+        type: tool
+        params: {}
+      id: '1960000004102'
+      position:
+        x: 650
+        y: 220
+      positionAbsolute:
+        x: 650
+        y: 220
+      type: custom
+      width: 244
+      height: 100
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    - data:
+        answer: '【卷04】{{#1960000004102.text#}}
+
+          {{#1960000004102.files#}}'
+        desc: ''
+        selected: false
+        title: 返回测试文件·卷04
+        type: answer
+        variables: []
+      id: '1960000004103'
+      position:
+        x: 950
+        y: 220
+      positionAbsolute:
+        x: 950
+        y: 220
+      type: custom
+      width: 244
+      height: 100
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.72
