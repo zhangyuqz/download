@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - '.ci/pagespec_041_prepare_patch.py'
+      - '.ci/pagespec_041_prepare_patch_v2.py'
       - '.ci/pagespec_041_post_patch_fix.py'
       - '.github/workflows/pagespec_041_short_verify.yml'
 
@@ -38,7 +38,7 @@ jobs:
           {
             set -x
             echo "HEAD=$(git rev-parse HEAD)"
-            sha256sum .ci/pagespec_041_patch.py .ci/pagespec_041_prepare_patch.py .ci/pagespec_041_post_patch_fix.py
+            sha256sum .ci/pagespec_041_patch.py .ci/pagespec_041_prepare_patch_v2.py .ci/pagespec_041_post_patch_fix.py
             mkdir baseline
             gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern '*vendor.zip' --dir baseline
             SOURCE_ZIP="$(find baseline -type f -name '*.zip' | head -n 1)"
@@ -47,7 +47,7 @@ jobs:
             ROOT="$(dirname "$(find work -type f -name manifest.yaml | head -n 1)")"
             echo "ROOT=$ROOT"
             python -m pip install --quiet pyyaml
-            python .ci/pagespec_041_prepare_patch.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
+            python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
             python /tmp/pagespec_041_patch.py "$ROOT"
             python .ci/pagespec_041_post_patch_fix.py "$ROOT"
             grep -F 'def _build_catalog_volume(self, volume: int, inherited_nonce: str)' "$ROOT/tools/render_page.py"
