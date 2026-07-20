@@ -1,4 +1,4 @@
-name: Release PageSpec 0.4.1
+name: Build PageSpec 0.4.1 Candidate
 
 on:
   pull_request:
@@ -7,14 +7,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - name: Checkout PageSpec 0.4.1 release scripts
+      - name: Checkout PageSpec 0.4.1 scripts
         uses: actions/checkout@v4
         with:
           ref: build/pagespec-0.4.1-20260721
@@ -27,17 +27,41 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Build, test, browser-audit and publish PageSpec 0.4.1
+      - name: Prepare non-publishing candidate script
+        shell: python
+        run: |
+          from pathlib import Path
+          source=Path('.ci/pagespec_041_build.sh').read_text(encoding='utf-8')
+          marker="echo '[11/11] Publish PageSpec 0.4.1 release and print exact identity'"
+          if marker not in source:
+              raise SystemExit('publish marker missing')
+          source=source.split(marker,1)[0] + "echo '[11/11] Candidate build complete; publishing intentionally skipped'\nsha256sum dist041/* | sort | tee dist041/all_release_sha256.txt\necho \"CLI_TAG=$CLI_TAG\"\necho \"PACKAGE_BYTES=$(stat -c%s \\\"dist041/$PACKAGE\\\")\"\necho \"UNPACKED_BYTES=$UNPACKED_BYTES\"\n"
+          Path('/tmp/pagespec_041_candidate.sh').write_text(source,encoding='utf-8')
+
+      - name: Build, test and browser-audit PageSpec 0.4.1 candidate
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
-        run: bash .ci/pagespec_041_build.sh
+        run: |
+          set +e
+          bash /tmp/pagespec_041_candidate.sh > pagespec_041_build.log 2>&1
+          status=$?
+          echo "$status" > pagespec_041_build.status
+          tail -n 160 pagespec_041_build.log
+          exit 0
 
-      - name: Upload PageSpec 0.4.1 delivery
+      - name: Upload candidate, complete log and exit status
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: PageSpec-0.4.1-delivery
-          path: dist041/*
+          name: PageSpec-0.4.1-candidate
+          path: |
+            dist041/*
+            pagespec_041_build.log
+            pagespec_041_build.status
           if-no-files-found: warn
           retention-days: 7
+
+      - name: Enforce candidate result
+        shell: bash
+        run: test "$(cat pagespec_041_build.status)" = 0
