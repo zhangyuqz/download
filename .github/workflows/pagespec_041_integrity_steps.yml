@@ -1,0 +1,51 @@
+name: Check PageSpec 0.4.1 Source Integrity
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate patched source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir baseline
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern '*vendor.zip' --dir baseline
+          SOURCE_ZIP="$(find baseline -type f -name '*.zip' | head -n 1)"
+          test "$(sha256sum "$SOURCE_ZIP" | awk '{print $1}')" = '04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6'
+          unzip -q "$SOURCE_ZIP" -d work
+          ROOT="$(dirname "$(find work -type f -name manifest.yaml | head -n 1)")"
+          echo "PLUGIN_ROOT=$ROOT" >> "$GITHUB_ENV"
+          find "$ROOT/vendor" -type f -exec sha256sum {} + | sort | sha256sum > vendor_before.sha
+          python -m pip install --quiet pyyaml
+          python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
+          python /tmp/pagespec_041_patch.py "$ROOT"
+          python .ci/pagespec_041_post_patch_fix.py "$ROOT"
+      - name: Vendor bytes unchanged
+        run: |
+          find "$PLUGIN_ROOT/vendor" -type f -exec sha256sum {} + | sort | sha256sum > vendor_after.sha
+          cmp vendor_before.sha vendor_after.sha
+      - name: Shared nonce implementation present
+        run: |
+          grep -F 'def _build_catalog_volume(self, volume: int, inherited_nonce: str)' "$PLUGIN_ROOT/tools/render_page.py"
+          grep -F 'class CatalogScriptNonceAudit(HTMLParser)' "$PLUGIN_ROOT/tools/render_page.py"
+      - name: Whole-document script rewrite absent
+        run: |
+          ! grep -F 'html = re.sub(r"<script' "$PLUGIN_ROOT/tools/render_page.py"
