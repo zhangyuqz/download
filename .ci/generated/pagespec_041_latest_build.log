@@ -1,0 +1,28 @@
+[1/11] Download verified PageSpec 0.4.0 source and workflows
+[2/11] Apply focused 0.4.1 fixes
+PageSpec 0.4.1 patch applied
+[3/11] Run complete source and regression test suite
+......................................F.E......................................................................................................................
+======================================================================
+ERROR: test_catalog_child_scripts_are_all_nonced (test_pagespec_041_regressions.PageSpec041RegressionTests.test_catalog_child_scripts_are_all_nonced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tests/test_pagespec_041_regressions.py", line 39, in test_catalog_child_scripts_are_all_nonced
+    payload=render_page.RenderPageTool()._build_catalog_volume(1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tools/render_page.py", line 424, in _build_catalog_volume
+    raise ValueError(f"catalog child has {len(missing_nonce)} unnonced script tags")
+ValueError: catalog child has 79 unnonced script tags
+
+======================================================================
+FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showcase.ShowcaseTests.test_business_report_can_embed_all_172_libraries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
+    self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
+AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child has 79 unnonced script tags', 'suggestion': ''}]; error_cards=['原因：catalog child has 79 unnonced script tags']
+
+----------------------------------------------------------------------
+Ran 159 tests in 16.690s
+
+FAILED (failures=1, errors=1)
