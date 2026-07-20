@@ -21,12 +21,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8470898224/zip > candidate.zip
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8479466617/zip > candidate.zip
           unzip -q candidate.zip -d recovered
           test -f recovered/pagespec_041_build.log
           test -f recovered/pagespec_041_build.status
+          find recovered -type f -printf '%P\t%s bytes\n' | sort > recovered/pagespec_041_candidate_files.txt
 
-      - name: Persist exact log and status
+      - name: Persist exact diagnostics
         env:
           GH_TOKEN: ${{ github.token }}
           TARGET_BRANCH: build/pagespec-0.4.1-20260721
@@ -35,14 +36,20 @@ jobs:
           set -euo pipefail
           put_file() {
             local source="$1" target="$2" payload existing endpoint
+            [ -f "$source" ] || return 0
             payload="$(base64 -w0 "$source")"
             endpoint="repos/${GITHUB_REPOSITORY}/contents/${target}"
             existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
             if [ -n "$existing" ]; then
-              gh api "$endpoint" --method PUT -f message='ci: store latest PageSpec 0.4.1 build diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+              gh api "$endpoint" --method PUT -f message='ci: store final PageSpec 0.4.1 candidate diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
             else
-              gh api "$endpoint" --method PUT -f message='ci: store latest PageSpec 0.4.1 build diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" >/dev/null
+              gh api "$endpoint" --method PUT -f message='ci: store final PageSpec 0.4.1 candidate diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" >/dev/null
             fi
           }
           put_file recovered/pagespec_041_build.log .ci/generated/pagespec_041_latest_build.log
           put_file recovered/pagespec_041_build.status .ci/generated/pagespec_041_latest_build.status
+          put_file recovered/pagespec_041_candidate_files.txt .ci/generated/pagespec_041_candidate_files.txt
+          BROWSER="$(find recovered -type f -name browser_audit.json | head -n 1 || true)"
+          [ -z "$BROWSER" ] || put_file "$BROWSER" .ci/generated/pagespec_041_candidate_browser_audit.json
+          WORKFLOW="$(find recovered -type f -name workflow_audit.json | head -n 1 || true)"
+          [ -z "$WORKFLOW" ] || put_file "$WORKFLOW" .ci/generated/pagespec_041_candidate_workflow_audit.json
