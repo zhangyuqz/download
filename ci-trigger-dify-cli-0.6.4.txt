@@ -1,0 +1,1 @@
+Temporary trigger for retrieving the official Dify Plugin CLI 0.6.4 artifact. This branch will not be merged.
