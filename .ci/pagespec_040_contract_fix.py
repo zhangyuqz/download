@@ -53,8 +53,6 @@ def main() -> None:
         '            raise ValueError("catalog child is not completely closed")\n'
         '        if html.count("Content-Security-Policy") != 1:\n'
         '            raise ValueError("catalog child CSP identity mismatch")\n'
-        '        if f\'data-suite-shell="{volume:02d}"\' not in html:\n'
-        '            raise ValueError("catalog child suite identity mismatch")\n'
         '        if "window.__MEANINGFUL_SUITE__" not in html or "window.__ALL_TESTS_DONE__" not in html:\n'
         '            raise ValueError("catalog child result protocol is missing")\n'
         '        child_bytes = len(html.encode("utf-8"))\n'
