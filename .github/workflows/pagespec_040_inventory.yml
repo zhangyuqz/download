@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - build/pagespec-0.4.0-20260720
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -32,7 +35,7 @@ jobs:
         run: |
           set -euo pipefail
           find work/delivery -maxdepth 4 -type f -printf '%p\t%s\n' | sort | tee work/delivery_files.txt
-          SOURCE_ZIP="$(find work/delivery -type f -name '*完整源码*vendor*.zip' -o -name '*source*vendor*.zip' | head -n 1)"
+          SOURCE_ZIP="$(find work/delivery -type f \( -name '*完整源码*vendor*.zip' -o -name '*source*vendor*.zip' \) | head -n 1)"
           if [ -z "$SOURCE_ZIP" ]; then
             echo 'Source archive not found' >&2
             exit 1
@@ -52,11 +55,11 @@ jobs:
           find work/source -type f \( -path '*/tools/render_page.py' -o -path '*/tools/render_page.yaml' -o -path '*/tools/render_page.yml' \) -print
           echo '=== PAGESPEC FILES ==='
           find work/source -type f | grep -Ei 'pagespec|render|catalog|volume|schema|transport|recover|normaliz' | head -n 200 || true
-          for f in $(find work/source -type f \( -name 'manifest.yaml' -o -path '*/tools/render_page.yaml' -o -path '*/tools/render_page.py' \) | head -n 10); do
+          while IFS= read -r f; do
             echo "=== BEGIN $f ==="
-            sed -n '1,260p' "$f"
+            sed -n '1,320p' "$f"
             echo "=== END $f ==="
-          done
+          done < <(find work/source -type f \( -name 'manifest.yaml' -o -path '*/tools/render_page.yaml' -o -path '*/tools/render_page.py' \) | head -n 10)
 
       - name: Upload inspection files
         uses: actions/upload-artifact@v4
