@@ -24,19 +24,9 @@
         "detail": 466073
       },
       {
-        "name": "asset exists: PageSpec_0.4.0_完整源码_含vendor.zip",
+        "name": "asset exists: html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg",
         "passed": true,
-        "detail": 13012517
-      },
-      {
-        "name": "asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt",
-        "passed": true,
-        "detail": 113
-      },
-      {
-        "name": "asset exists: PageSpec_0.4.0_交付验证摘要.json",
-        "passed": true,
-        "detail": 657
+        "detail": 12850516
       },
       {
         "name": "asset exists: PageSpec_0.4.0_YML审计.json",
@@ -44,14 +34,9 @@
         "detail": 774
       },
       {
-        "name": "asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+        "name": "asset exists: PageSpec_0.4.0_完整源码_含vendor.zip",
         "passed": true,
-        "detail": 14335
-      },
-      {
-        "name": "asset exists: PageSpec_0.4.0_SHA256SUMS.txt",
-        "passed": true,
-        "detail": 535
+        "detail": 13012517
       },
       {
         "name": "asset exists: PageSpec_0.4.0_完整交付包_推荐.zip",
@@ -59,9 +44,24 @@
         "detail": 25873136
       },
       {
-        "name": "asset exists: html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg",
+        "name": "asset exists: PageSpec_0.4.0_SHA256SUMS.txt",
         "passed": true,
-        "detail": 12850516
+        "detail": 535
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt",
+        "passed": true,
+        "detail": 113
+      },
+      {
+        "name": "asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+        "passed": true,
+        "detail": 14335
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_交付验证摘要.json",
+        "passed": true,
+        "detail": 657
       },
       {
         "name": "GitHub Release preserves canonical filenames",
