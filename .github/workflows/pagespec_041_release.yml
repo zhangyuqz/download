@@ -41,6 +41,11 @@ jobs:
           patch=patch.replace("bootstrap = f" + "'''", "bootstrap = f" + '"""', 1)
           patch=patch.replace("final_bridge = f" + "'''", "final_bridge = f" + '"""', 1)
           patch=patch.replace("}})();</script>" + "'''", "}})();</script>" + '"""', 2)
+          patch=patch.replace(
+              "re.subn(pattern, replacement, text, count=1, flags=re.S)",
+              "re.subn(pattern, lambda _match: replacement, text, count=1, flags=re.S)",
+              1,
+          )
           compile(patch,str(patch_path),'exec')
           patch_path.write_text(patch,encoding='utf-8')
 
