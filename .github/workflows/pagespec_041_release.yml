@@ -1,15 +1,6 @@
 name: Build PageSpec 0.4.1 Candidate
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '.ci/pagespec_041_patch.py'
-      - '.ci/pagespec_041_post_patch_fix.py'
-      - '.ci/pagespec_041_build.sh'
-      - '.ci/pagespec_041_browser_audit.py'
-      - '.github/workflows/pagespec_041_release.yml'
   workflow_dispatch:
 
 permissions:
