@@ -1,15 +1,6 @@
 name: Build PageSpec 0.4.1 Candidate
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '.ci/pagespec_041_patch.py'
-      - '.ci/pagespec_041_post_patch_fix.py'
-      - '.ci/pagespec_041_build.sh'
-      - '.ci/pagespec_041_browser_audit.py'
-      - '.github/workflows/pagespec_041_release.yml'
   workflow_dispatch:
 
 permissions:
@@ -79,25 +70,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          set +e
-          bash /tmp/pagespec_041_candidate.sh > pagespec_041_build.log 2>&1
-          status=$?
-          echo "$status" > pagespec_041_build.status
-          tail -n 160 pagespec_041_build.log
-          exit 0
-
-      - name: Upload candidate, complete log and exit status
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: PageSpec-0.4.1-candidate
-          path: |
-            dist041/*
-            pagespec_041_build.log
-            pagespec_041_build.status
-          if-no-files-found: warn
-          retention-days: 7
-
-      - name: Enforce candidate result
-        shell: bash
-        run: test "$(cat pagespec_041_build.status)" = 0
+          bash /tmp/pagespec_041_candidate.sh
