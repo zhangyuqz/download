@@ -1,0 +1,79 @@
+FF...........F......F..F..............................F......................................................................................F...........
+======================================================================
+FAIL: test_all_four_pages_compile_with_zero_static_failures_and_under_30m (test_catalog_release_contract.CatalogCompilerContractTests.test_all_four_pages_compile_with_zero_static_failures_and_under_30m)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_catalog_release_contract.py", line 136, in test_all_four_pages_compile_with_zero_static_failures_and_under_30m
+    self.assertEqual([], record["failures"], f"volume {volume}: {record['failures']}")
+AssertionError: Lists differ: [] != ['compiler coverage does not equal frozen fixture coverage']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'compiler coverage does not equal frozen fixture coverage'
+
+- []
++ ['compiler coverage does not equal frozen fixture coverage'] : volume 1: ['compiler coverage does not equal frozen fixture coverage']
+
+======================================================================
+FAIL: test_catalog_html_installs_human_readability_and_geometry_gates (test_catalog_release_contract.CatalogCompilerContractTests.test_catalog_html_installs_human_readability_and_geometry_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_catalog_release_contract.py", line 161, in test_catalog_html_installs_human_readability_and_geometry_gates
+    self.assertEqual([], record["failures"])
+AssertionError: Lists differ: [] != ['compiler coverage does not equal frozen fixture coverage']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'compiler coverage does not equal frozen fixture coverage'
+
+- []
++ ['compiler coverage does not equal frozen fixture coverage']
+
+======================================================================
+FAIL: test_all_28_user_blocks_reach_renderer_without_static_error_card (test_contract_and_renderer.RendererContractTests.test_all_28_user_blocks_reach_renderer_without_static_error_card)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_contract_and_renderer.py", line 344, in test_all_28_user_blocks_reach_renderer_without_static_error_card
+    self.assertEqual(validate._KNOWN_TYPES - {"catalog_demo"},
+AssertionError: Items in the first set but not the second:
+'catalog_showcase'
+
+======================================================================
+FAIL: test_checked_in_schema_is_exact_builder_output (test_contract_and_renderer.SchemaContractTests.test_checked_in_schema_is_exact_builder_output)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_contract_and_renderer.py", line 141, in test_checked_in_schema_is_exact_builder_output
+    self.assertEqual(builder.schema, SCHEMA)
+AssertionError: {'$sc[17381 chars]emo'}]}}} != {'$sc[17381 chars]emo'}, {'$ref': '#/definitions/catalog_showcas[303 chars]']}}}
+Diff is 55811 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_schema_runtime_and_renderer_have_same_29_type_registry (test_contract_and_renderer.SchemaContractTests.test_schema_runtime_and_renderer_have_same_29_type_registry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_contract_and_renderer.py", line 146, in test_schema_runtime_and_renderer_have_same_29_type_registry
+    self.assertEqual(29, len(schema_types))
+AssertionError: 29 != 30
+
+======================================================================
+FAIL: test_each_version_generates_four_small_exactly_bound_workflows (test_release_pipeline_contract.WorkflowReleaseContractTests.test_each_version_generates_four_small_exactly_bound_workflows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_release_pipeline_contract.py", line 465, in test_each_version_generates_four_small_exactly_bound_workflows
+    self.assertEqual(
+AssertionError: Items in the second set but not the first:
+'include_all_libraries'
+
+======================================================================
+FAIL: test_all_28_block_types_have_a_valid_minimum (test_transport_validate.ValidationTests.test_all_28_block_types_have_a_valid_minimum)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_transport_validate.py", line 220, in test_all_28_block_types_have_a_valid_minimum
+    self.assertEqual(validate._KNOWN_TYPES - {"catalog_demo"},
+AssertionError: Items in the first set but not the second:
+'catalog_showcase'
+
+----------------------------------------------------------------------
+Ran 153 tests in 10.759s
+
+FAILED (failures=7)
