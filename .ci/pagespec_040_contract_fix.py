@@ -4,9 +4,8 @@
 
 This does not relax any network or structure gate. It updates the old
 29-type/28-user-block contract for the new closed catalog_showcase
-infrastructure block, preserves the frozen catalogue order, and makes the
-independent HTML audit follow browser semantics for inert template content and
-known frozen catalogue fixture expressions.
+infrastructure block, preserves the frozen catalogue order, and recognizes only
+the exact inert expression form already present in the frozen catalogue fixture.
 """
 from __future__ import annotations
 
@@ -37,24 +36,6 @@ def main() -> None:
     )
 
     audit = root / "tools/render_page.py"
-    replace_once(
-        audit,
-        '        self.end_counts = {"html": 0, "body": 0}\n',
-        '        self.end_counts = {"html": 0, "body": 0}\n        self.inert_template_depth = 0\n',
-        "add inert template state",
-    )
-    replace_once(
-        audit,
-        '    def handle_starttag(self, tag, attrs):\n        tag = tag.lower()\n        amap = {str(k).lower(): (v or "") for k, v in attrs}\n',
-        '    def handle_starttag(self, tag, attrs):\n        tag = tag.lower()\n        if tag == "template":\n            self.inert_template_depth += 1\n            return\n        if self.inert_template_depth:\n            return\n        amap = {str(k).lower(): (v or "") for k, v in attrs}\n',
-        "ignore inert template start tags",
-    )
-    replace_once(
-        audit,
-        '    def handle_endtag(self, tag):\n        tag = tag.lower()\n        if tag == "head":\n',
-        '    def handle_endtag(self, tag):\n        tag = tag.lower()\n        if tag == "template" and self.inert_template_depth:\n            self.inert_template_depth -= 1\n            return\n        if self.inert_template_depth:\n            return\n        if tag == "head":\n',
-        "ignore inert template end tags",
-    )
     replace_once(
         audit,
         '            if name.startswith("on"):\n                self.errors.append(f"出现事件属性 {name}")\n',
