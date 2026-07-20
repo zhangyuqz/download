@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - '.ci/pagespec_041_patch.py'
+      - '.ci/pagespec_041_post_patch_fix.py'
       - '.ci/pagespec_041_build.sh'
       - '.ci/pagespec_041_browser_audit.py'
       - '.github/workflows/pagespec_041_release.yml'
@@ -62,6 +63,11 @@ jobs:
           patch_path.write_text(patch,encoding='utf-8')
 
           source=Path('.ci/pagespec_041_build.sh').read_text(encoding='utf-8')
+          source=source.replace(
+              'python .ci/pagespec_041_patch.py "$PLUGIN_ROOT"\n',
+              'python .ci/pagespec_041_patch.py "$PLUGIN_ROOT"\npython .ci/pagespec_041_post_patch_fix.py "$PLUGIN_ROOT"\n',
+              1,
+          )
           marker="echo '[11/11] Publish PageSpec 0.4.1 release and print exact identity'"
           if marker not in source:
               raise SystemExit('publish marker missing')
