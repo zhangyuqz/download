@@ -1,0 +1,42 @@
+++ git rev-parse HEAD
++ echo HEAD=25a3ed309c5ffb84aced7e81acfeb9473bc3bdd7
+HEAD=25a3ed309c5ffb84aced7e81acfeb9473bc3bdd7
++ sha256sum .ci/pagespec_041_patch.py .ci/pagespec_041_prepare_patch.py .ci/pagespec_041_post_patch_fix.py
+37ef0a9237c8bc8e9eaceb965ffb08991b5c9a1f953249e3002128ac46451af4  .ci/pagespec_041_patch.py
+565e8959ebc4a6ccdd412d1e01a9537c3a82c525347991ab5c19944f0dd2669d  .ci/pagespec_041_prepare_patch.py
+c3d168aed88b6497f5107feb83c9fd80803c1ec1fee896cd177b423cc260a393  .ci/pagespec_041_post_patch_fix.py
++ mkdir baseline
++ gh release download pagespec-0.4.0 --repo zhangyuqz/download --pattern '*vendor.zip' --dir baseline
+++ find baseline -type f -name '*.zip'
+++ head -n 1
++ SOURCE_ZIP=baseline/PageSpec_0.4.0_._.vendor.zip
+++ sha256sum baseline/PageSpec_0.4.0_._.vendor.zip
+++ awk '{print $1}'
++ test 04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6 = 04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6
++ unzip -q baseline/PageSpec_0.4.0_._.vendor.zip -d work
++++ find work -type f -name manifest.yaml
++++ head -n 1
+++ dirname work/PageSpec_0.3.4_source/manifest.yaml
++ ROOT=work/PageSpec_0.3.4_source
++ echo ROOT=work/PageSpec_0.3.4_source
+ROOT=work/PageSpec_0.3.4_source
++ python -m pip install --quiet pyyaml
++ python .ci/pagespec_041_prepare_patch.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/.ci/pagespec_041_prepare_patch.py", line 63, in <module>
+    main()
+  File "/home/runner/work/download/download/.ci/pagespec_041_prepare_patch.py", line 42, in main
+    text = replace_exact(
+           ^^^^^^^^^^^^^^
+  File "/home/runner/work/download/download/.ci/pagespec_041_prepare_patch.py", line 13, in replace_exact
+    raise RuntimeError(f"{label}: expected {expected} matches, found {count}")
+RuntimeError: nonce list: expected 1 matches, found 0
++ python /tmp/pagespec_041_patch.py work/PageSpec_0.3.4_source
+python: can't open file '/tmp/pagespec_041_patch.py': [Errno 2] No such file or directory
++ python .ci/pagespec_041_post_patch_fix.py work/PageSpec_0.3.4_source
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/.ci/pagespec_041_post_patch_fix.py", line 82, in <module>
+    raise RuntimeError(f"catalog nonce block: expected one match, found {count}")
+RuntimeError: catalog nonce block: expected one match, found 0
++ grep -F 'def _build_catalog_volume(self, volume: int, inherited_nonce: str)' work/PageSpec_0.3.4_source/tools/render_page.py
++ grep -F 'class CatalogScriptNonceAudit(HTMLParser)' work/PageSpec_0.3.4_source/tools/render_page.py
