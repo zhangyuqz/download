@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "doc": {
+    "title": "PageSpec v1 完整示例",
+    "filename": "pagespec_complete.html",
+    "theme": "dark",
+    "accent": "#5b8ff9",
+    "toc": true,
+    "header": {
+      "title": "结构化断网报告",
+      "subtitle": "28 种封闭块；没有任意 HTML、CSS、JavaScript 或网址",
+      "badges": ["PageSpec v1", "Offline"]
+    },
+    "footer": "由 PageSpec 0.3.0 编译"
+  },
+  "blocks": [
+    {"type": "heading", "text": "文本与指标", "level": 1},
+    {"type": "text", "text": ["普通文本由插件转义。", "数组会生成多个段落。"]},
+    {"type": "markdown", "text": "**Markdown** 只开放安全排版；原始 HTML 会显示为文字。"},
+    {"type": "callout", "title": "提示", "text": "异常块不会拖垮整页。", "style": "info"},
+    {"type": "quote", "text": "结构化输入让渲染器独占底层格式。", "source": "PageSpec 原则"},
+    {"type": "kv", "columns": 2, "items": [{"label": "模式", "value": "封闭 DSL"}, {"label": "网络", "value": "禁止"}]},
+    {"type": "tags", "items": ["JSON", "离线", "可审计"]},
+    {"type": "code", "language": "javascript", "code": "const answer = 42;"},
+    {"type": "formula", "latex": "E = mc^2", "display": true},
+    {"type": "divider"},
+    {"type": "stat_row", "items": [{"label": "通过", "value": "28", "unit": "块"}, {"label": "外部请求", "value": "0"}]},
+    {"type": "table", "columns": [{"label": "项目", "key": "name"}, {"label": "值", "key": "value", "align": "right"}], "rows": [{"name": "甲", "value": 12}, {"name": "乙", "value": 18}], "features": ["search", "sort"]},
+    {"type": "chart", "kind": "bar", "title": "季度数据", "categories": ["一季度", "二季度", "三季度"], "series": [{"name": "数值", "data": [12, 18, 15]}], "unit": "万元", "height": 300},
+    {"type": "wordcloud", "items": [{"text": "结构化", "weight": 12}, {"text": "断网", "weight": 9}, {"text": "容错", "weight": 7}]},
+    {"type": "graph", "layout": "dagre", "height": 300, "nodes": [{"id": "json", "label": "JSON"}, {"id": "validate", "label": "语义校验"}, {"id": "html", "label": "离线 HTML"}], "edges": [{"from": "json", "to": "validate"}, {"from": "validate", "to": "html"}]},
+    {"type": "mermaid", "code": "graph LR; A[输入]-->B[校验]; B-->C[输出]"},
+    {"type": "timeline", "items": [{"time": "阶段 1", "title": "解析", "desc": "只修复含义唯一的写法"}, {"time": "阶段 2", "title": "编译", "desc": "逐块渲染"}]},
+    {"type": "progress", "items": [{"label": "完成度", "value": 80, "max": 100}]},
+    {"type": "calendar", "initial_date": "2026-07-18", "events": [{"date": "2026-07-18", "title": "发布门禁"}]},
+    {"type": "image", "slot": 1, "caption": "图片插槽 1", "zoom": true, "width": "480px"},
+    {"type": "gallery", "slots": [1, 2], "captions": ["图片一", "图片二"]},
+    {"type": "qrcode", "text": "PageSpec offline", "caption": "二维码", "size": 132},
+    {"type": "barcode", "text": "PAGESPEC020", "format": "CODE128"},
+    {"type": "section", "title": "章节容器", "blocks": [{"type": "text", "text": "章节内部仍然是封闭块。"}]},
+    {"type": "card", "title": "卡片容器", "blocks": [{"type": "callout", "text": "卡片内容", "style": "success"}]},
+    {"type": "columns", "ratio": [1, 1], "blocks": [[{"type": "text", "text": "左栏"}], [{"type": "text", "text": "右栏"}]]},
+    {"type": "tabs", "items": [{"label": "第一页", "blocks": [{"type": "text", "text": "标签页内容一"}]}, {"label": "第二页", "blocks": [{"type": "text", "text": "标签页内容二"}]}]},
+    {"type": "collapse", "items": [{"label": "展开查看", "open": false, "blocks": [{"type": "text", "text": "折叠内容"}]}]}
+  ]
+}
