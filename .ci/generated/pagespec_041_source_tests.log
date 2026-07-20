@@ -1,13 +1,5 @@
-........................................F......................................................................................................................
-======================================================================
-FAIL: test_catalog_child_scripts_are_all_nonced (test_pagespec_041_regressions.PageSpec041RegressionTests.test_catalog_child_scripts_are_all_nonced)
+...............................................................................................................................................................
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_041_regressions.py", line 53, in test_catalog_child_scripts_are_all_nonced
-    self.assertGreater(len(audit.nonces),10)
-AssertionError: 8 not greater than 10
+Ran 159 tests in 27.067s
 
-----------------------------------------------------------------------
-Ran 159 tests in 25.440s
-
-FAILED (failures=1)
+OK
