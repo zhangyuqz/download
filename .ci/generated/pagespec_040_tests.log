@@ -74,6 +74,6 @@ AssertionError: Items in the first set but not the second:
 'catalog_showcase'
 
 ----------------------------------------------------------------------
-Ran 153 tests in 13.421s
+Ran 153 tests in 16.681s
 
 FAILED (failures=7)
