@@ -1,0 +1,52 @@
+name: Debug PageSpec 0.4.0 tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  debug-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+      - name: Prepare patched source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet gdown pyyaml
+          gdown 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O delivery.zip
+          unzip -q delivery.zip -d delivery
+          SOURCE_ZIP="$(find delivery -type f -name '*完整源码*vendor*.zip' | head -n 1)"
+          unzip -q "$SOURCE_ZIP" -d work
+          ROOT="$(dirname "$(find work -type f -name manifest.yaml | head -n 1)")"
+          python - <<'PY'
+          from pathlib import Path
+          patch=Path('.ci/pagespec_040_patch.py');text=patch.read_text(encoding='utf-8')
+          text=text.replace("bridge = f'''<style>",'bridge = f"""<style>').replace("</script>'''\n        html =",'</script>"""\n        html =')
+          text=text.replace("child-src 'none'; \\n        \\\"frame-src","child-src 'none'; \\\"\\n        \\\"frame-src")
+          text=text.replace("child-src blob:; \\n        \\\"frame-src","child-src blob:; \\\"\\n        \\\"frame-src")
+          Path('/tmp/patch.py').write_text(text,encoding='utf-8')
+          PY
+          python /tmp/patch.py "$ROOT"
+          echo "ROOT=$ROOT" >> "$GITHUB_ENV"
+      - name: Run tests with concise failure log
+        shell: bash
+        run: |
+          set -o pipefail
+          cd "$ROOT"
+          python -m unittest discover -s tests -p 'test_*.py' > /tmp/tests.log 2>&1
+          status=$?
+          tail -n 180 /tmp/tests.log
+          exit $status
