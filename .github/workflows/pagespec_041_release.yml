@@ -46,6 +46,18 @@ jobs:
               "re.subn(pattern, lambda _match: replacement, text, count=1, flags=re.S)",
               1,
           )
+          patch=patch.replace(
+              r"r'<script\\b(?![^>]*\\bnonce\\s*=)([^>]*)>'",
+              r"r'<script\b(?![^>]*\bnonce\s*=)([^>]*)>'",
+              1,
+          )
+          patch=patch.replace(r"r'<script\\b[^>]*>'", r"r'<script\b[^>]*>'")
+          patch=patch.replace(
+              r"missing_nonce = [tag[:200] for tag in script_tags if not re.search(r'\\bnonce\\s*=\\s*[\"\\\']', tag, flags=re.I)]",
+              'missing_nonce = [tag[:200] for tag in script_tags if not re.search(r"nonce\\s*=", tag, flags=re.I)]',
+              1,
+          )
+          patch=patch.replace(r"re.search(r'\\bnonce\\s*=',tag,re.I)", r"re.search(r'\bnonce\s*=',tag,re.I)", 1)
           compile(patch,str(patch_path),'exec')
           patch_path.write_text(patch,encoding='utf-8')
 
