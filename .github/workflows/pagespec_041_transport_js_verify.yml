@@ -1,0 +1,115 @@
+name: Verify PageSpec 0.4.1 Transport and Scripts
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pagespec_041_transport_js_verify.yml'
+      - '.ci/pagespec_041_post_patch_fix_v4.py'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate patched source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir baseline
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern '*vendor.zip' --dir baseline
+          SOURCE_ZIP="$(find baseline -type f -name '*.zip' | head -n 1)"
+          test "$(sha256sum "$SOURCE_ZIP" | awk '{print $1}')" = '04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6'
+          unzip -q "$SOURCE_ZIP" -d work
+          ROOT="$(dirname "$(find work -type f -name manifest.yaml | head -n 1)")"
+          echo "PLUGIN_ROOT=$ROOT" >> "$GITHUB_ENV"
+          python -m pip install --quiet pyyaml
+          python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
+          python /tmp/pagespec_041_patch.py "$ROOT"
+          python .ci/pagespec_041_post_patch_fix_v4.py "$ROOT"
+      - name: Verify bounded transport and extract real scripts
+        run: |
+          set -euo pipefail
+          mkdir catalog_scripts
+          python - <<'PY'
+          import base64,gzip,json,os,sys,types,urllib.parse,zlib
+          from html.parser import HTMLParser
+          from pathlib import Path
+          root=Path(os.environ['PLUGIN_ROOT']);sys.path.insert(0,str(root/'tools'))
+          class StubTool:
+              def __init__(self,*a,**k): pass
+              def create_text_message(self,text): return {'kind':'text','text':text}
+              def create_blob_message(self,blob,meta): return {'kind':'blob','blob':blob,'meta':meta}
+          dify=types.ModuleType('dify_plugin');dify.Tool=StubTool
+          entities=types.ModuleType('dify_plugin.entities');toolmod=types.ModuleType('dify_plugin.entities.tool');toolmod.ToolInvokeMessage=dict
+          sys.modules['dify_plugin']=dify;sys.modules['dify_plugin.entities']=entities;sys.modules['dify_plugin.entities.tool']=toolmod
+          import pagespec_transport,render_page
+          value={'version':1,'blocks':[{'type':'text','text':'编码容错'}]};text=json.dumps(value,ensure_ascii=False,separators=(',',':'))
+          cases={
+            'strict':text,
+            'output':json.dumps({'output':text},ensure_ascii=False),
+            'percent':urllib.parse.quote(text,safe=''),
+            'base64':base64.b64encode(text.encode()).decode(),
+            'urlsafe':base64.urlsafe_b64encode(text.encode()).decode().rstrip('='),
+            'gzip':base64.b64encode(gzip.compress(text.encode(),mtime=0)).decode(),
+            'zlib':base64.b64encode(zlib.compress(text.encode())).decode(),
+            'data':'data:application/json;base64,'+base64.b64encode(text.encode()).decode(),
+            'nested':base64.b64encode(base64.b64encode(text.encode())).decode(),
+          }
+          for name,raw in cases.items():
+              outcome=pagespec_transport.parse_spec(raw)
+              assert outcome.error is None and outcome.value==value,(name,outcome.error,outcome.value)
+          plain='SGVsbG8gV29ybGQ=';outcome=pagespec_transport.parse_spec(plain)
+          assert outcome.error is None and outcome.value['blocks'][0]['text']==plain
+          payload=render_page.RenderPageTool()._build_catalog_volume(1,'transport-js-nonce')
+          html=gzip.decompress(base64.b64decode(payload['gzip_b64'])).decode('utf-8')
+          class Collector(HTMLParser):
+              NON_EXECUTABLE={'application/json','application/ld+json'}
+              def __init__(self): super().__init__(convert_charrefs=False);self.current=None;self.scripts=[]
+              def handle_starttag(self,tag,attrs):
+                  if str(tag).lower()=='script':
+                      data=dict(attrs);kind=(data.get('type') or '').split(';',1)[0].strip().lower()
+                      self.current={'nonce':data.get('nonce'),'execute':kind not in self.NON_EXECUTABLE,'parts':[]}
+              def handle_data(self,data):
+                  if self.current is not None:self.current['parts'].append(data)
+              def handle_endtag(self,tag):
+                  if str(tag).lower()=='script' and self.current is not None:
+                      self.current['source']=''.join(self.current.pop('parts'));self.scripts.append(self.current);self.current=None
+          collector=Collector();collector.feed(html);collector.close()
+          executable=[item for item in collector.scripts if item['execute']]
+          assert executable and all(item['nonce']=='transport-js-nonce' for item in executable)
+          for index,item in enumerate(executable,1):Path('catalog_scripts',f'{index:03d}.js').write_text(item['source'],encoding='utf-8')
+          Path('transport_js_result.json').write_text(json.dumps({'cases':list(cases),'executable_scripts':len(executable),'nonces':sorted(set(item['nonce'] for item in executable))},ensure_ascii=False,indent=2),encoding='utf-8')
+          print(Path('transport_js_result.json').read_text(encoding='utf-8'))
+          PY
+      - name: Check every real executable script with Node
+        run: |
+          set -euo pipefail
+          count=0
+          while IFS= read -r -d '' file; do
+            node --check "$file"
+            count=$((count+1))
+          done < <(find catalog_scripts -name '*.js' -type f -print0 | sort -z)
+          test "$count" -gt 0
+          echo "node_checked_scripts=$count"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.1-transport-js
+          path: transport_js_result.json
+          if-no-files-found: warn
+          retention-days: 7
