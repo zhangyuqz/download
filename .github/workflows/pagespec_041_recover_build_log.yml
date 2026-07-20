@@ -1,55 +1,13 @@
 name: Recover PageSpec 0.4.1 Build Log
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - '.github/workflows/pagespec_041_recover_build_log.yml'
+  workflow_dispatch:
 
 permissions:
-  actions: read
-  contents: write
+  contents: read
 
 jobs:
-  recover:
+  archived:
     runs-on: ubuntu-latest
     steps:
-      - name: Download existing candidate log artifact
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8471171619/zip > candidate.zip
-          unzip -q candidate.zip -d recovered
-          find recovered -type f -maxdepth 2 -print
-          test -f recovered/pagespec_041_build.log
-
-      - name: Persist build log
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TARGET_BRANCH: build/pagespec-0.4.1-20260721
-        shell: bash
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          import base64,json,pathlib,os
-          for local,name in [('recovered/pagespec_041_build.log','pagespec_041_build.log'),('recovered/pagespec_041_build.status','pagespec_041_build.status')]:
-              path=pathlib.Path(local)
-              if not path.exists(): continue
-              payload={'message':'ci: store recovered PageSpec 0.4.1 build diagnostics [skip ci]','content':base64.b64encode(path.read_bytes()).decode(),'branch':os.environ['TARGET_BRANCH']}
-              pathlib.Path(name+'.payload.json').write_text(json.dumps(payload),encoding='utf-8')
-          PY
-          for name in pagespec_041_build.log pagespec_041_build.status; do
-            [ -f "$name.payload.json" ] || continue
-            endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/${name}"
-            existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
-            if [ -n "$existing" ]; then
-              python - "$name.payload.json" "$existing" <<'PY'
-          import json,pathlib,sys
-          p=pathlib.Path(sys.argv[1]);data=json.loads(p.read_text());data['sha']=sys.argv[2];p.write_text(json.dumps(data))
-          PY
-            fi
-            gh api "$endpoint" --method PUT --input "$name.payload.json" >/dev/null
-          done
+      - run: echo 'Archived; candidate jobs now retain complete artifacts directly.'
