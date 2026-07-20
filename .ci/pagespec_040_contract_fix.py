@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 """Synchronize PageSpec 0.4.0 source, schema builder and frozen tests.
 
-This does not relax any gate. It updates the old 29-type/28-user-block contract
-for the new closed catalog_showcase infrastructure block and preserves the
-frozen catalogue order when ordinary report libraries are also present.
+This does not relax any network or structure gate. It updates the old
+29-type/28-user-block contract for the new closed catalog_showcase
+infrastructure block, preserves the frozen catalogue order, and removes two
+false positives from the independent HTML audit while retaining CSP enforcement.
 """
 from __future__ import annotations
 
@@ -34,6 +35,25 @@ def main() -> None:
         "preserve frozen catalogue order",
     )
 
+    # The old audit treated every attribute beginning with "on" as an event
+    # handler.  The trusted frozen catalogue contains a literal custom
+    # attribute named "one", which browsers do not interpret as executable
+    # script.  Real on* handlers remain blocked.  Include the offending value in
+    # load-attribute diagnostics so later failures are evidence-driven.
+    audit = root / "tools/render_page.py"
+    replace_once(
+        audit,
+        '            if name.startswith("on"):\n                self.errors.append(f"出现事件属性 {name}")\n',
+        '            if name.startswith("on") and name not in {"one", "once"}:\n                self.errors.append(f"出现事件属性 {tag}.{name}")\n',
+        "recognize real event attributes",
+    )
+    replace_once(
+        audit,
+        '                self.errors.append(f"{tag}.{name} 不是内联资源")\n',
+        '                self.errors.append(f"{tag}.{name} 不是内联资源：{lower[:160]}")\n',
+        "expose load attribute value",
+    )
+
     builder = root / "build_pagespec_schema.py"
     text = builder.read_text(encoding="utf-8")
     old = '''    "catalog_demo": block("catalog_demo", {
@@ -59,7 +79,6 @@ def main() -> None:
     )
     builder.write_text(text, encoding="utf-8")
 
-    # Recreate the checked-in schema from the same executable contract.
     namespace: dict[str, object] = {"__file__": str(builder), "__name__": "pagespec_schema_builder"}
     exec(compile(text, str(builder), "exec"), namespace)
     schema = namespace.get("schema")
