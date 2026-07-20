@@ -37,16 +37,23 @@ jobs:
           put_file() {
             local rel="$1" local_file="$ROOT/$1" repo_path=".ci/generated/pagespec_034_source/$1"
             test -f "$local_file"
-            local content encoded_path existing_sha endpoint
-            content="$(base64 -w0 "$local_file")"
+            local encoded_path existing_sha endpoint
             encoded_path="$(python -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$repo_path")"
             endpoint="repos/${GITHUB_REPOSITORY}/contents/${encoded_path}"
             existing_sha="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
-            if [ -n "$existing_sha" ]; then
-              gh api "$endpoint" --method PUT -f message='ci: store PageSpec core source [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing_sha" >/dev/null
-            else
-              gh api "$endpoint" --method PUT -f message='ci: store PageSpec core source [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
-            fi
+            python - "$local_file" "$TARGET_BRANCH" "$existing_sha" <<'PY'
+          import base64, json, pathlib, sys
+          path, branch, sha = sys.argv[1:]
+          payload = {
+              "message": "ci: store PageSpec core source [skip ci]",
+              "content": base64.b64encode(pathlib.Path(path).read_bytes()).decode("ascii"),
+              "branch": branch,
+          }
+          if sha:
+              payload["sha"] = sha
+          pathlib.Path("payload.json").write_text(json.dumps(payload), encoding="utf-8")
+          PY
+            gh api "$endpoint" --method PUT --input payload.json >/dev/null
           }
           put_file tools/pagespec_validate.py
           put_file tools/render_page.py
