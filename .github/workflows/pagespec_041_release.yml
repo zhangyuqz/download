@@ -4,6 +4,11 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - '.ci/pagespec_041_patch.py'
+      - '.ci/pagespec_041_build.sh'
+      - '.ci/pagespec_041_browser_audit.py'
+      - '.github/workflows/pagespec_041_release.yml'
   workflow_dispatch:
 
 permissions:
@@ -27,10 +32,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Prepare non-publishing candidate script
+      - name: Prepare executable patch and non-publishing candidate script
         shell: python
         run: |
           from pathlib import Path
+          patch_path=Path('.ci/pagespec_041_patch.py')
+          patch=patch_path.read_text(encoding='utf-8')
+          patch=patch.replace("bootstrap = f" + "'''", "bootstrap = f" + '"""', 1)
+          patch=patch.replace("final_bridge = f" + "'''", "final_bridge = f" + '"""', 1)
+          patch=patch.replace("}})();</script>" + "'''", "}})();</script>" + '"""', 2)
+          compile(patch,str(patch_path),'exec')
+          patch_path.write_text(patch,encoding='utf-8')
+
           source=Path('.ci/pagespec_041_build.sh').read_text(encoding='utf-8')
           marker="echo '[11/11] Publish PageSpec 0.4.1 release and print exact identity'"
           if marker not in source:
