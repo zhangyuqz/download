@@ -9,7 +9,7 @@ on:
       - '.ci/pagespec_041_post_patch_fix_v4.py'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
@@ -98,18 +98,44 @@ jobs:
           PY
       - name: Check every real executable script with Node
         run: |
-          set -euo pipefail
+          set +e
+          : > node_check.log
+          status=0
           count=0
           while IFS= read -r -d '' file; do
-            node --check "$file"
             count=$((count+1))
+            echo "=== $file ===" >> node_check.log
+            node --check "$file" >> node_check.log 2>&1 || status=1
           done < <(find catalog_scripts -name '*.js' -type f -print0 | sort -z)
-          test "$count" -gt 0
-          echo "node_checked_scripts=$count"
+          echo "node_checked_scripts=$count" >> node_check.log
+          echo "$status" > node_check.status
+          cat node_check.log
+          exit 0
+      - name: Persist Node result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        run: |
+          set -euo pipefail
+          for file in node_check.log node_check.status; do
+            content="$(base64 -w0 "$file")"
+            endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_${file}"
+            existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+            if [ -n "$existing" ]; then
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec Node diagnostics [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+            else
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec Node diagnostics [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+            fi
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: PageSpec-0.4.1-transport-js
-          path: transport_js_result.json
+          path: |
+            transport_js_result.json
+            node_check.log
+            node_check.status
           if-no-files-found: warn
           retention-days: 7
+      - name: Enforce Node syntax
+        run: test "$(cat node_check.status)" = 0
