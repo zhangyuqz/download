@@ -7,7 +7,7 @@ on:
     paths:
       - '.github/workflows/pagespec_041_test_diagnostic.yml'
       - '.ci/pagespec_041_prepare_patch_v2.py'
-      - '.ci/pagespec_041_post_patch_fix_v3.py'
+      - '.ci/pagespec_041_post_patch_fix_v4.py'
 
 permissions:
   contents: write
@@ -40,7 +40,7 @@ jobs:
           python -m pip install --quiet pyyaml
           python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
           python /tmp/pagespec_041_patch.py "$ROOT"
-          python .ci/pagespec_041_post_patch_fix_v3.py "$ROOT"
+          python .ci/pagespec_041_post_patch_fix_v4.py "$ROOT"
           set +e
           (cd "$ROOT" && python -m unittest discover -s tests -p 'test_*.py') > source_tests.log 2>&1
           status=$?
