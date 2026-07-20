@@ -1,0 +1,34 @@
+version: 0.3.4
+type: plugin
+author: zhangyu
+name: html_offline_exporter
+label:
+  en_US: PageSpec Offline HTML Renderer
+  zh_Hans: PageSpec 断网 HTML 生成器
+  zh_Hant: PageSpec 斷網 HTML 產生器
+description:
+  en_US: Compile closed PageSpec v1 JSON into one self-contained offline HTML file. Tolerant transport recovery accepts historical Dify serializations and deterministically resolves ambiguity with a visible audit trail.
+  zh_Hans: 把封闭的 PageSpec v1 JSON 编译为单个自包含断网 HTML；高容错入口兼容历史 Dify 序列化形式，有歧义也确定性选择，并完整留痕。
+  zh_Hant: 把封閉的 PageSpec v1 JSON 編譯為單一自包含斷網 HTML；高容錯入口相容歷史 Dify 序列化形式，有歧義也確定性選擇並完整留痕。
+icon: icon.png
+resource:
+  memory: 1073741824
+  permission: {}
+plugins:
+  tools:
+    - provider/html_offline_exporter.yaml
+meta:
+  version: 0.0.1
+  minimum_dify_version: 1.7.1
+  author: zhangyu
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+tags:
+  - productivity
+  - utilities
+created_at: "2026-07-20T09:30:00+08:00"
