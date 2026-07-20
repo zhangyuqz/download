@@ -1,7 +1,17 @@
 [1/11] Download verified PageSpec 0.4.0 source and workflows
 [2/11] Apply focused 0.4.1 fixes
 PageSpec 0.4.1 patch applied
-  File "work041/PageSpec_0.3.4_source/tools/render_page.py", line 403
-    html = html.replace("<body>", "<body>
-                                  ^
-SyntaxError: unterminated string literal (detected at line 403)
+[3/11] Run complete source and regression test suite
+........................................F......................................................................................................................
+======================================================================
+FAIL: test_catalog_child_scripts_are_all_nonced (test_pagespec_041_regressions.PageSpec041RegressionTests.test_catalog_child_scripts_are_all_nonced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tests/test_pagespec_041_regressions.py", line 42, in test_catalog_child_scripts_are_all_nonced
+    self.assertGreater(len(tags),10)
+AssertionError: 0 not greater than 10
+
+----------------------------------------------------------------------
+Ran 159 tests in 21.187s
+
+FAILED (failures=1)
