@@ -11,9 +11,8 @@ permissions:
 
 jobs:
   snapshot:
-    if: ${{ !contains(github.event.head_commit.message || '', '[skip ci]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Download and extract verified source
         shell: bash
@@ -27,7 +26,7 @@ jobs:
           test -n "$SOURCE_ZIP"
           unzip -q "$SOURCE_ZIP" -d source
 
-      - name: Build concise source snapshot
+      - name: Select source files
         shell: python
         run: |
           from pathlib import Path
@@ -38,45 +37,29 @@ jobs:
           if not manifests:
               raise SystemExit('manifest.yaml not found')
           root = manifests[0].parent
+          Path('plugin_root.txt').write_text(root.as_posix(), encoding='utf-8')
 
           all_files = sorted(p for p in root.rglob('*') if p.is_file())
           tree_lines = []
+          selected_lines = []
           for p in all_files:
               rel = p.relative_to(root).as_posix()
               tree_lines.append(f'{rel}\t{p.stat().st_size}\t{hashlib.sha256(p.read_bytes()).hexdigest()}')
-          Path('source_tree.txt').write_text('\n'.join(tree_lines) + '\n', encoding='utf-8')
-
-          selected = []
-          for p in all_files:
-              rel = p.relative_to(root).as_posix()
-              if rel.startswith(('vendor/', 'tests/', '__pycache__/', '.git/')):
+              if rel.startswith(('vendor/', '__pycache__/', '.git/', 'tests/fixtures/', 'tests/output/')):
                   continue
               if p.suffix.lower() not in {'.py', '.yaml', '.yml', '.json', '.txt', '.md', '.toml'}:
                   continue
-              if p.stat().st_size > 220_000:
+              if p.stat().st_size > 900_000:
                   continue
-              if rel.startswith('catalog/') and p.suffix.lower() == '.json':
+              if any(token in rel.lower() for token in ('screenshot', 'browser_report', 'audit_output')):
                   continue
-              if any(token in rel.lower() for token in ('report', 'audit', 'output', 'screenshot')):
-                  continue
-              selected.append(p)
+              selected_lines.append(p.as_posix())
 
-          chunks = [f'PLUGIN_ROOT={root.as_posix()}\n']
-          for p in selected:
-              rel = p.relative_to(root).as_posix()
-              try:
-                  text = p.read_text(encoding='utf-8')
-              except UnicodeDecodeError:
-                  continue
-              chunks.append(f'\n===== BEGIN {rel} =====\n{text}\n===== END {rel} =====\n')
-          snapshot = ''.join(chunks)
-          if len(snapshot.encode('utf-8')) > 950_000:
-              raise SystemExit('snapshot exceeds GitHub contents API limit')
-          Path('source_snapshot.txt').write_text(snapshot, encoding='utf-8')
-          print(f'root={root}')
-          print(f'files={len(all_files)} selected={len(selected)} snapshot_bytes={len(snapshot.encode("utf-8"))}')
+          Path('source_tree.txt').write_text('\n'.join(tree_lines) + '\n', encoding='utf-8')
+          Path('selected_files.txt').write_text('\n'.join(selected_lines) + '\n', encoding='utf-8')
+          print(f'root={root} files={len(all_files)} selected={len(selected_lines)}')
 
-      - name: Commit snapshot files to build branch
+      - name: Commit source snapshot files to build branch
         env:
           GH_TOKEN: ${{ github.token }}
           TARGET_BRANCH: ${{ github.head_ref }}
@@ -84,9 +67,12 @@ jobs:
         run: |
           set -euo pipefail
           test -n "$TARGET_BRANCH"
-          for pair in "source_tree.txt:.ci/generated/pagespec_034_source_tree.txt" "source_snapshot.txt:.ci/generated/pagespec_034_source_snapshot.txt"; do
-            local_file="${pair%%:*}"
-            repo_path="${pair#*:}"
+          ROOT="$(cat plugin_root.txt)"
+
+          put_file() {
+            local local_file="$1"
+            local repo_path="$2"
+            local content encoded_path existing_sha
             content="$(base64 -w0 "$local_file")"
             encoded_path="$(python -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$repo_path")"
             existing_sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${encoded_path}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
@@ -95,4 +81,11 @@ jobs:
               args+=(-f sha="$existing_sha")
             fi
             gh api "${args[@]}" >/dev/null
-          done
+          }
+
+          put_file source_tree.txt .ci/generated/pagespec_034_source_tree.txt
+          while IFS= read -r local_file; do
+            [ -n "$local_file" ] || continue
+            rel="${local_file#${ROOT}/}"
+            put_file "$local_file" ".ci/generated/pagespec_034_source/${rel}"
+          done < selected_files.txt
