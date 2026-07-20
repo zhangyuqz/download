@@ -48,6 +48,12 @@ def main() -> None:
         '            is_fixture_expression = bool(re.fullmatch(r"[\\\'\\\"]\\+\\s*[A-Za-z_$][A-Za-z0-9_$]*\\([^<>\\r\\n]{0,160}\\)\\+\\s*[\\\'\\\"]", lower))\n            if name in self.LOAD_ATTRS and lower and not lower.startswith(("data:", "blob:", "#")) and not is_fixture_expression:\n                self.errors.append(f"{tag}.{name} 不是内联资源：{lower[:160]}")\n',
         "recognize exact frozen fixture expressions",
     )
+    replace_once(
+        audit,
+        '        errors.append("HTML 根节点或 body 未正确闭合")\n',
+        '        errors.append(f"HTML 根节点或 body 未正确闭合：start={parser.start_counts}; end={parser.end_counts}")\n',
+        "expose root node counts",
+    )
 
     builder = root / "build_pagespec_schema.py"
     text = builder.read_text(encoding="utf-8")
