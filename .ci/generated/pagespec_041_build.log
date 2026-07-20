@@ -1,6 +1,7 @@
 [1/11] Download verified PageSpec 0.4.0 source and workflows
 [2/11] Apply focused 0.4.1 fixes
-  File "/home/runner/work/download/download/.ci/pagespec_041_patch.py", line 243
-    bootstrap = f'''<script nonce="{nonce_attr}">(function(){{
-                            ^^^^^
-SyntaxError: invalid syntax
+PageSpec 0.4.1 patch applied
+  File "work041/PageSpec_0.3.4_source/tools/render_page.py", line 403
+    html = html.replace("<body>", "<body>
+                                  ^
+SyntaxError: unterminated string literal (detected at line 403)
