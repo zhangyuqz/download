@@ -1,0 +1,141 @@
+name: validate-and-package-xzfz-navicat-v3
+
+on:
+  push:
+    branches:
+      - xzfz-navicat-plain-sql-v3-20260720
+    paths-ignore:
+      - 'dist/**'
+
+permissions:
+  contents: write
+
+jobs:
+  validate-package:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11.1.0
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: xzfz
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mariadb-admin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MariaDB client and zip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mariadb-client zip
+
+      - name: Create representative eight-table schema and test data
+        env:
+          MYSQL_PWD: root
+        run: |
+          cat > /tmp/schema.sql <<'SQL'
+          SET NAMES utf8mb4;
+          USE `xzfz`;
+          CREATE TABLE `huadan` (
+            `benduanhaoma` VARCHAR(64) NULL,
+            `kaishishijian` DATETIME(6) NULL,
+            `tonghuashichang` INT NULL,
+            `beizhu` TEXT NULL
+          ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `tingtuiyanpan` (`xuhao` INT NULL,`JZyanpanrenyuan` VARCHAR(64) NULL,`zuoanshijian` DATETIME(6) NULL,`yanpanqingkuang` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `xianyirendaji` (`xiansuoleixing` VARCHAR(64) NULL,`xingming` VARCHAR(64) NULL,`cuoshishijian` DATETIME(6) NULL,`hujidi` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `tingtuixiansuo` (`xiansuobianhao` VARCHAR(128) NULL,`xiansuoleixing` VARCHAR(64) NULL,`xiafashijian` DATETIME(6) NULL,`jianyaoqingkuangshuoming` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `butuixiansuo` (`xiansuobianhao` VARCHAR(128) NULL,`anjianbianhao` VARCHAR(128) NULL,`shoucixiafashijian` DATETIME(6) NULL,`fankuishuoming` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `duankaxiansuobiao` (`duankaxiansuobianhao` VARCHAR(128) NULL,`anjianbianhao` VARCHAR(128) NULL,`kaihuriqi` DATETIME(6) NULL,`fankuiqingkuang` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `butuiyanpan` (`hecharen` VARCHAR(64) NULL,`shoujihao` VARCHAR(64) NULL,`JZtuisongshijian` DATETIME(6) NULL,`yanpanqingkuang` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+          CREATE TABLE `renyuanguanxi` (`xiansuorenyuanxingming` VARCHAR(64) NULL,`xiansuorenyuanshenfenzheng` VARCHAR(64) NULL,`xiansuorenyuanshoujiQQ` VARCHAR(128) NULL,`beizhu` TEXT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+          INSERT INTO `huadan` VALUES
+            ('A','2026-07-20 21:00:00.123456',10,'同一行'),
+            ('A','2026-07-20 21:00:00.123456',10,'同一行'),
+            ('a','2026-07-20 21:00:00.123456',10,'同一行'),
+            ('A ','2026-07-20 21:00:00.123456',10,'同一行'),
+            ('','2026-07-20 21:00:00.123456',10,'同一行'),
+            (NULL,'2026-07-20 21:00:00.123456',10,'同一行'),
+            ('nan','2026-07-20 21:00:00.123456',10,'同一行');
+          INSERT INTO `tingtuiyanpan` VALUES (1,'甲','2026-07-20 21:00:00.000001','内容&保留'),(1,'甲','2026-07-20 21:00:00.000001','内容&保留');
+          INSERT INTO `xianyirendaji` VALUES ('类型','姓名','2026-07-20 21:00:00.000002','地址'),('类型','姓名','2026-07-20 21:00:00.000002','地址');
+          INSERT INTO `tingtuixiansuo` VALUES ('编号','类型','2026-07-20 21:00:00.000003','说明'),('编号','类型','2026-07-20 21:00:00.000003','说明');
+          INSERT INTO `butuixiansuo` VALUES ('编号','案件','2026-07-20 21:00:00.000004','反馈'),('编号','案件','2026-07-20 21:00:00.000004','反馈');
+          INSERT INTO `duankaxiansuobiao` VALUES ('编号','案件','2026-07-20 21:00:00.000005','反馈'),('编号','案件','2026-07-20 21:00:00.000005','反馈');
+          INSERT INTO `butuiyanpan` VALUES ('核查人','13800000000','2026-07-20 21:00:00.000006','研判'),('核查人','13800000000','2026-07-20 21:00:00.000006','研判');
+          INSERT INTO `renyuanguanxi` VALUES ('姓名','身份证','QQ','备注'),('姓名','身份证','QQ','备注');
+          SQL
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < /tmp/schema.sql
+
+      - name: Run read-only state and full temporary compatibility flow
+        env:
+          MYSQL_PWD: root
+        run: |
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < package/SQL/00_现场状态_只读.sql | tee /tmp/00.log
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < package/SQL/01_八表完整流程兼容测试_仅临时表.sql | tee /tmp/01.log
+          test "$(grep -c $'PASS$' /tmp/01.log)" -eq 8
+
+      - name: Run full shadow dedupe, atomic switch and verification
+        env:
+          MYSQL_PWD: root
+        run: |
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < package/SQL/02_暂停写入后构建影子表并严格整行去重.sql | tee /tmp/02.log
+          grep -q 'PASS_READY_FOR_03' /tmp/02.log
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < package/SQL/03_精确门禁并原子切换8表.sql | tee /tmp/03.log
+          grep -q 'SWITCHED_RUN_04' /tmp/03.log
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error < package/SQL/04_切换后只读验收.sql | tee /tmp/04.log
+          grep -q 'PASS_RESUME_WRITES' /tmp/04.log
+
+      - name: Verify exact full-row semantics
+        env:
+          MYSQL_PWD: root
+        run: |
+          count=$(mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot -N -e "SELECT COUNT(*) FROM xzfz.huadan")
+          test "$count" -eq 6
+
+          set +e
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot -e "INSERT INTO xzfz.huadan (benduanhaoma,kaishishijian,tonghuashichang,beizhu) SELECT benduanhaoma,kaishishijian,tonghuashichang,beizhu FROM xzfz.huadan LIMIT 1"
+          duplicate_status=$?
+          set -e
+          test "$duplicate_status" -ne 0
+
+          mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot --abort-source-on-error -e "INSERT INTO xzfz.huadan (benduanhaoma,kaishishijian,tonghuashichang,beizhu) SELECT CONCAT(COALESCE(benduanhaoma,''),'-PARTIAL-DIFFERENCE'),kaishishijian,tonghuashichang,beizhu FROM xzfz.huadan LIMIT 1"
+          count_after=$(mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot -N -e "SELECT COUNT(*) FROM xzfz.huadan")
+          test "$count_after" -eq 7
+
+      - name: Static forbidden-syntax audit
+        run: |
+          ! grep -RniE 'DELIMITER|BEGIN[[:space:]]+NOT[[:space:]]+ATOMIC|DECLARE[[:space:]]|CREATE[[:space:]]+(OR[[:space:]]+REPLACE[[:space:]]+)?PROCEDURE' package/SQL
+          ! grep -RniE 'INSERT[[:space:]]+IGNORE|REPLACE[[:space:]]+INTO|ON[[:space:]]+DUPLICATE[[:space:]]+KEY' package/SQL
+          test "$(grep -Rho 'uq_xzfz_rg_fullrow_sha512' package/SQL | wc -l)" -gt 0
+
+      - name: Create final ZIP and member hashes
+        run: |
+          mkdir -p dist
+          find package -type f -print0 | sort -z | xargs -0 sha256sum > package/SHA256SUMS.txt
+          zip -r -9 dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip package
+          sha256sum dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip > dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip.sha256.txt
+          unzip -t dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip
+
+      - name: Upload tested ZIP artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: xzfz-navicat-plain-sql-v3
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Publish tested ZIP to branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist
+          git commit -m "build: publish tested xzfz Navicat V3 package [skip ci]"
+          git push
