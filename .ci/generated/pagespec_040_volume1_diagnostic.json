@@ -1,0 +1,629 @@
+{
+  "snapshots": [
+    {
+      "elapsed_seconds": 0.0,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1
+    },
+    {
+      "elapsed_seconds": 10.2,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 20.3,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 30.4,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 40.5,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 50.1,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 60.1,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 70.2,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 80.3,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 90.4,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 100.5,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 110.0,
+      "parent_status_kind": "loading",
+      "parent_status_text": "正在初始化…",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 120.1,
+      "parent_status_kind": "fail",
+      "parent_status_text": "初始化超时",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    },
+    {
+      "elapsed_seconds": 125.2,
+      "parent_status_kind": "fail",
+      "parent_status_text": "初始化超时",
+      "iframe_count": 1,
+      "child_title": "全库能力展示·卷01",
+      "child_ready_state": "complete",
+      "all_tests_done": false,
+      "suite_total": null,
+      "suite_done": null,
+      "suite_passed": null,
+      "suite_failed": null,
+      "final_gate": null,
+      "presentation_gate": null,
+      "runtime_gate": null,
+      "rows_length": 0,
+      "result_table_rows": 0,
+      "unfinished": [],
+      "failed_rows": [],
+      "runtime_errors": null,
+      "body_height": 289230,
+      "active_element": "BODY"
+    }
+  ],
+  "console": [
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-0b8heXA5JYft672tyAiKDcTDM+onOnG0ghNYprhsqRo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-b2NP+3TI9cCpC5jnDZodINJ/kPGboCEHBQJxkxUezSw='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-xFm6fMjbZcmCWJ+l1kx/9HiHfo5bD9dWgyB87GpOieg='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-6HKbr+bVnhlaRvB9HXvaoYmK53C196Z8P2QqW56RcTE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-8glLv2FBs1lyLE/kVOtsSw8OQswQzHr5IfwVj864ZTk='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-sSlot1vOcewMrO6Pa+SSY1r/C7d1wq+YtN+WUDhxTnc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-EkF31P306QWSlbu8mSdH8NffrJaZFpaHIvHqwn8tqpo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Error while parsing the 'sandbox' attribute: '${MPt}' is an invalid sandbox flag."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-2ZympeCHOUAF7SRbPW+KCokCDzL2V/N+ShECkIYtknE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-nP25Pzivzy0Har7NZtMr/TODzfGWdlTrwmomYF2vQXM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-AIswYoXtqb/ysMBKtZ6LXfPnxEQUJovVLMfZTnXWRV0='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-w7ffq/pDK6S3PjOdYi8pQqVrbsSbQwoqOg0D9BdE0wE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-vQx7QatZiChfkkE3rU6FHzoqQTBfNm1I8scRPQ9zWLU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-CEtreSMDjMgLEYmGxIPswsUEY7BfI7g3zjNFNUtH14w='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Framing '' violates the following Content Security Policy directive: \"frame-src blob:\". The request has been blocked.\n"
+    },
+    {
+      "type": "error",
+      "text": "Framing '' violates the following Content Security Policy directive: \"frame-src blob:\". The request has been blocked.\n"
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-/vn6n0r0gyGvVG3cJK2mF65SU8gbYFAOJ4ORThWSHmA='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-8qaUcfAUzeRHfTF1V5F/otgkkyCYX2ecxfAcFRDcSlI='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-G+aSS/WtzWLaRVCQROZEpWL38EFD22vJA+eYjdZ2aks='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-r9S9KZvN5nEN1voCkVbj4RdMSLwAa4qeujL5ZOWSN4M='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-f/6eEohbWOumf+tM6z3R8u2gOFxA9WggahJvB4rjs4I='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-tmslrrTfhOMxmdwhaUAU0zbSIsvZ3rDlp8FL1qoND9A='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-curvufQ4R+9WfzBe3jlJE3ZYQsHQQeNqEtNYC347Ytg='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-/tanOfjQ8GhxdN5s0UdF/A/HgJFEqxE9IpCKJr8Nf+o='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-ZzklAGbty6YFw4AQxMrshoJcC4FVDN1Irq0hc4gSH+w='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-hFxSSWnt1bOvmqbYcY0p/pLo2+JblVIUqOBkoFqaUCc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-AyvbX+FA5kxlXaU6kt5Kfa+ROrTeQ48lb3KyMfqXHQc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-JATtQzySjqI7GE9O3PpjVjwcGkI8Ny7ESx9Puif0NYY='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-+kQ6zHpIuVRAs/GgkQrgrhPPdxXSNwm1f7Q6IVlVScA='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-hFxSSWnt1bOvmqbYcY0p/pLo2+JblVIUqOBkoFqaUCc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-AyvbX+FA5kxlXaU6kt5Kfa+ROrTeQ48lb3KyMfqXHQc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-z6tSgoV+ABm3tdhUwy9cYvbZT4icmslNijneRLnTWLQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-MsrjsgUvoHgwS5hKIWs3f3XsQEGycphE/+S7ElQ2+8Q='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-35Qh3yS/TzVjxF+g3B9tVrXn+1bdLolfZKlNK2km2LU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-kO4xDueKz3UzA3pXNJOcIWICPy6LYUH7nkC2zaAo8Cw='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-wYveu4XxN4V14AMT58wA/vc+gda999xVHdGX3q4BUq8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-o+QdJfFbYoM+c6JMW2UBQfxy2SYcGttdM9har8HxppY='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-V2S3ZBVwTd1SfrNChNtTb7b3sLKMPiV01xgmqqpjaGQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-vDkoSggqiY0qeI/VZiioXCF7GzePxL2V3qCGc4RMLJI='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-AT4cb0FSUy4yZtCWEtVuYWZrfAhKuiqJtI9Cv3gJGhM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eD4+aUvozMYLkRuBAGlqWxIoSypk+mcZn6vwD6lKBC8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-IwUE9wundpmqvhokImdF6/yIcroPItJ+3SLnnFUnefg='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-b50PaxQZDRgxD016OU7d+WcF7jXwjsg2tRQFj7H+BW0='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-QWpCk9McUyGUlcnf+3dic+zdE7NJ1GD8T4EPxxds2po='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-cVBfB0kndKJCArB9FAllJ5GEVZTZhGUT0iMQrDj6Bhk='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-PDOQIG+j2EoPra4qOUlx9d5Hj15oD+AJs4KVP2SWXp8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-QktzpjMyCw5rlgUNXbe6BcB2STYvQ5I9dKAE1IB6YIM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-Hzsk5hfvoR/HpWgh3CnFT6TyTFVA/UYzb1jVMvgYDbQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-RKVhoPdKuXxEao9CYL6bY6h3i4PsN9Jld7PW8GRGwxQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-S0I4/AWYZMQFngxS6IvbseQXcDOsYbVYgGG3b1vYxXM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-5CHIbxxWCldIN4GTM+jVs6QMaINYeO4214onYh7xglo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-xUZyCw1B7SW5UruxC2mRycpa7ws9CF1VgTnMQQXscNs='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-aJ9ROXjRHWn00zeU9ylsmlhqLlXeebtEfN28P0dPnwc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-mRvuvc0kNtIp/rVIq5oViXHcCXw/U4UP36tAEWkctdM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-oV6hTPw7vtg11FWZ896lJD/OwE71qbK5aStYuA+dAcY='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-eiKgt5JHMIGxnPVgPkb2fXhXC43xGSt3yWDebMOaz24='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-XmI0RZkdgbpfsKvyAdem1FyQEMHy4RN3/vqOgFRXKVM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-6G9UDtZ75eGEaBiTdt81mdazHKIKuJkqEH1LoXEd8TE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-YWTQCdP89l7dXEfEt2oNBYDepLzpKe7Im+x0T97BDhU='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-MoqeneueJGhtQna+AMfnO2+BOKjU0lWMJ0zxOurpzvc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-lzzFczzHQy4w7kaCCY9BMJT0lLzPdqVnwjkIxQNd27w='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-Pba9IkBuGO/mGffIceAx5zLD8lIOsJ1V4p9YoJJaM+4='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-SkMnJCaLUp7rUFmJNYu2GLYUwwAxkWdCtVRP6Co6bbE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-N3JmEmdEK+CrUBAvkF9wHtuU2isVadPV5p+W/wy7w6A='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-2A6EyCDMVYegujyKIGUgmeo/p/xDlE6BLlbUScHZ8ck='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-LJX3H8XkiOeFI6bI5OhaVmlru3II8t14OEzNtTWhF4w='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-Fsr/DsVSOa9D8DRF43LiF8gBMVXmlA49sD3SNHLcyn4='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-zM2pbgv6h1xdVVYUgl7XSHm/f9gNA/rKYfxWA2z6qT8='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-fn00bKtowAKoidxhRb/B+a4Tkb6Czo1RT7EG7zpuZBI='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-LO/j3girmVhMZTaJPq+1ZTJ3Ym7/9zgQVgFLKyhH4Ys='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-PgkalP0ImUo4P/NL+6JWu444LkvkBCGXogbS7MCVczE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-jykLuwlcgx0X0nEm1BS+9GZgO5CWq4MyVxmXY9qcoKw='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-g+jFSmvsZVv9gd8H32BWScJor2muymel6i2lTqQtrIE='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-bNEZ/uaooJlrpzuHmnt2TKsE1Zbo6M4BvQ/c8guCgzo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-ZztCtsADLKbUFK/X6nOYnJr0eelmV2X3dhLDB/JK6fM='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-qyYWM+AR2IKsctU4O4KGWql5KuJzJb9xOIZtFhRgdxA='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    },
+    {
+      "type": "error",
+      "text": "Executing inline script violates the following Content Security Policy directive 'script-src 'nonce-ecYmIgdmtI7xNDA05jB947k3' 'unsafe-eval''. Either the 'unsafe-inline' keyword, a hash ('sha256-odYBWcm5EpKLezommr4mtsUJVDAdS+Pg8tHiFxXT+Vc='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked."
+    }
+  ],
+  "page_errors": [],
+  "network": [],
+  "error": null,
+  "generated": {
+    "filename": "PageSpec_0.4.0_浏览器审计.html",
+    "bytes": 16694360,
+    "text_message": "已生成离线 HTML：PageSpec_0.4.0_浏览器审计.html\n内容块渲染完成 · 内联库：172 个（vue、d3、mermaid、dayjs、vuetify、vant、vuex、bcryptjs、echarts、chart.js、moment-timezone、moment、element-plus、naive-ui、ant-design-vue、quasar、vue-demi、pinia、vue-router、vue-i18n、@vueuse/core、petite-vue、alpinejs、sjcl、js-sha256、js-md5、tweetnacl、js-sha3、spark-md5、apexcharts、@antv/g2、@antv/g6、cytoscape、fullcalendar、dayjs-antd、lodash、ramda、uuid、qs、underscore、eventemitter3、klona、fraction.js、katex、marked、markdown-it、diff、html2canvas、ajv、ejs、localforage、mitt、dompurify、highlight.js、prismjs、turndown、tinycolor2、preact、htm、dexie、lunr、flexsearch、zepto、papaparse、jszip、pako、js-yaml、json5、protobufjs、@msgpack/msgpack、seedrandom、i18next、file-saver、xstate、autolinker、linkifyjs、fontfaceobserver、pdf-lib、exceljs、colorthief、jquery、wallet-address-validator、@zxing/library、signature_pad、wordcloud、dagre、pinyin-pro、currency.js、accounting、simple-statistics、timeago.js、punycode、viewerjs、jsbarcode、qr-code-styling、countup.js、panzoom、geolib、three、bootstrap、fabric、bulma、semantic-ui-css、lottie-web、quill、codemirror、matter-js、paper、p5、gl-matrix、snapsvg、svg.js、raphael、foundation-sites、pico、uikit、tachyons、milligram、spectre.css、animate.css、interactjs、masonry-layout、dragula、driver.js、focus-trap、tabbable、screenfull、flatpickr、cleave.js、cropperjs、pica、vivus、scrollmagic、aos、canvas-confetti、tsparticles、wangeditor、trix、ag-grid-community、vue@2、chart.js@2、bootstrap@4、react、react-dom、@babel/standalone、phaser、plotly.js、datatables.net、tabulator-tables、fuse.js、handlebars、sweetalert2、sortablejs、lucide、jspdf、exifr、compressorjs、crypto-js、decimal.js、lz-string、libphonenumber-js、validator、tldts、docx、pptxgenjs、mammoth、@popperjs/core、tippy.js、choices.js、nouislider、swiper、howler）· 图片插槽：0 个\n最终 UTF-8 体积：15.92 MiB\n容错三态：归一 0 · 警告 0 · 降级 0"
+  },
+  "browser_version": "149.0.7827.55",
+  "terminal": "fail"
+}
