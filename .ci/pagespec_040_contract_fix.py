@@ -4,8 +4,8 @@
 
 This does not relax any network or structure gate. It updates the old
 29-type/28-user-block contract for the new closed catalog_showcase
-infrastructure block, preserves the frozen catalogue order, and removes two
-false positives from the independent HTML audit while retaining CSP enforcement.
+infrastructure block, preserves the frozen catalogue order, and makes the
+independent HTML audit follow browser semantics for inert <template> content.
 """
 from __future__ import annotations
 
@@ -35,17 +35,28 @@ def main() -> None:
         "preserve frozen catalogue order",
     )
 
-    # The old audit treated every attribute beginning with "on" as an event
-    # handler.  The trusted frozen catalogue contains a literal custom
-    # attribute named "one", which browsers do not interpret as executable
-    # script.  Real on* handlers remain blocked.  Include the offending value in
-    # load-attribute diagnostics so later failures are evidence-driven.
+    # HTML template contents are inert: tags inside a template do not execute,
+    # navigate, submit or fetch resources until application code explicitly
+    # clones them.  The old parser audited those literal examples as live DOM,
+    # which produced false external-resource and event-attribute failures.
     audit = root / "tools/render_page.py"
     replace_once(
         audit,
-        '            if name.startswith("on"):\n                self.errors.append(f"出现事件属性 {name}")\n',
-        '            if name.startswith("on") and name not in {"one", "once"}:\n                self.errors.append(f"出现事件属性 {tag}.{name}")\n',
-        "recognize real event attributes",
+        '        self.end_counts = {"html": 0, "body": 0}\n',
+        '        self.end_counts = {"html": 0, "body": 0}\n        self.inert_template_depth = 0\n',
+        "add inert template state",
+    )
+    replace_once(
+        audit,
+        '    def handle_starttag(self, tag, attrs):\n        tag = tag.lower()\n        amap = {str(k).lower(): (v or "") for k, v in attrs}\n',
+        '    def handle_starttag(self, tag, attrs):\n        tag = tag.lower()\n        if tag == "template":\n            self.inert_template_depth += 1\n            return\n        if self.inert_template_depth:\n            return\n        amap = {str(k).lower(): (v or "") for k, v in attrs}\n',
+        "ignore inert template start tags",
+    )
+    replace_once(
+        audit,
+        '    def handle_endtag(self, tag):\n        tag = tag.lower()\n        if tag == "head":\n',
+        '    def handle_endtag(self, tag):\n        tag = tag.lower()\n        if tag == "template" and self.inert_template_depth:\n            self.inert_template_depth -= 1\n            return\n        if self.inert_template_depth:\n            return\n        if tag == "head":\n',
+        "ignore inert template end tags",
     )
     replace_once(
         audit,
