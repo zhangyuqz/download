@@ -1,8 +1,8 @@
 Downloading...
 From (original): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y
-From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=088326b6-7327-4982-b133-0c89b15e5d03
+From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=30716566-3187-4cd3-83c5-b25ad0d6281b
 To: /home/runner/work/download/download/baseline_delivery.zip
-  0%|          | 0.00/40.6M [00:00<?, ?B/s] 10%|█         | 4.19M/40.6M [00:00<00:00, 36.9MB/s] 30%|██▉       | 12.1M/40.6M [00:00<00:00, 57.1MB/s] 50%|█████     | 20.4M/40.6M [00:00<00:00, 67.7MB/s] 68%|██████▊   | 27.8M/40.6M [00:00<00:00, 64.5MB/s] 87%|████████▋ | 35.1M/40.6M [00:00<00:00, 67.1MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 61.5MB/s]
+  0%|          | 0.00/40.6M [00:00<?, ?B/s] 32%|███▏      | 13.1M/40.6M [00:00<00:00, 131MB/s] 72%|███████▏  | 29.4M/40.6M [00:00<00:00, 147MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 124MB/s]
 [1/9] Apply PageSpec 0.4.0 source patch
 PageSpec 0.4.0 patch applied
 PageSpec 0.4.0 contract synchronization applied
@@ -14,9 +14,9 @@ FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showca
 Traceback (most recent call last):
   File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
     self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
-AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源', 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源']
+AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child suite identity mismatch', 'suggestion': ''}]; error_cards=['原因：catalog child suite identity mismatch']
 
 ----------------------------------------------------------------------
-Ran 155 tests in 17.203s
+Ran 155 tests in 20.632s
 
 FAILED (failures=1)
