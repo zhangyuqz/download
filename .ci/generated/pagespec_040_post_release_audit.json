@@ -1,0 +1,80 @@
+{
+  "version": "0.4.0",
+  "checks": {
+    "release": [
+      {
+        "name": "expected release assets",
+        "passed": false,
+        "detail": {
+          "missing": [
+            "PageSpec_0.4.0_YML审计.json",
+            "PageSpec_0.4.0_交付验证摘要.json",
+            "PageSpec_0.4.0_完整交付包_SHA256.txt",
+            "PageSpec_0.4.0_完整交付包_推荐.zip",
+            "PageSpec_0.4.0_完整源码_含vendor.zip",
+            "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+            "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml"
+          ],
+          "extra": [
+            "PageSpec_._._0.4.0_Dify1.7.1.yml",
+            "PageSpec_0.4.0_._.vendor.zip",
+            "PageSpec_0.4.0_._.zip",
+            "PageSpec_0.4.0_._SHA256.txt",
+            "PageSpec_0.4.0_.json",
+            "PageSpec_0.4.0_YML.json",
+            "_PageSpec._0.4.0_Dify1.7.1.yml"
+          ]
+        }
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_YML审计.json",
+        "passed": false
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_交付验证摘要.json",
+        "passed": false
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整源码_含vendor.zip",
+        "passed": false
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整交付包_推荐.zip",
+        "passed": false
+      },
+      {
+        "name": "asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+        "passed": false
+      },
+      {
+        "name": "asset exists: html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg",
+        "passed": true,
+        "detail": 12850516
+      },
+      {
+        "name": "asset exists: 手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml",
+        "passed": false
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_SHA256SUMS.txt",
+        "passed": true,
+        "detail": 535
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt",
+        "passed": false
+      }
+    ]
+  },
+  "errors": [
+    "release: expected release assets: {'missing': ['PageSpec_0.4.0_YML审计.json', 'PageSpec_0.4.0_交付验证摘要.json', 'PageSpec_0.4.0_完整交付包_SHA256.txt', 'PageSpec_0.4.0_完整交付包_推荐.zip', 'PageSpec_0.4.0_完整源码_含vendor.zip', 'PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml', '手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml'], 'extra': ['PageSpec_._._0.4.0_Dify1.7.1.yml', 'PageSpec_0.4.0_._.vendor.zip', 'PageSpec_0.4.0_._.zip', 'PageSpec_0.4.0_._SHA256.txt', 'PageSpec_0.4.0_.json', 'PageSpec_0.4.0_YML.json', '_PageSpec._0.4.0_Dify1.7.1.yml']}",
+    "release: asset exists: PageSpec_0.4.0_YML审计.json: None",
+    "release: asset exists: PageSpec_0.4.0_交付验证摘要.json: None",
+    "release: asset exists: PageSpec_0.4.0_完整源码_含vendor.zip: None",
+    "release: asset exists: PageSpec_0.4.0_完整交付包_推荐.zip: None",
+    "release: asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: None",
+    "release: asset exists: 手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: None",
+    "release: asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt: None"
+  ],
+  "warnings": []
+}
