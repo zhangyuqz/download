@@ -28,7 +28,55 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           TARGET_BRANCH: ${{ github.head_ref }}
         shell: bash
-        run: bash .ci/pagespec_040_build_delivery.sh
+        run: |
+          set +e
+          bash .ci/pagespec_040_build_delivery.sh > release.log 2>&1
+          status=$?
+          echo "$status" > release.status
+          tail -n 160 release.log
+          exit 0
+
+      - name: Persist exact release log
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, json, os, pathlib
+          payload = {
+              "message": "release: store PageSpec 0.4.0 diagnostics [skip ci]",
+              "content": base64.b64encode(pathlib.Path("release.log").read_bytes()).decode("ascii"),
+              "branch": os.environ["TARGET_BRANCH"],
+          }
+          pathlib.Path("payload.json").write_text(json.dumps(payload), encoding="utf-8")
+          PY
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_040_release.log"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            python - "$existing" <<'PY'
+          import json, pathlib, sys
+          payload=json.loads(pathlib.Path("payload.json").read_text());payload["sha"]=sys.argv[1];pathlib.Path("payload.json").write_text(json.dumps(payload))
+          PY
+          fi
+          gh api "$endpoint" --method PUT --input payload.json >/dev/null
+
+      - name: Upload PageSpec release log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PageSpec-0.4.0-release-log
+          path: |
+            release.log
+            release.status
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce build result
+        shell: bash
+        run: test "$(cat release.status)" = "0"
 
       - name: Upload PageSpec 0.4.0 delivery files
         uses: actions/upload-artifact@v4
