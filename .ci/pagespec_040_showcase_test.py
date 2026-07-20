@@ -96,7 +96,9 @@ class ShowcaseTests(unittest.TestCase):
         html = messages[1]["blob"].decode("utf-8")
         self.assertIn("overscroll-behavior-inline:contain", html)
         self.assertIn("min-width:840px", html)
-        self.assertEqual(6, len(re.findall(r"<td\b", html)))
+        table = re.search(r'<table class="ps-tb".*?</table>', html, re.S)
+        self.assertIsNotNone(table)
+        self.assertEqual(6, len(re.findall(r"<td\b", table.group(0))))
         self.assertNotIn("html,body{overflow-x:hidden", html)
 
 
