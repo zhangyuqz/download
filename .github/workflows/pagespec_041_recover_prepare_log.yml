@@ -1,0 +1,39 @@
+name: Recover PageSpec Source Preparation Log
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pagespec_041_recover_prepare_log.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download preparation artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8471661452/zip > artifact.zip
+          unzip -q artifact.zip -d recovered
+          test -f recovered/prepare_source.log
+      - name: Persist exact preparation log
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        run: |
+          set -euo pipefail
+          content="$(base64 -w0 recovered/prepare_source.log)"
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_prepare_source.log"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            gh api "$endpoint" --method PUT -f message='ci: store PageSpec preparation log [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+          else
+            gh api "$endpoint" --method PUT -f message='ci: store PageSpec preparation log [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+          fi
