@@ -1,0 +1,39 @@
+name: Release PageSpec 0.4.0
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout release scripts
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Build, test, package and publish PageSpec 0.4.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.head_ref }}
+        shell: bash
+        run: bash .ci/pagespec_040_build_delivery.sh
+
+      - name: Upload PageSpec 0.4.0 delivery files
+        uses: actions/upload-artifact@v4
+        with:
+          name: PageSpec-0.4.0-delivery
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
