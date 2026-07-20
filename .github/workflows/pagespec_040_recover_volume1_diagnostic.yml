@@ -1,0 +1,50 @@
+name: Recover PageSpec Volume 01 Diagnostic
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pagespec_040_recover_volume1_diagnostic.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download existing diagnostic artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8470260175/zip > diagnostic.zip
+          unzip -q diagnostic.zip -d recovered
+          find recovered -type f -maxdepth 2 -print
+          test -f recovered/volume1_diagnostic.json
+
+      - name: Persist diagnostic JSON
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.0-20260720
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64,json,pathlib,os
+          content=base64.b64encode(pathlib.Path('recovered/volume1_diagnostic.json').read_bytes()).decode('ascii')
+          payload={'message':'test: store recovered PageSpec volume 01 diagnostic [skip ci]','content':content,'branch':os.environ['TARGET_BRANCH']}
+          pathlib.Path('payload.json').write_text(json.dumps(payload),encoding='utf-8')
+          PY
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_040_volume1_diagnostic.json"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            python - "$existing" <<'PY'
+          import json,pathlib,sys
+          path=pathlib.Path('payload.json');data=json.loads(path.read_text());data['sha']=sys.argv[1];path.write_text(json.dumps(data))
+          PY
+          fi
+          gh api "$endpoint" --method PUT --input payload.json >/dev/null
