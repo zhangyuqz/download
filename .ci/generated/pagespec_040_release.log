@@ -1,8 +1,8 @@
 Downloading...
 From (original): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y
-From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=2af64010-878e-4dc1-87e4-1baf0653d84a
+From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=c92353b9-03cb-4829-b0f4-fc027a9ddbce
 To: /home/runner/work/download/download/baseline_delivery.zip
-  0%|          | 0.00/40.6M [00:00<?, ?B/s] 25%|██▍       | 9.96M/40.6M [00:00<00:00, 95.9MB/s] 61%|██████    | 24.6M/40.6M [00:00<00:00, 123MB/s] 100%|██████████| 40.6M/40.6M [00:00<00:00, 145MB/s]
+  0%|          | 0.00/40.6M [00:00<?, ?B/s] 22%|██▏       | 8.91M/40.6M [00:00<00:00, 82.1MB/s] 45%|████▌     | 18.4M/40.6M [00:00<00:00, 87.1MB/s] 67%|██████▋   | 27.3M/40.6M [00:00<00:00, 87.4MB/s] 92%|█████████▏| 37.2M/40.6M [00:00<00:00, 90.3MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 89.4MB/s]
 [1/9] Apply PageSpec 0.4.0 source patch
 PageSpec 0.4.0 patch applied
 PageSpec 0.4.0 contract synchronization applied
@@ -14,9 +14,9 @@ FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showca
 Traceback (most recent call last):
   File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
     self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
-AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': "渲染失败：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源：'+es(this.src)+'", 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源：&amp;#x27;+es(this.src)+&amp;#x27;']
+AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child audit failed: HTML 根节点或 body 未正确闭合', 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: HTML 根节点或 body 未正确闭合']
 
 ----------------------------------------------------------------------
-Ran 155 tests in 17.768s
+Ran 155 tests in 19.138s
 
 FAILED (failures=1)
