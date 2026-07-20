@@ -1,0 +1,18 @@
+identity:
+  author: zhangyu
+  name: html_offline_exporter
+  label:
+    en_US: PageSpec Offline HTML Renderer
+    zh_Hans: PageSpec 断网 HTML 生成器
+    zh_Hant: PageSpec 斷網 HTML 產生器
+  description:
+    en_US: Compile PageSpec v1 JSON into one validated self-contained offline HTML file; arbitrary HTML, CSS, JavaScript, and URLs are not accepted.
+    zh_Hans: 把 PageSpec v1 JSON 编译为经过校验的自包含断网 HTML；不接受任意 HTML、CSS、JavaScript 或网址。
+    zh_Hant: 把 PageSpec v1 JSON 編譯為經驗證的自包含斷網 HTML；不接受任意 HTML、CSS、JavaScript 或網址。
+  icon: icon.png
+credentials_for_provider: {}
+tools:
+  - tools/render_page.yaml
+extra:
+  python:
+    source: provider/html_offline_exporter.py
