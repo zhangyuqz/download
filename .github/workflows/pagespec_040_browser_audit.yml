@@ -1,0 +1,92 @@
+name: Audit PageSpec 0.4.0 HTML in Browser
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_040_browser_audit.py'
+      - '.github/workflows/pagespec_040_browser_audit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  browser-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.0-20260720
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download released package and install Chromium
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir assets
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern 'html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg' --dir assets
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Generate and execute the final offline HTML
+        shell: bash
+        run: |
+          set +e
+          python .ci/pagespec_040_browser_audit.py \
+            --package assets/html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg \
+            --html PageSpec_0.4.0_browser_audit.html \
+            --output browser_audit.json \
+            > browser_audit.log 2>&1
+          status=$?
+          echo "$status" > browser_audit.status
+          tail -n 80 browser_audit.log
+          exit 0
+
+      - name: Persist browser audit result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.0-20260720
+        shell: bash
+        run: |
+          set -euo pipefail
+          put_file() {
+            local local_file="$1" repo_path="$2" content endpoint existing
+            content="$(base64 -w0 "$local_file")"
+            endpoint="repos/${GITHUB_REPOSITORY}/contents/${repo_path}"
+            existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+            if [ -n "$existing" ]; then
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec browser audit [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+            else
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec browser audit [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+            fi
+          }
+          put_file browser_audit.json .ci/generated/pagespec_040_browser_audit.json
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PageSpec-0.4.0-browser-audit
+          path: |
+            browser_audit.json
+            browser_audit.log
+            browser_audit.status
+            PageSpec_0.4.0_browser_audit.html
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Enforce browser audit
+        shell: bash
+        run: test "$(cat browser_audit.status)" = 0
