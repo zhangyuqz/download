@@ -1,0 +1,1 @@
+Rerun diagnostics and persist the exact test log.
