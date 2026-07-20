@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 """Synchronize PageSpec 0.4.0 source, schema builder and frozen tests.
 
-The ordinary report audit remains strict.  Only trusted frozen catalogue child
-pages may contain literal closing-tag examples; they still require exactly one
-real html/body start, at least one end tag and an actual final </html>.
+The final HTML auditor still inspects every generated tag, URL-bearing
+attribute, CSP meta tag, and script nonce.  It masks only the text bodies of
+script/style elements before structural parsing so trusted minified source code
+is not incorrectly reparsed as HTML markup.
 """
 from __future__ import annotations
 
@@ -37,33 +38,9 @@ def main() -> None:
     audit = root / "tools/render_page.py"
     replace_once(
         audit,
-        '            if name.startswith("on"):\n                self.errors.append(f"出现事件属性 {name}")\n',
-        '            if name.startswith("on") and name not in {"one", "once"}:\n                self.errors.append(f"出现事件属性 {tag}.{name}")\n',
-        "reject real event attributes",
-    )
-    replace_once(
-        audit,
-        '            if name in self.LOAD_ATTRS and lower and not lower.startswith(("data:", "blob:", "#")):\n                self.errors.append(f"{tag}.{name} 不是内联资源")\n',
-        '            is_fixture_expression = bool(re.fullmatch(r"[\\\'\\\"]\\+\\s*[A-Za-z_$][A-Za-z0-9_$]*\\([^<>\\r\\n]{0,160}\\)\\+\\s*[\\\'\\\"]", lower))\n            if name in self.LOAD_ATTRS and lower and not lower.startswith(("data:", "blob:", "#")) and not is_fixture_expression:\n                self.errors.append(f"{tag}.{name} 不是内联资源：{lower[:160]}")\n',
-        "recognize exact frozen fixture expressions",
-    )
-    replace_once(
-        audit,
-        'def _validate_final_html(html: str, nonce: str) -> list[str]:\n',
-        'def _validate_final_html(html: str, nonce: str, allow_fixture_closing_literals: bool = False) -> list[str]:\n',
-        "add catalog child audit mode",
-    )
-    replace_once(
-        audit,
-        '    if any(parser.start_counts[tag] != 1 or parser.end_counts[tag] != 1 for tag in ("html", "body")):\n        errors.append("HTML 根节点或 body 未正确闭合")\n',
-        '    if allow_fixture_closing_literals:\n        root_invalid = any(parser.start_counts[tag] != 1 or parser.end_counts[tag] < 1 for tag in ("html", "body"))\n    else:\n        root_invalid = any(parser.start_counts[tag] != 1 or parser.end_counts[tag] != 1 for tag in ("html", "body"))\n    if root_invalid or not html.rstrip().lower().endswith("</html>"):\n        errors.append(f"HTML 根节点或 body 未正确闭合：start={parser.start_counts}; end={parser.end_counts}")\n',
-        "separate strict and frozen fixture root audits",
-    )
-    replace_once(
-        audit,
-        '        audit_errors = _validate_final_html(html, child_nonce)\n',
-        '        audit_errors = _validate_final_html(html, child_nonce, allow_fixture_closing_literals=True)\n',
-        "use catalog child audit mode",
+        '    parser = _FinalHTMLAudit(nonce)\n    try:\n        parser.feed(html)\n',
+        '    parser = _FinalHTMLAudit(nonce)\n    # HTMLParser must inspect the generated element tags and their attributes,\n    # but executable/library source text is not markup.  Mask only raw-text\n    # element bodies while preserving each opening/closing tag, so nonce/CSP,\n    # external URLs, forbidden tags and root closure remain fully audited.\n    audit_html = re.sub(\n        r"(?is)(<script\\b[^>]*>).*?(</script\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        html,\n    )\n    audit_html = re.sub(\n        r"(?is)(<style\\b[^>]*>).*?(</style\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        audit_html,\n    )\n    try:\n        parser.feed(audit_html)\n',
+        "mask raw-text bodies during structural audit",
     )
 
     builder = root / "build_pagespec_schema.py"
