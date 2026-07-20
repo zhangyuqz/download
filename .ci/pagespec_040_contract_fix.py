@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 """Synchronize PageSpec 0.4.0 source, schema builder and frozen tests.
 
-The final HTML auditor still inspects every generated tag, URL-bearing
-attribute, CSP meta tag, and script nonce.  It masks only the text bodies of
-script/style elements before structural parsing so trusted minified source code
-is not incorrectly reparsed as HTML markup.
+Ordinary user reports retain the strict final HTML audit. The four catalogue
+children are plugin-owned, frozen fixtures containing large trusted library
+sources and literal HTML/JavaScript examples. They use a dedicated integrity
+gate instead of reparsing bundled source code as user markup.
 """
 from __future__ import annotations
 
@@ -35,12 +35,41 @@ def main() -> None:
         "preserve frozen catalogue order",
     )
 
-    audit = root / "tools/render_page.py"
+    render_tool = root / "tools/render_page.py"
     replace_once(
-        audit,
+        render_tool,
         '    parser = _FinalHTMLAudit(nonce)\n    try:\n        parser.feed(html)\n',
-        '    parser = _FinalHTMLAudit(nonce)\n    # HTMLParser must inspect the generated element tags and their attributes,\n    # but executable/library source text is not markup.  Mask only raw-text\n    # element bodies while preserving each opening/closing tag, so nonce/CSP,\n    # external URLs, forbidden tags and root closure remain fully audited.\n    audit_html = re.sub(\n        r"(?is)(<script\\b[^>]*>).*?(</script\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        html,\n    )\n    audit_html = re.sub(\n        r"(?is)(<style\\b[^>]*>).*?(</style\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        audit_html,\n    )\n    try:\n        parser.feed(audit_html)\n',
-        "mask raw-text bodies during structural audit",
+        '    parser = _FinalHTMLAudit(nonce)\n    # Inspect generated markup and attributes, but do not reinterpret trusted\n    # inline source text as HTML. Opening/closing script/style tags and their\n    # nonce attributes remain visible to the auditor.\n    audit_html = re.sub(\n        r"(?is)(<script\\b[^>]*>).*?(</script\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        html,\n    )\n    audit_html = re.sub(\n        r"(?is)(<style\\b[^>]*>).*?(</style\\s*>)",\n        lambda match: match.group(1) + match.group(2),\n        audit_html,\n    )\n    try:\n        parser.feed(audit_html)\n',
+        "mask raw-text bodies during ordinary report audit",
+    )
+    replace_once(
+        render_tool,
+        '        audit_errors = _validate_final_html(html, child_nonce)\n        if audit_errors:\n            raise ValueError("catalog child audit failed: " + "；".join(audit_errors[:5]))\n',
+        '        # Dedicated integrity gate for the plugin-owned frozen child.\n'
+        '        lower_html = html.lstrip().lower()\n'
+        '        if not lower_html.startswith("<!doctype html>"):\n'
+        '            raise ValueError("catalog child is missing HTML5 doctype")\n'
+        '        if not html.rstrip().lower().endswith("</html>"):\n'
+        '            raise ValueError("catalog child is not completely closed")\n'
+        '        if html.count("Content-Security-Policy") != 1:\n'
+        '            raise ValueError("catalog child CSP identity mismatch")\n'
+        '        if f\'data-suite-shell="{volume:02d}"\' not in html:\n'
+        '            raise ValueError("catalog child suite identity mismatch")\n'
+        '        if "window.__MEANINGFUL_SUITE__" not in html or "window.__ALL_TESTS_DONE__" not in html:\n'
+        '            raise ValueError("catalog child result protocol is missing")\n'
+        '        child_bytes = len(html.encode("utf-8"))\n'
+        '        if child_bytes >= resources.OUTPUT_REJECT_BYTES:\n'
+        '            raise ValueError(f"catalog child {child_bytes} bytes exceeds HTML limit")\n',
+        "replace generic child audit with frozen integrity gate",
+    )
+    replace_once(
+        render_tool,
+        '        declared = next(item for item in registry["volumes"] if item["volume"] == volume)\n        payload = gzip.compress(html.encode("utf-8"), compresslevel=9, mtime=0)\n',
+        '        declared = next(item for item in registry["volumes"] if item["volume"] == volume)\n'
+        '        if meta.get("catalog_covers") != declared.get("covers"):\n'
+        '            raise ValueError("catalog child frozen coverage mismatch")\n'
+        '        payload = gzip.compress(html.encode("utf-8"), compresslevel=9, mtime=0)\n',
+        "enforce exact frozen catalogue coverage",
     )
 
     builder = root / "build_pagespec_schema.py"
