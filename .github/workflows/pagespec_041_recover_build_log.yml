@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8471064301/zip > candidate.zip
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8471171619/zip > candidate.zip
           unzip -q candidate.zip -d recovered
           find recovered -type f -maxdepth 2 -print
           test -f recovered/pagespec_041_build.log
