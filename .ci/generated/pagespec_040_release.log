@@ -1,22 +1,47 @@
 Downloading...
 From (original): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y
-From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=30716566-3187-4cd3-83c5-b25ad0d6281b
+From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=816ea134-b1d3-4ee2-ac35-921ce1aa045f
 To: /home/runner/work/download/download/baseline_delivery.zip
-  0%|          | 0.00/40.6M [00:00<?, ?B/s] 32%|███▏      | 13.1M/40.6M [00:00<00:00, 131MB/s] 72%|███████▏  | 29.4M/40.6M [00:00<00:00, 147MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 124MB/s]
+  0%|          | 0.00/40.6M [00:00<?, ?B/s]  1%|▏         | 524k/40.6M [00:00<00:11, 3.36MB/s]  6%|▋         | 2.62M/40.6M [00:00<00:03, 11.4MB/s] 25%|██▍       | 9.96M/40.6M [00:00<00:00, 35.8MB/s] 43%|████▎     | 17.3M/40.6M [00:00<00:00, 48.6MB/s] 65%|██████▍   | 26.2M/40.6M [00:00<00:00, 61.3MB/s] 81%|████████▏ | 33.0M/40.6M [00:00<00:00, 61.9MB/s] 98%|█████████▊| 39.8M/40.6M [00:00<00:00, 60.9MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 50.5MB/s]
 [1/9] Apply PageSpec 0.4.0 source patch
 PageSpec 0.4.0 patch applied
 PageSpec 0.4.0 contract synchronization applied
 [2/9] Compile and run all source tests
-......................................F....................................................................................................................
-======================================================================
-FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showcase.ShowcaseTests.test_business_report_can_embed_all_172_libraries)
+...........................................................................................................................................................
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
-    self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
-AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child suite identity mismatch', 'suggestion': ''}]; error_cards=['原因：catalog child suite identity mismatch']
+Ran 155 tests in 21.530s
 
-----------------------------------------------------------------------
-Ran 155 tests in 20.632s
+OK
+[3/9] Verify frozen 172-library registry and source contract
+registry=172 counts=35/63/41/33 source-contract=PASS
+[4/9] Package with official stable Dify CLI 0.6.1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+ 55 51.7M   55 28.6M    0     0  32.4M      0  0:00:01 --:--:--  0:00:01 32.4M100 51.7M  100 51.7M    0     0  44.0M      0  0:00:01  0:00:01 --:--:-- 78.8M
+v0.6.1
+2026/07/20 16:29:16 INFO plugin packaged successfully output_path=dist/html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg
+[5/9] Audit final package and real SDK registration
+{"version":"0.4.0","type":"plugin","author":"zhangyu","name":"html_offline_exporter","repo":null,"description":{"zh_Hans":"把封闭 PageSpec JSON 编译为单个自包含断网 HTML；兼容 Dify 传输形态，并可在同一报告中按需展示相互隔离的 172 库能力。","pt_BR":"Compile closed PageSpec JSON into one self-contained offline HTML report, with deterministic Dify transport recovery and an optional isolated 172-library capability showcase.","ja_JP":"Compile closed PageSpec JSON into one self-contained offline HTML report, with deterministic Dify transport recovery and an optional isolated 172-library capability showcase.","en_US":"Compile closed PageSpec JSON into one self-contained offline HTML report, with deterministic Dify transport recovery and an optional isolated 172-library capability showcase."},"icon":"icon.png","icon_dark":null,"label":{"zh_Hans":"PageSpec 断网 HTML 生成器","pt_BR":"PageSpec Offline HTML Renderer","ja_JP":"PageSpec Offline HTML Renderer","en_US":"PageSpec Offline HTML Renderer"},"created_at":"2026-07-20T23:50:00+08:00","resource":{"memory":1073741824,"permission":{"tool":null,"model":null,"node":null,"endpoint":null,"app":null,"storage":null}},"plugins":{"tools":["provider/html_offline_exporter.yaml"],"models":[],"endpoints":[],"agent_strategies":[],"datasources":[],"triggers":[]},"meta":{"version":"0.0.1","arch":["amd64","arm64"],"runner":{"language":"python","version":"3.12","entrypoint":"main"},"minimum_dify_version":"1.7.1"}}
 
-FAILED (failures=1)
+{"event": "log", "data": {"level": "INFO", "message": "Installed tool: html_offline_exporter", "timestamp": 1784564970.4789178}}
+PluginRegistration=PASS
+[6/9] Generate two SHA-bound modified YML workflows
+zhangyu/html_offline_exporter:0.4.0@4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a
+[{"source": "PageSpec_城市公共图书馆年度阅读与活动报告_样例_Dify1.7.1.yml", "output": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml", "dependencies": 1, "render_page_nodes": 1, "maximum_string": 5452, "bytes": 14335}, {"source": "手机号一键查询并生成报告_PageSpec0.3.4_Dify1.7.1.yml", "output": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml", "dependencies": 1, "render_page_nodes": 2, "maximum_string": 25235, "bytes": 466073}]
+[7/9] Build source archive and validation report
+[8/9] Build clean complete delivery ZIP
+[9/9] Publish release assets
+https://github.com/zhangyuqz/download/releases/tag/pagespec-0.4.0
+PACKAGE=html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg
+PACKAGE_BYTES=12850516
+UNPACKED_BYTES=48202054
+620f7bb64064640f9fe214edf1328e6de7cadc087e40a6437ce534cbe0572bc2  dist/PageSpec_0.4.0_SHA256SUMS.txt
+4a6e4f7c03a3ab41e84db266cdc06e408d27ac8233a33dbca99dab7c2a43b182  dist/PageSpec_0.4.0_YML审计.json
+33ef2394ef9629409cb7a490dce83f982828119e2d6abe0fc35df48dd9c551f3  dist/PageSpec_0.4.0_交付验证摘要.json
+ae03b74d740fa64f06f6e3f7ad8c84cd22646927a64ee6c7b93d3fc3f2f76111  dist/PageSpec_0.4.0_完整交付包_SHA256.txt
+cfbc75746edd9b2dfb6931cd18571456adb7f85231004aa56606f4d056b5073d  dist/PageSpec_0.4.0_完整交付包_推荐.zip
+04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6  dist/PageSpec_0.4.0_完整源码_含vendor.zip
+8fd456f52b96beecfc51936afef994c3d3858df1c814b01e1a3ae306d9b72647  dist/PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml
+4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a  dist/html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg
+77650a4eaad33bed441b8682b81a6e3c6d07b67e3034dc28a4759f8875407eb9  dist/手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml
