@@ -1,0 +1,80 @@
+{
+  "schema": "pagespec-release-matrix/v1",
+  "plugin": {
+    "author": "zhangyu",
+    "name": "html_offline_exporter"
+  },
+  "python": "3.12",
+  "requirements_exact": "dify_plugin>=0.9.0",
+  "sdk_gate_exact": "0.9.1",
+  "sdk_gate_wheel_sha256": "1c45ed4f06ccd9375382c728ebd6b7394da854273f59666c25c0d7b914a0dbf0",
+  "official_dify_cli": {
+    "version": "v0.6.1",
+    "sha256": "a8495a4392e377737e7166e1f7afb0b40bc8cc5fa4d44eaa65c08e60c679d7d5"
+  },
+  "browser_gates": {
+    "legacy_major": 109,
+    "current_major": 149,
+    "cjk_test_font": {
+      "family": "Noto Sans CJK SC",
+      "source": "https://github.com/notofonts/noto-cjk/tree/Sans2.004",
+      "bytes": 16437364,
+      "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b"
+    },
+    "runtime_109": {
+      "chromium_executable_sha256": "a47ba3615bb98d97e25379af98cf01cef555b24ff2684c4852f63e546d95c11a",
+      "support_lib_tree_sha256": "adb897e1f28cd0f1a3abcaa6685ac7a2a2cc137dae4a625dab30d08f3f178d51",
+      "package_lock_sha256": "308e88ea88fe4414b53db6c63b9393c6155728ecc533fb6d48ce66ef8e2cc36e",
+      "node_modules_tree_sha256": "f0bc5e785e06e018209ae9ab1bcccee2697fc1d80e775a9bf608f462b52ce991",
+      "puppeteer_core": "19.6.3",
+      "sparticuz_chromium": "109.0.6"
+    },
+    "runtime_current": {
+      "chromium_executable_sha256": "434d2607c55941dcaa7fdd19b0800ee90488922fd9744a6642ef527ba8fabf63",
+      "support_lib_tree_sha256": "1e5cbf99195a3f9e5d9b75a01cf1e4532f17b4be6037ff0a855e77d344cfe573",
+      "package_lock_sha256": "67791269dad2b78dc39b36c191a9de9e51dabb889702d6a39fd6dc4b96dbcf0a",
+      "node_modules_tree_sha256": "8fa5154c915e063fc417ee418016e7f0e90ff0181585fd9abb5d4d15992efd7c",
+      "puppeteer_core": "25.0.4",
+      "sparticuz_chromium": "149.0.0"
+    }
+  },
+  "limits": {
+    "difypkg_bytes_exclusive": 15728640,
+    "uncompressed_bytes_exclusive": 50000000,
+    "workflow_string_chars_exclusive": 80000,
+    "html_bytes_exclusive": 30000000
+  },
+  "catalog_volumes": {
+    "1": 35,
+    "2": 63,
+    "3": 41,
+    "4": 33
+  },
+  "catalog_fixture_sha256": {
+    "registry.json": "2246ec65f357fac1487bfb2f77fd1e11ae018401bf6bd96d9209ac2967be50c2",
+    "volume01.json": "80b44901ce0a8d5bff1b433fc3ee4ef86d60390a03e7506300fd2f1f76d038b0",
+    "volume02.json": "025391598b3151f12649150ae949fb21efbc975bd170911a42ec275a2c2d3fff",
+    "volume03.json": "c889d3ddd9b6c39fa0062d5e1d37df70b70672add463b0aad52f7f4683a5665b",
+    "volume04.json": "6a2da3977907f88e388cf767cb08057c15e94cde373a95dbc659a80766d75804"
+  },
+  "variants": [
+    {
+      "key": "dify_1_7_1",
+      "version": "0.3.2",
+      "minimum_dify_version": "1.7.1",
+      "label": "Dify1.7.1",
+      "package_filename": "html_offline_exporter_PageSpec_0.3.2_Dify1.7.1_SDK0.9plus.difypkg",
+      "html_test_filename": "PageSpec_0.3.2_Dify1.7.1_四卷全库网页测试包.zip",
+      "workflow_directory": "PageSpec_0.3.2_Dify1.7.1_工作流"
+    },
+    {
+      "key": "dify_1_14_2",
+      "version": "0.3.3",
+      "minimum_dify_version": "1.14.2",
+      "label": "Dify1.14.2",
+      "package_filename": "html_offline_exporter_PageSpec_0.3.3_Dify1.14.2_SDK0.9plus.difypkg",
+      "html_test_filename": "PageSpec_0.3.3_Dify1.14.2_四卷全库网页测试包.zip",
+      "workflow_directory": "PageSpec_0.3.3_Dify1.14.2_工作流"
+    }
+  ]
+}
