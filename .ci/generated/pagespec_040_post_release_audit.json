@@ -4,17 +4,9 @@
     "release": [
       {
         "name": "expected release assets",
-        "passed": false,
+        "passed": true,
         "detail": {
-          "missing": [
-            "PageSpec_0.4.0_YML审计.json",
-            "PageSpec_0.4.0_交付验证摘要.json",
-            "PageSpec_0.4.0_完整交付包_SHA256.txt",
-            "PageSpec_0.4.0_完整交付包_推荐.zip",
-            "PageSpec_0.4.0_完整源码_含vendor.zip",
-            "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
-            "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml"
-          ],
+          "missing": [],
           "extra": [
             "PageSpec_._._0.4.0_Dify1.7.1.yml",
             "PageSpec_0.4.0_._.vendor.zip",
@@ -27,28 +19,24 @@
         }
       },
       {
-        "name": "asset exists: PageSpec_0.4.0_完整交付包_推荐.zip",
-        "passed": false
-      },
-      {
         "name": "asset exists: 手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml",
-        "passed": false
+        "passed": true,
+        "detail": 466073
       },
       {
         "name": "asset exists: PageSpec_0.4.0_YML审计.json",
-        "passed": false
+        "passed": true,
+        "detail": 774
+      },
+      {
+        "name": "asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+        "passed": true,
+        "detail": 14335
       },
       {
         "name": "asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt",
-        "passed": false
-      },
-      {
-        "name": "asset exists: PageSpec_0.4.0_交付验证摘要.json",
-        "passed": false
-      },
-      {
-        "name": "asset exists: PageSpec_0.4.0_完整源码_含vendor.zip",
-        "passed": false
+        "passed": true,
+        "detail": 113
       },
       {
         "name": "asset exists: PageSpec_0.4.0_SHA256SUMS.txt",
@@ -61,20 +49,493 @@
         "detail": 12850516
       },
       {
-        "name": "asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
-        "passed": false
+        "name": "asset exists: PageSpec_0.4.0_交付验证摘要.json",
+        "passed": true,
+        "detail": 657
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整源码_含vendor.zip",
+        "passed": true,
+        "detail": 13012517
+      },
+      {
+        "name": "asset exists: PageSpec_0.4.0_完整交付包_推荐.zip",
+        "passed": true,
+        "detail": 25873136
+      },
+      {
+        "name": "GitHub Release preserves canonical filenames",
+        "passed": false,
+        "detail": {
+          "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml": "PageSpec_._._0.4.0_Dify1.7.1.yml",
+          "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml": "_PageSpec._0.4.0_Dify1.7.1.yml",
+          "PageSpec_0.4.0_完整源码_含vendor.zip": "PageSpec_0.4.0_._.vendor.zip",
+          "PageSpec_0.4.0_完整交付包_推荐.zip": "PageSpec_0.4.0_._.zip",
+          "PageSpec_0.4.0_YML审计.json": "PageSpec_0.4.0_YML.json",
+          "PageSpec_0.4.0_交付验证摘要.json": "PageSpec_0.4.0_.json",
+          "PageSpec_0.4.0_完整交付包_SHA256.txt": "PageSpec_0.4.0_._SHA256.txt"
+        }
+      }
+    ],
+    "hashes": [
+      {
+        "name": "html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg",
+        "passed": true,
+        "detail": {
+          "declared": "4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a",
+          "actual": "4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a"
+        }
+      },
+      {
+        "name": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml",
+        "passed": true,
+        "detail": {
+          "declared": "8fd456f52b96beecfc51936afef994c3d3858df1c814b01e1a3ae306d9b72647",
+          "actual": "8fd456f52b96beecfc51936afef994c3d3858df1c814b01e1a3ae306d9b72647"
+        }
+      },
+      {
+        "name": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml",
+        "passed": true,
+        "detail": {
+          "declared": "77650a4eaad33bed441b8682b81a6e3c6d07b67e3034dc28a4759f8875407eb9",
+          "actual": "77650a4eaad33bed441b8682b81a6e3c6d07b67e3034dc28a4759f8875407eb9"
+        }
+      },
+      {
+        "name": "PageSpec_0.4.0_完整源码_含vendor.zip",
+        "passed": true,
+        "detail": {
+          "declared": "04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6",
+          "actual": "04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6"
+        }
+      },
+      {
+        "name": "plugin SHA frozen",
+        "passed": true,
+        "detail": "4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a"
+      }
+    ],
+    "archives": [
+      {
+        "name": "delivery ZIP members",
+        "passed": true,
+        "detail": {
+          "missing": [],
+          "count": 11,
+          "unpacked": 26345407
+        }
+      }
+    ],
+    "package": [
+      {
+        "name": "compressed size < 15 MiB",
+        "passed": true,
+        "detail": {
+          "bytes": 12850516,
+          "margin": 2878124
+        }
+      },
+      {
+        "name": "unpacked size < 50,000,000",
+        "passed": true,
+        "detail": {
+          "bytes": 48202054,
+          "margin": 1797946
+        }
+      },
+      {
+        "name": "no forbidden package debris",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "manifest identity",
+        "passed": true,
+        "detail": {
+          "version": "0.4.0",
+          "author": "zhangyu",
+          "name": "html_offline_exporter"
+        }
+      },
+      {
+        "name": "minimum Dify 1.7.1",
+        "passed": true,
+        "detail": "1.7.1"
+      },
+      {
+        "name": "requirements exact",
+        "passed": true,
+        "detail": "dify_plugin>=0.9.0"
+      },
+      {
+        "name": "provider Python source exists",
+        "passed": true,
+        "detail": "provider/html_offline_exporter.py"
+      },
+      {
+        "name": "tool Python source exists",
+        "passed": true,
+        "detail": "tools/render_page.py"
+      },
+      {
+        "name": "root README CJK=0",
+        "passed": true,
+        "detail": 0
+      },
+      {
+        "name": "PRIVACY non-empty",
+        "passed": true,
+        "detail": 1050
+      },
+      {
+        "name": "Chinese README separated",
+        "passed": true
+      },
+      {
+        "name": "Tool parameter forms",
+        "passed": true,
+        "detail": {
+          "spec": "llm",
+          "filename": "llm",
+          "include_all_libraries": "form",
+          "slot1": "form",
+          "slot2": "form",
+          "slot3": "form",
+          "slot4": "form",
+          "slot5": "form",
+          "slot6": "form",
+          "slot7": "form",
+          "slot8": "form",
+          "slot9": "form",
+          "slot10": "form",
+          "slot11": "form",
+          "slot12": "form",
+          "slot13": "form",
+          "slot14": "form",
+          "slot15": "form",
+          "slot16": "form",
+          "slot17": "form",
+          "slot18": "form",
+          "slot19": "form",
+          "slot20": "form"
+        }
+      }
+    ],
+    "catalog": [
+      {
+        "name": "registry 172 unique and 35/63/41/33",
+        "passed": true,
+        "detail": {
+          "count": 172,
+          "unique": 172,
+          "volumes": [
+            35,
+            63,
+            41,
+            33
+          ]
+        }
+      },
+      {
+        "name": "volume 01 frozen coverage",
+        "passed": true,
+        "detail": {
+          "fixture_count": 35,
+          "declared_count": 35
+        }
+      },
+      {
+        "name": "volume 02 frozen coverage",
+        "passed": true,
+        "detail": {
+          "fixture_count": 63,
+          "declared_count": 63
+        }
+      },
+      {
+        "name": "volume 03 frozen coverage",
+        "passed": true,
+        "detail": {
+          "fixture_count": 41,
+          "declared_count": 41
+        }
+      },
+      {
+        "name": "volume 04 frozen coverage",
+        "passed": true,
+        "detail": {
+          "fixture_count": 33,
+          "declared_count": 33
+        }
+      }
+    ],
+    "source": [
+      {
+        "name": "source ZIP has no Python cache",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "package bytes match source archive",
+        "passed": true,
+        "detail": {
+          "mismatches": [],
+          "missing_in_source": []
+        }
+      }
+    ],
+    "workflows": [
+      {
+        "name": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: plugin identity",
+        "passed": true,
+        "detail": [
+          "zhangyu/html_offline_exporter:0.4.0@4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a"
+        ]
+      },
+      {
+        "name": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: render nodes and full-library switch",
+        "passed": true,
+        "detail": {
+          "render_nodes": 1,
+          "switches": [
+            {
+              "type": "constant",
+              "value": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: max string < 80000",
+        "passed": true,
+        "detail": 5452
+      },
+      {
+        "name": "PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: no unintended workflow mutation",
+        "passed": true
+      },
+      {
+        "name": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: plugin identity",
+        "passed": true,
+        "detail": [
+          "zhangyu/html_offline_exporter:0.4.0@4690c97a1a1e739ee7ff2e04a1b4d4af76d23b324eac090d806f3e257c572e4a"
+        ]
+      },
+      {
+        "name": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: render nodes and full-library switch",
+        "passed": true,
+        "detail": {
+          "render_nodes": 2,
+          "switches": [
+            {
+              "type": "constant",
+              "value": true
+            },
+            {
+              "type": "constant",
+              "value": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: max string < 80000",
+        "passed": true,
+        "detail": 25235
+      },
+      {
+        "name": "手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: no unintended workflow mutation",
+        "passed": true
+      }
+    ],
+    "transport": [
+      {
+        "name": "strict_json",
+        "passed": true,
+        "detail": {
+          "error": null,
+          "events": []
+        }
+      },
+      {
+        "name": "dify_output_wrapper",
+        "passed": true,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "INFO",
+              "where": "/output",
+              "message": "已解开标准单一包装路径 output（优先级 230）",
+              "suggestion": "直接传 PageSpec 根对象可减少包装"
+            },
+            {
+              "level": "INFO",
+              "where": "/",
+              "message": "已解开第 1 层 JSON 字符串包装",
+              "suggestion": "直接传 PageSpec 对象可减少包装"
+            }
+          ]
+        }
+      },
+      {
+        "name": "markdown_fence",
+        "passed": true,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "INFO",
+              "where": "/",
+              "message": "已移除 Markdown JSON 代码围栏",
+              "suggestion": ""
+            }
+          ]
+        }
+      },
+      {
+        "name": "percent_encoded",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
+      },
+      {
+        "name": "base64",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
+      },
+      {
+        "name": "urlsafe_base64",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
+      },
+      {
+        "name": "gzip_base64",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
+      },
+      {
+        "name": "zlib_base64",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
+      },
+      {
+        "name": "data_json_base64",
+        "passed": false,
+        "detail": {
+          "error": null,
+          "events": [
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "未识别为 JSON；已猜测整段输入是正文文本并继续",
+              "suggestion": "选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高"
+            },
+            {
+              "level": "WARN",
+              "where": "/",
+              "message": "顶层 str 已猜测为文本块；置信度=高",
+              "suggestion": "如需其他块类型，请提供对象字段"
+            }
+          ]
+        }
       }
     ]
   },
   "errors": [
-    "release: expected release assets: {'missing': ['PageSpec_0.4.0_YML审计.json', 'PageSpec_0.4.0_交付验证摘要.json', 'PageSpec_0.4.0_完整交付包_SHA256.txt', 'PageSpec_0.4.0_完整交付包_推荐.zip', 'PageSpec_0.4.0_完整源码_含vendor.zip', 'PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml', '手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml'], 'extra': ['PageSpec_._._0.4.0_Dify1.7.1.yml', 'PageSpec_0.4.0_._.vendor.zip', 'PageSpec_0.4.0_._.zip', 'PageSpec_0.4.0_._SHA256.txt', 'PageSpec_0.4.0_.json', 'PageSpec_0.4.0_YML.json', '_PageSpec._0.4.0_Dify1.7.1.yml']}",
-    "release: asset exists: PageSpec_0.4.0_完整交付包_推荐.zip: None",
-    "release: asset exists: 手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml: None",
-    "release: asset exists: PageSpec_0.4.0_YML审计.json: None",
-    "release: asset exists: PageSpec_0.4.0_完整交付包_SHA256.txt: None",
-    "release: asset exists: PageSpec_0.4.0_交付验证摘要.json: None",
-    "release: asset exists: PageSpec_0.4.0_完整源码_含vendor.zip: None",
-    "release: asset exists: PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml: None"
+    "transport: percent_encoded: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "transport: base64: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "transport: urlsafe_base64: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "transport: gzip_base64: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "transport: zlib_base64: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "transport: data_json_base64: {'error': None, 'events': [{'level': 'WARN', 'where': '/', 'message': '未识别为 JSON；已猜测整段输入是正文文本并继续', 'suggestion': '选择=文本块；原因=没有安全可恢复的 JSON 容器；置信度=高'}, {'level': 'WARN', 'where': '/', 'message': '顶层 str 已猜测为文本块；置信度=高', 'suggestion': '如需其他块类型，请提供对象字段'}]}",
+    "release: GitHub Release canonical filenames were sanitized: {\"PageSpec_0.4.0_YML审计.json\": \"PageSpec_0.4.0_YML.json\", \"PageSpec_0.4.0_交付验证摘要.json\": \"PageSpec_0.4.0_.json\", \"PageSpec_0.4.0_完整交付包_SHA256.txt\": \"PageSpec_0.4.0_._SHA256.txt\", \"PageSpec_0.4.0_完整交付包_推荐.zip\": \"PageSpec_0.4.0_._.zip\", \"PageSpec_0.4.0_完整源码_含vendor.zip\": \"PageSpec_0.4.0_._.vendor.zip\", \"PageSpec_城市公共图书馆年度阅读与活动报告_全库版_0.4.0_Dify1.7.1.yml\": \"PageSpec_._._0.4.0_Dify1.7.1.yml\", \"手机号一键查询并生成报告_PageSpec全库版_0.4.0_Dify1.7.1.yml\": \"_PageSpec._0.4.0_Dify1.7.1.yml\"}"
   ],
-  "warnings": []
+  "warnings": [],
+  "passed": false,
+  "summary": {
+    "checks": 53,
+    "failed": 7,
+    "warnings": 0
+  }
 }
