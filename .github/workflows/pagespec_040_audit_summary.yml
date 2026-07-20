@@ -1,0 +1,60 @@
+name: Summarize PageSpec 0.4.0 Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.0-20260720
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run concise audit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir assets
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --dir assets
+          python -m pip install --quiet gdown pyyaml
+          gdown 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O baseline_delivery.zip >/dev/null
+          set +e
+          python .ci/pagespec_040_post_release_audit.py --assets assets --baseline baseline_delivery.zip --output audit.json >/dev/null 2>&1
+          status=$?
+          set -e
+          python - <<'PY'
+          import json
+          report=json.load(open('audit.json',encoding='utf-8'))
+          print('=== AUDIT SUMMARY ===')
+          print(json.dumps(report.get('summary',{}),ensure_ascii=False,sort_keys=True))
+          print('=== FAILED CHECKS ===')
+          for error in report.get('errors',[]):
+              print(error)
+          print('=== TRANSPORT MATRIX ===')
+          for item in report.get('checks',{}).get('transport',[]):
+              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          print('=== SOURCE CHECKS ===')
+          for item in report.get('checks',{}).get('source',[]):
+              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          print('=== WORKFLOW CHECKS ===')
+          for item in report.get('checks',{}).get('workflows',[]):
+              print(f"{item['name']}={'PASS' if item['passed'] else 'FAIL'} :: {json.dumps(item.get('detail'),ensure_ascii=False)}")
+          PY
+          exit "$status"
