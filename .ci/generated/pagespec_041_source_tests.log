@@ -19,6 +19,6 @@ Traceback (most recent call last):
 AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child has 2 scripts without the inherited nonce', 'suggestion': ''}]; error_cards=['原因：catalog child has 2 scripts without the inherited nonce']
 
 ----------------------------------------------------------------------
-Ran 159 tests in 20.012s
+Ran 159 tests in 18.996s
 
 FAILED (failures=1, errors=1)
