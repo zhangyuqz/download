@@ -40,6 +40,7 @@ jobs:
           Path('/tmp/patch.py').write_text(text,encoding='utf-8')
           PY
           python /tmp/patch.py "$ROOT"
+          python .ci/pagespec_040_contract_fix.py "$ROOT"
           echo "ROOT=$ROOT" >> "$GITHUB_ENV"
       - name: Run tests and capture full result
         shell: bash
