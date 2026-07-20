@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - '.ci/pagespec_041_prepare_patch_v2.py'
-      - '.ci/pagespec_041_post_patch_fix.py'
+      - '.ci/pagespec_041_post_patch_fix_v2.py'
       - '.github/workflows/pagespec_041_short_verify.yml'
 
 permissions:
@@ -36,7 +36,7 @@ jobs:
         run: |
           set -euo pipefail
           echo "HEAD=$(git rev-parse HEAD)"
-          sha256sum .ci/pagespec_041_patch.py .ci/pagespec_041_prepare_patch_v2.py .ci/pagespec_041_post_patch_fix.py
+          sha256sum .ci/pagespec_041_patch.py .ci/pagespec_041_prepare_patch_v2.py .ci/pagespec_041_post_patch_fix_v2.py
           mkdir baseline
           gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern '*vendor.zip' --dir baseline
           SOURCE_ZIP="$(find baseline -type f -name '*.zip' | head -n 1)"
@@ -48,7 +48,7 @@ jobs:
           python -m pip install --quiet pyyaml
           python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
           python /tmp/pagespec_041_patch.py "$ROOT"
-          python .ci/pagespec_041_post_patch_fix.py "$ROOT"
+          python .ci/pagespec_041_post_patch_fix_v2.py "$ROOT"
           find "$ROOT/vendor" -type f -print0 | sort -z | xargs -0 sha256sum | sha256sum > vendor_after.sha
           cmp vendor_before.sha vendor_after.sha
           grep -F 'def _build_catalog_volume(self, volume: int, inherited_nonce: str)' "$ROOT/tools/render_page.py"
