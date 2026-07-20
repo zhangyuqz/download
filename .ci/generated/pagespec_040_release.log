@@ -1,13 +1,13 @@
 Downloading...
 From (original): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y
-From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=3ad95c74-3db9-492b-ad0c-e0c07584a9c9
+From (redirected): https://drive.google.com/uc?id=1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y&confirm=t&uuid=2af64010-878e-4dc1-87e4-1baf0653d84a
 To: /home/runner/work/download/download/baseline_delivery.zip
-  0%|          | 0.00/40.6M [00:00<?, ?B/s] 32%|███▏      | 13.1M/40.6M [00:00<00:00, 126MB/s] 71%|███████   | 28.8M/40.6M [00:00<00:00, 143MB/s]100%|██████████| 40.6M/40.6M [00:00<00:00, 140MB/s]
+  0%|          | 0.00/40.6M [00:00<?, ?B/s] 25%|██▍       | 9.96M/40.6M [00:00<00:00, 95.9MB/s] 61%|██████    | 24.6M/40.6M [00:00<00:00, 123MB/s] 100%|██████████| 40.6M/40.6M [00:00<00:00, 145MB/s]
 [1/9] Apply PageSpec 0.4.0 source patch
 PageSpec 0.4.0 patch applied
 PageSpec 0.4.0 contract synchronization applied
 [2/9] Compile and run all source tests
-......................................FF...................................................................................................................
+......................................F....................................................................................................................
 ======================================================================
 FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showcase.ShowcaseTests.test_business_report_can_embed_all_172_libraries)
 ----------------------------------------------------------------------
@@ -16,15 +16,7 @@ Traceback (most recent call last):
     self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
 AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': "渲染失败：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源：'+es(this.src)+'", 'suggestion': ''}]; error_cards=['原因：catalog child audit failed: 出现事件属性 one；img.src 不是内联资源：&amp;#x27;+es(this.src)+&amp;#x27;']
 
-======================================================================
-FAIL: test_wide_table_is_local_scroll_not_root_clipping (test_pagespec_040_showcase.ShowcaseTests.test_wide_table_is_local_scroll_not_root_clipping)
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/download/download/work/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 99, in test_wide_table_is_local_scroll_not_root_clipping
-    self.assertEqual(6, len(re.findall(r"<td\b", html)))
-AssertionError: 6 != 9
+Ran 155 tests in 17.768s
 
-----------------------------------------------------------------------
-Ran 155 tests in 15.783s
-
-FAILED (failures=2)
+FAILED (failures=1)
