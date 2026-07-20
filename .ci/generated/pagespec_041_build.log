@@ -1,28 +1,57 @@
 [1/11] Download verified PageSpec 0.4.0 source and workflows
 [2/11] Apply focused 0.4.1 fixes
 PageSpec 0.4.1 patch applied
+catalog nonce block normalized
 [3/11] Run complete source and regression test suite
-......................................F.E......................................................................................................................
-======================================================================
-ERROR: test_catalog_child_scripts_are_all_nonced (test_pagespec_041_regressions.PageSpec041RegressionTests.test_catalog_child_scripts_are_all_nonced)
+...............................................................................................................................................................
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tests/test_pagespec_041_regressions.py", line 39, in test_catalog_child_scripts_are_all_nonced
-    payload=render_page.RenderPageTool()._build_catalog_volume(1)
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tools/render_page.py", line 424, in _build_catalog_volume
-    raise ValueError(f"catalog child has {len(missing_nonce)} unnonced script tags")
-ValueError: catalog child has 79 unnonced script tags
+Ran 159 tests in 24.939s
 
-======================================================================
-FAIL: test_business_report_can_embed_all_172_libraries (test_pagespec_040_showcase.ShowcaseTests.test_business_report_can_embed_all_172_libraries)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File "/home/runner/work/download/download/work041/PageSpec_0.3.4_source/tests/test_pagespec_040_showcase.py", line 72, in test_business_report_can_embed_all_172_libraries
-    self.fail(f"catalog_showcase absent; audit={errors[-8:]!r}; error_cards={cards[-4:]!r}")
-AssertionError: catalog_showcase absent; audit=[{'id': 1, 'level': 'SKIP', 'where': 'type=catalog_showcase', 'message': '渲染失败：catalog child has 79 unnonced script tags', 'suggestion': ''}]; error_cards=['原因：catalog child has 79 unnonced script tags']
+OK
+source-contract=PASS libraries=172 counts=35/63/41/33
+[4/11] Package with current official stable Dify CLI
+v0.6.4
+2026/07/20 18:09:37 INFO plugin packaged successfully output_path=dist041/html_offline_exporter_PageSpec_0.4.1_Dify1.7.1_SDK0.9plus.difypkg
+[5/11] Audit package structure, size and source parity
+package-source-parity=PASS
+[6/11] Test minimum and currently resolved dify_plugin runtimes
 
-----------------------------------------------------------------------
-Ran 159 tests in 16.690s
+[notice] A new release of pip is available: 25.0.1 -> 26.1.2
+[notice] To update, run: python -m pip install --upgrade pip
+{"version":"0.4.1","type":"plugin","author":"zhangyu","name":"html_offline_exporter","repo":null,"description":{"zh_Hans":"把封闭 PageSpec JSON 编译为断网 HTML；恢复有界编码传输，并以 CSP 正确、可显示进度的隔离卷展示 172 库能力。","pt_BR":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes.","ja_JP":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes.","en_US":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes."},"icon":"icon.png","icon_dark":null,"label":{"zh_Hans":"PageSpec 断网 HTML 生成器","pt_BR":"PageSpec Offline HTML Renderer","ja_JP":"PageSpec Offline HTML Renderer","en_US":"PageSpec Offline HTML Renderer"},"created_at":"2026-07-21T02:10:00+08:00","resource":{"memory":1073741824,"permission":{"tool":null,"model":null,"node":null,"endpoint":null,"app":null,"storage":null}},"plugins":{"tools":["provider/html_offline_exporter.yaml"],"models":[],"endpoints":[],"agent_strategies":[],"datasources":[],"triggers":[]},"meta":{"version":"0.0.1","arch":["amd64","arm64"],"runner":{"language":"python","version":"3.12","entrypoint":"main"},"minimum_dify_version":"1.7.1"}}
 
-FAILED (failures=1, errors=1)
+{"event": "log", "data": {"level": "INFO", "message": "Installed tool: html_offline_exporter", "timestamp": 1784570988.1637623}}
+dify_plugin=0.9.0 PluginRegistration=PASS
+
+[notice] A new release of pip is available: 25.0.1 -> 26.1.2
+[notice] To update, run: python -m pip install --upgrade pip
+0.10.0
+{"version":"0.4.1","type":"plugin","author":"zhangyu","name":"html_offline_exporter","repo":null,"description":{"zh_Hans":"把封闭 PageSpec JSON 编译为断网 HTML；恢复有界编码传输，并以 CSP 正确、可显示进度的隔离卷展示 172 库能力。","pt_BR":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes.","ja_JP":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes.","en_US":"Compile closed PageSpec JSON into offline HTML with bounded encoded transport recovery and CSP-safe, progress-aware 172-library capability volumes."},"icon":"icon.png","icon_dark":null,"label":{"zh_Hans":"PageSpec 断网 HTML 生成器","pt_BR":"PageSpec Offline HTML Renderer","ja_JP":"PageSpec Offline HTML Renderer","en_US":"PageSpec Offline HTML Renderer"},"created_at":"2026-07-21T02:10:00+08:00","resource":{"memory":1073741824,"permission":{"tool":null,"model":null,"node":null,"endpoint":null,"app":null,"storage":null}},"plugins":{"tools":["provider/html_offline_exporter.yaml"],"models":[],"endpoints":[],"agent_strategies":[],"datasources":[],"triggers":[]},"meta":{"version":"0.0.1","arch":["amd64","arm64"],"runner":{"language":"python","version":"3.12","entrypoint":"main"},"minimum_dify_version":"1.7.1"}}
+
+{"event": "log", "data": {"level": "INFO", "message": "Installed tool: html_offline_exporter", "timestamp": 1784570997.3392072}}
+resolved-sdk PluginRegistration=PASS
+[7/11] Generate SHA-bound 0.4.1 workflows with ASCII release names
+zhangyu/html_offline_exporter:0.4.1@79d0e57f7acd11eb024591002481be9837d0ae5945a6307f2e26b45b8a9bba33
+{'bytes': 14307, 'maximum_string': 5452, 'render_nodes': 1}
+{'bytes': 466033, 'maximum_string': 25235, 'render_nodes': 2}
+[8/11] Run final desktop/native and mobile/pako browser audit
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+{
+  "passed": false,
+  "error": "AssertionError: desktop-native volume 1: fail 页面 60 秒内未启动，可关闭或重试; suite=None",
+  "viewports": [],
+  "generated": {
+    "bytes": 16744692,
+    "message": "已生成离线 HTML：pagespec_041_browser.html\n内容块渲染完成 · 内联库：172 个（vue、d3、mermaid、dayjs、vuetify、vant、vuex、bcryptjs、echarts、chart.js、moment-timezone、moment、element-plus、naive-ui、ant-design-vue、quasar、vue-demi、pinia、vue-router、vue-i18n、@vueuse/core、petite-vue、alpinejs、sjcl、js-sha256、js-md5、tweetnacl、js-sha3、spark-md5、apexcharts、@antv/g2、@antv/g6、cytoscape、fullcalendar、dayjs-antd、lodash、ramda、uuid、qs、underscore、eventemitter3、klona、fraction.js、katex、marked、markdown-it、diff、html2canvas、ajv、ejs、localforage、mitt、dompurify、highlight.js、prismjs、turndown、tinycolor2、preact、htm、dexie、lunr、flexsearch、zepto、papaparse、jszip、pako、js-yaml、json5、protobufjs、@msgpack/msgpack、seedrandom、i18next、file-saver、xstate、autolinker、linkifyjs、fontfaceobserver、pdf-lib、exceljs、colorthief、jquery、wallet-address-validator、@zxing/library、signature_pad、wordcloud、dagre、pinyin-pro、currency.js、accounting、simple-statistics、timeago.js、punycode、viewerjs、jsbarcode、qr-code-styling、countup.js、panzoom、geolib、three、bootstrap、fabric、bulma、semantic-ui-css、lottie-web、quill、codemirror、matter-js、paper、p5、gl-matrix、snapsvg、svg.js、raphael、foundation-sites、pico、uikit、tachyons、milligram、spectre.css、animate.css、interactjs、masonry-layout、dragula、driver.js、focus-trap、tabbable、screenfull、flatpickr、cleave.js、cropperjs、pica、vivus、scrollmagic、aos、canvas-confetti、tsparticles、wangeditor、trix、ag-grid-community、vue@2、chart.js@2、bootstrap@4、react、react-dom、@babel/standalone、phaser、plotly.js、datatables.net、tabulator-tables、fuse.js、handlebars、sweetalert2、sortablejs、lucide、jspdf、exifr、compressorjs、crypto-js、decimal.js、lz-string、libphonenumber-js、validator、tldts、docx、pptxgenjs、mammoth、@popperjs/core、tippy.js、choices.js、nouislider、swiper、howler）· 图片插槽：0 个\n最终 UTF-8 体积：15.97 MiB\n容错三态：归一 0 · 警告 0 · 降级 0"
+  },
+  "browser_version": "149.0.7827.55"
+}
