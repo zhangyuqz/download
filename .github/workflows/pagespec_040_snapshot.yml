@@ -72,15 +72,16 @@ jobs:
           put_file() {
             local local_file="$1"
             local repo_path="$2"
-            local content encoded_path existing_sha
+            local content encoded_path existing_sha endpoint
             content="$(base64 -w0 "$local_file")"
             encoded_path="$(python -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$repo_path")"
-            existing_sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${encoded_path}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
-            args=(--method PUT "repos/${GITHUB_REPOSITORY}/contents/${encoded_path}" -f message='ci: store PageSpec source snapshot [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH")
+            endpoint="repos/${GITHUB_REPOSITORY}/contents/${encoded_path}"
+            existing_sha="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
             if [ -n "$existing_sha" ]; then
-              args+=(-f sha="$existing_sha")
+              gh api "$endpoint" --method PUT -f message='ci: store PageSpec source snapshot [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing_sha" >/dev/null
+            else
+              gh api "$endpoint" --method PUT -f message='ci: store PageSpec source snapshot [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
             fi
-            gh api "${args[@]}" >/dev/null
           }
 
           put_file source_tree.txt .ci/generated/pagespec_034_source_tree.txt
