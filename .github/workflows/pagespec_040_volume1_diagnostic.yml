@@ -1,0 +1,82 @@
+name: Diagnose PageSpec 0.4.0 Volume 01
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_040_volume1_diagnostic.py'
+      - '.github/workflows/pagespec_040_volume1_diagnostic.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.0-20260720
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download package and install Chromium
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir assets
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern 'html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg' --dir assets
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Diagnose volume 01
+        shell: bash
+        run: |
+          set +e
+          python .ci/pagespec_040_volume1_diagnostic.py \
+            --package assets/html_offline_exporter_PageSpec_0.4.0_Dify1.7.1_SDK0.9plus.difypkg \
+            --html volume1_diagnostic.html \
+            --output volume1_diagnostic.json \
+            > volume1_diagnostic.log 2>&1
+          status=$?
+          echo "$status" > volume1_diagnostic.status
+          tail -n 120 volume1_diagnostic.log
+          exit 0
+
+      - name: Persist diagnostic result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.0-20260720
+        shell: bash
+        run: |
+          set -euo pipefail
+          content="$(base64 -w0 volume1_diagnostic.json)"
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_040_volume1_diagnostic.json"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec volume 01 diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+          else
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec volume 01 diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.0-volume1-diagnostic
+          path: |
+            volume1_diagnostic.json
+            volume1_diagnostic.log
+            volume1_diagnostic.status
+          retention-days: 7
+          if-no-files-found: warn
