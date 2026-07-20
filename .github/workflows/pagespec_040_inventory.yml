@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --quiet gdown
-          gdown --id 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O pagespec_034_delivery.zip
+          gdown 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O pagespec_034_delivery.zip
           sha256sum pagespec_034_delivery.zip
           unzip -t pagespec_034_delivery.zip >/dev/null
           mkdir -p work/delivery
