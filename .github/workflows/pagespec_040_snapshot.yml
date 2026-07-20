@@ -1,0 +1,98 @@
+name: Snapshot PageSpec 0.3.x source
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    if: ${{ !contains(github.event.head_commit.message || '', '[skip ci]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download and extract verified source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet gdown
+          gdown 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O delivery.zip
+          test "$(sha256sum delivery.zip | awk '{print $1}')" = "378f1822d2f0d28e893d40dea41dd4fd98dd9c9ae54e13ccc725db5ffa55b3b8"
+          unzip -q delivery.zip -d delivery
+          SOURCE_ZIP="$(find delivery -type f -name '*完整源码*vendor*.zip' | head -n 1)"
+          test -n "$SOURCE_ZIP"
+          unzip -q "$SOURCE_ZIP" -d source
+
+      - name: Build concise source snapshot
+        shell: python
+        run: |
+          from pathlib import Path
+          import hashlib
+
+          source = Path('source')
+          manifests = list(source.rglob('manifest.yaml'))
+          if not manifests:
+              raise SystemExit('manifest.yaml not found')
+          root = manifests[0].parent
+
+          all_files = sorted(p for p in root.rglob('*') if p.is_file())
+          tree_lines = []
+          for p in all_files:
+              rel = p.relative_to(root).as_posix()
+              tree_lines.append(f'{rel}\t{p.stat().st_size}\t{hashlib.sha256(p.read_bytes()).hexdigest()}')
+          Path('source_tree.txt').write_text('\n'.join(tree_lines) + '\n', encoding='utf-8')
+
+          selected = []
+          for p in all_files:
+              rel = p.relative_to(root).as_posix()
+              if rel.startswith(('vendor/', 'tests/', '__pycache__/', '.git/')):
+                  continue
+              if p.suffix.lower() not in {'.py', '.yaml', '.yml', '.json', '.txt', '.md', '.toml'}:
+                  continue
+              if p.stat().st_size > 220_000:
+                  continue
+              if rel.startswith('catalog/') and p.suffix.lower() == '.json':
+                  continue
+              if any(token in rel.lower() for token in ('report', 'audit', 'output', 'screenshot')):
+                  continue
+              selected.append(p)
+
+          chunks = [f'PLUGIN_ROOT={root.as_posix()}\n']
+          for p in selected:
+              rel = p.relative_to(root).as_posix()
+              try:
+                  text = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              chunks.append(f'\n===== BEGIN {rel} =====\n{text}\n===== END {rel} =====\n')
+          snapshot = ''.join(chunks)
+          if len(snapshot.encode('utf-8')) > 950_000:
+              raise SystemExit('snapshot exceeds GitHub contents API limit')
+          Path('source_snapshot.txt').write_text(snapshot, encoding='utf-8')
+          print(f'root={root}')
+          print(f'files={len(all_files)} selected={len(selected)} snapshot_bytes={len(snapshot.encode("utf-8"))}')
+
+      - name: Commit snapshot files to build branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: ${{ github.head_ref }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$TARGET_BRANCH"
+          for pair in "source_tree.txt:.ci/generated/pagespec_034_source_tree.txt" "source_snapshot.txt:.ci/generated/pagespec_034_source_snapshot.txt"; do
+            local_file="${pair%%:*}"
+            repo_path="${pair#*:}"
+            content="$(base64 -w0 "$local_file")"
+            encoded_path="$(python -c 'import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1], safe="/"))' "$repo_path")"
+            existing_sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${encoded_path}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+            args=(--method PUT "repos/${GITHUB_REPOSITORY}/contents/${encoded_path}" -f message='ci: store PageSpec source snapshot [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH")
+            if [ -n "$existing_sha" ]; then
+              args+=(-f sha="$existing_sha")
+            fi
+            gh api "${args[@]}" >/dev/null
+          done
