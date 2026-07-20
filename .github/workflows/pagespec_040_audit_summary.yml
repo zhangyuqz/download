@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - '.ci/pagespec_040_post_release_audit.py'
+      - '.ci/pagespec_040_post_release_audit_v2.py'
       - '.github/workflows/pagespec_040_audit_summary.yml'
 
 permissions:
@@ -40,7 +41,7 @@ jobs:
           python -m pip install --quiet gdown pyyaml
           gdown 1QAgFPRx0LAPgZhufuh1OTJOKOTfXWc1Y -O baseline_delivery.zip >/dev/null
           set +e
-          python .ci/pagespec_040_post_release_audit.py --assets assets --baseline baseline_delivery.zip --output audit.json >/dev/null 2>&1
+          python .ci/pagespec_040_post_release_audit_v2.py --assets assets --baseline baseline_delivery.zip --output audit.json >/dev/null 2>&1
           status=$?
           set -e
           python - <<'PY'
