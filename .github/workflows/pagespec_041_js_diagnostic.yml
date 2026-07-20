@@ -1,0 +1,87 @@
+name: Diagnose PageSpec 0.4.1 Catalog JavaScript
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_041_js_diagnostic.py'
+      - '.github/workflows/pagespec_041_js_diagnostic.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download successful-build candidate package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8471171619/zip > candidate.zip
+          unzip -q candidate.zip -d candidate
+          PACKAGE="$(find candidate -type f -name 'html_offline_exporter_PageSpec_0.4.1_Dify1.7.1_SDK0.9plus.difypkg' | head -n 1)"
+          test -n "$PACKAGE"
+          echo "PACKAGE=$PACKAGE" >> "$GITHUB_ENV"
+
+      - name: Check every inline catalog script with Node
+        shell: bash
+        run: |
+          set +e
+          python .ci/pagespec_041_js_diagnostic.py --package "$PACKAGE" --output js_diagnostic.json > js_diagnostic.log 2>&1
+          status=$?
+          echo "$status" > js_diagnostic.status
+          cat js_diagnostic.log
+          exit 0
+
+      - name: Persist exact JavaScript failure
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64,json,pathlib,os
+          content=base64.b64encode(pathlib.Path('js_diagnostic.json').read_bytes()).decode('ascii')
+          payload={'message':'test: store PageSpec JavaScript diagnostic [skip ci]','content':content,'branch':os.environ['TARGET_BRANCH']}
+          pathlib.Path('payload.json').write_text(json.dumps(payload),encoding='utf-8')
+          PY
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_js_diagnostic.json"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            python - "$existing" <<'PY'
+          import json,pathlib,sys
+          p=pathlib.Path('payload.json');d=json.loads(p.read_text());d['sha']=sys.argv[1];p.write_text(json.dumps(d))
+          PY
+          fi
+          gh api "$endpoint" --method PUT --input payload.json >/dev/null
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.1-js-diagnostic
+          path: |
+            js_diagnostic.json
+            js_diagnostic.log
+            js_diagnostic.status
+          if-no-files-found: warn
+          retention-days: 7
