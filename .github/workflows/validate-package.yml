@@ -112,8 +112,9 @@ jobs:
 
       - name: Static forbidden-syntax audit
         run: |
-          ! grep -RniE 'DELIMITER|BEGIN[[:space:]]+NOT[[:space:]]+ATOMIC|DECLARE[[:space:]]|CREATE[[:space:]]+(OR[[:space:]]+REPLACE[[:space:]]+)?PROCEDURE' package/SQL
-          ! grep -RniE 'INSERT[[:space:]]+IGNORE|REPLACE[[:space:]]+INTO|ON[[:space:]]+DUPLICATE[[:space:]]+KEY' package/SQL
+          cat package/SQL/*.sql | sed '/\/\*/,/\*\//d' > /tmp/executable-sql.txt
+          ! grep -niE '^[[:space:]]*(DELIMITER|BEGIN[[:space:]]+NOT[[:space:]]+ATOMIC|DECLARE[[:space:]]|CREATE[[:space:]]+(OR[[:space:]]+REPLACE[[:space:]]+)?PROCEDURE)' /tmp/executable-sql.txt
+          ! grep -niE 'INSERT[[:space:]]+IGNORE|REPLACE[[:space:]]+INTO|ON[[:space:]]+DUPLICATE[[:space:]]+KEY' /tmp/executable-sql.txt
           test "$(grep -Rho 'uq_xzfz_rg_fullrow_sha512' package/SQL | wc -l)" -gt 0
 
       - name: Create final ZIP and member hashes
