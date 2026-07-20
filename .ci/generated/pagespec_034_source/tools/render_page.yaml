@@ -1,0 +1,304 @@
+identity:
+  name: render_page
+  author: zhangyu
+  label:
+    en_US: Render Offline HTML from JSON (PageSpec)
+    zh_Hans: 用 JSON 生成离线 HTML（PageSpec）
+    zh_Hant: 用 JSON 生成離線 HTML（PageSpec）
+description:
+  human:
+    en_US: Describe a page as a PageSpec v1 JSON (blocks of headings, text, charts, tables, images, etc.). The plugin authors all HTML/CSS/JS itself and returns one self-contained offline file. The user never writes HTML.
+    zh_Hans: 用 PageSpec v1 的 JSON 描述一个页面（标题、文本、图表、表格、图片等"块"）。插件自己生成全部 HTML/CSS/JS，返回一个自包含的离线单文件。用户永不书写 HTML。
+    zh_Hant: 用 PageSpec v1 的 JSON 描述頁面；插件自行生成全部 HTML/CSS/JS，回傳自包含離線單檔。
+  llm: Build one offline self-contained HTML file from PageSpec v1 JSON. The closed language has 28 user content block types plus one fixed catalog verification block and no HTML/CSS/JS escape hatch. The input layer accepts common Dify wrappers, escaped strings, JSON-like text and safe Python/Jinja representations; ambiguity is resolved deterministically and recorded. Reference uploads only as {"type":"image","slot":1}. Never write URLs, HTML, CSS, JavaScript, ECharts option objects, or library names.
+parameters:
+  - name: spec
+    type: string
+    required: true
+    label:
+      en_US: PageSpec JSON
+      zh_Hans: PageSpec JSON
+      zh_Hant: PageSpec JSON
+    human_description:
+      en_US: A PageSpec v1 JSON string describing the page as blocks.
+      zh_Hans: 描述页面内容的 PageSpec v1 JSON 字符串（详见规范）。
+      zh_Hant: 描述頁面內容的 PageSpec v1 JSON 字串。
+    llm_description: The full PageSpec v1 JSON as a string. Top level {"version":1,"doc":{...},"blocks":[...]}.
+    form: llm
+  - name: filename
+    type: string
+    required: false
+    default: page.html
+    label:
+      en_US: Output file name
+      zh_Hans: 输出文件名
+      zh_Hant: 輸出檔名
+    human_description:
+      en_US: Output HTML file name (default page.html).
+      zh_Hans: 输出 HTML 文件名（默认 page.html）。
+      zh_Hant: 輸出 HTML 檔名（預設 page.html）。
+    llm_description: Optional output file name ending in .html.
+    form: llm
+  - name: slot1
+    type: file
+    required: false
+    label:
+      en_US: Image slot 1
+      zh_Hans: 图片插槽 1
+      zh_Hant: 圖片插槽 1
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 1.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 1 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 1 引用。
+    llm_description: Optional uploaded image for PageSpec slot 1. Never place image URLs in JSON.
+    form: form
+  - name: slot2
+    type: file
+    required: false
+    label:
+      en_US: Image slot 2
+      zh_Hans: 图片插槽 2
+      zh_Hant: 圖片插槽 2
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 2.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 2 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 2 引用。
+    llm_description: Optional uploaded image for PageSpec slot 2. Never place image URLs in JSON.
+    form: form
+  - name: slot3
+    type: file
+    required: false
+    label:
+      en_US: Image slot 3
+      zh_Hans: 图片插槽 3
+      zh_Hant: 圖片插槽 3
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 3.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 3 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 3 引用。
+    llm_description: Optional uploaded image for PageSpec slot 3. Never place image URLs in JSON.
+    form: form
+  - name: slot4
+    type: file
+    required: false
+    label:
+      en_US: Image slot 4
+      zh_Hans: 图片插槽 4
+      zh_Hant: 圖片插槽 4
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 4.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 4 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 4 引用。
+    llm_description: Optional uploaded image for PageSpec slot 4. Never place image URLs in JSON.
+    form: form
+  - name: slot5
+    type: file
+    required: false
+    label:
+      en_US: Image slot 5
+      zh_Hans: 图片插槽 5
+      zh_Hant: 圖片插槽 5
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 5.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 5 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 5 引用。
+    llm_description: Optional uploaded image for PageSpec slot 5. Never place image URLs in JSON.
+    form: form
+  - name: slot6
+    type: file
+    required: false
+    label:
+      en_US: Image slot 6
+      zh_Hans: 图片插槽 6
+      zh_Hant: 圖片插槽 6
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 6.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 6 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 6 引用。
+    llm_description: Optional uploaded image for PageSpec slot 6. Never place image URLs in JSON.
+    form: form
+  - name: slot7
+    type: file
+    required: false
+    label:
+      en_US: Image slot 7
+      zh_Hans: 图片插槽 7
+      zh_Hant: 圖片插槽 7
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 7.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 7 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 7 引用。
+    llm_description: Optional uploaded image for PageSpec slot 7. Never place image URLs in JSON.
+    form: form
+  - name: slot8
+    type: file
+    required: false
+    label:
+      en_US: Image slot 8
+      zh_Hans: 图片插槽 8
+      zh_Hant: 圖片插槽 8
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 8.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 8 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 8 引用。
+    llm_description: Optional uploaded image for PageSpec slot 8. Never place image URLs in JSON.
+    form: form
+  - name: slot9
+    type: file
+    required: false
+    label:
+      en_US: Image slot 9
+      zh_Hans: 图片插槽 9
+      zh_Hant: 圖片插槽 9
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 9.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 9 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 9 引用。
+    llm_description: Optional uploaded image for PageSpec slot 9. Never place image URLs in JSON.
+    form: form
+  - name: slot10
+    type: file
+    required: false
+    label:
+      en_US: Image slot 10
+      zh_Hans: 图片插槽 10
+      zh_Hant: 圖片插槽 10
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 10.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 10 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 10 引用。
+    llm_description: Optional uploaded image for PageSpec slot 10. Never place image URLs in JSON.
+    form: form
+  - name: slot11
+    type: file
+    required: false
+    label:
+      en_US: Image slot 11
+      zh_Hans: 图片插槽 11
+      zh_Hant: 圖片插槽 11
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 11.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 11 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 11 引用。
+    llm_description: Optional uploaded image for PageSpec slot 11. Never place image URLs in JSON.
+    form: form
+  - name: slot12
+    type: file
+    required: false
+    label:
+      en_US: Image slot 12
+      zh_Hans: 图片插槽 12
+      zh_Hant: 圖片插槽 12
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 12.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 12 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 12 引用。
+    llm_description: Optional uploaded image for PageSpec slot 12. Never place image URLs in JSON.
+    form: form
+  - name: slot13
+    type: file
+    required: false
+    label:
+      en_US: Image slot 13
+      zh_Hans: 图片插槽 13
+      zh_Hant: 圖片插槽 13
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 13.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 13 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 13 引用。
+    llm_description: Optional uploaded image for PageSpec slot 13. Never place image URLs in JSON.
+    form: form
+  - name: slot14
+    type: file
+    required: false
+    label:
+      en_US: Image slot 14
+      zh_Hans: 图片插槽 14
+      zh_Hant: 圖片插槽 14
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 14.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 14 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 14 引用。
+    llm_description: Optional uploaded image for PageSpec slot 14. Never place image URLs in JSON.
+    form: form
+  - name: slot15
+    type: file
+    required: false
+    label:
+      en_US: Image slot 15
+      zh_Hans: 图片插槽 15
+      zh_Hant: 圖片插槽 15
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 15.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 15 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 15 引用。
+    llm_description: Optional uploaded image for PageSpec slot 15. Never place image URLs in JSON.
+    form: form
+  - name: slot16
+    type: file
+    required: false
+    label:
+      en_US: Image slot 16
+      zh_Hans: 图片插槽 16
+      zh_Hant: 圖片插槽 16
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 16.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 16 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 16 引用。
+    llm_description: Optional uploaded image for PageSpec slot 16. Never place image URLs in JSON.
+    form: form
+  - name: slot17
+    type: file
+    required: false
+    label:
+      en_US: Image slot 17
+      zh_Hans: 图片插槽 17
+      zh_Hant: 圖片插槽 17
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 17.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 17 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 17 引用。
+    llm_description: Optional uploaded image for PageSpec slot 17. Never place image URLs in JSON.
+    form: form
+  - name: slot18
+    type: file
+    required: false
+    label:
+      en_US: Image slot 18
+      zh_Hans: 图片插槽 18
+      zh_Hant: 圖片插槽 18
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 18.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 18 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 18 引用。
+    llm_description: Optional uploaded image for PageSpec slot 18. Never place image URLs in JSON.
+    form: form
+  - name: slot19
+    type: file
+    required: false
+    label:
+      en_US: Image slot 19
+      zh_Hans: 图片插槽 19
+      zh_Hant: 圖片插槽 19
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 19.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 19 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 19 引用。
+    llm_description: Optional uploaded image for PageSpec slot 19. Never place image URLs in JSON.
+    form: form
+  - name: slot20
+    type: file
+    required: false
+    label:
+      en_US: Image slot 20
+      zh_Hans: 图片插槽 20
+      zh_Hant: 圖片插槽 20
+    human_description:
+      en_US: Optional image used by PageSpec image/gallery blocks that reference slot 20.
+      zh_Hans: 可选图片；由 PageSpec 的 image/gallery 块通过 slot 20 引用。
+      zh_Hant: 可選圖片；由 PageSpec 的 image/gallery 區塊透過 slot 20 引用。
+    llm_description: Optional uploaded image for PageSpec slot 20. Never place image URLs in JSON.
+    form: form
+extra:
+  python:
+    source: tools/render_page.py
