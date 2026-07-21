@@ -15,7 +15,7 @@ def main() -> None:
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
 
-    findings = []
+    definitions = []
     with zipfile.ZipFile(args.package) as archive:
         bad = archive.testzip()
         if bad:
@@ -26,26 +26,25 @@ def main() -> None:
             name = info.filename
             if not name.lower().endswith(('.py', '.json', '.js', '.html', '.txt')):
                 continue
-            raw = archive.read(info)
             try:
-                text = raw.decode('utf-8')
+                text = archive.read(info).decode('utf-8')
             except UnicodeDecodeError:
                 continue
-            for match in re.finditer(r'offline_gate_pass', text):
-                start = max(0, match.start() - 1200)
-                end = min(len(text), match.end() + 1800)
-                findings.append({
+            for match in re.finditer(r'offlinePass\s*=', text):
+                start = max(0, match.start() - 500)
+                end = min(len(text), match.start() + 1000)
+                definitions.append({
                     'file': name,
                     'offset': match.start(),
                     'excerpt': text[start:end],
                 })
-    args.output.write_text(json.dumps({'matches': findings}, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(f'matches={len(findings)}')
-    for item in findings[:20]:
+    args.output.write_text(json.dumps({'definitions': definitions}, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(f'definitions={len(definitions)}')
+    for item in definitions:
         print('\nFILE', item['file'], 'OFFSET', item['offset'])
         print(item['excerpt'])
-    if not findings:
-        raise SystemExit('offline_gate_pass was not found in package')
+    if not definitions:
+        raise SystemExit('offlinePass definition was not found in package')
 
 
 if __name__ == '__main__':
