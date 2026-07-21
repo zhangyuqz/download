@@ -9,6 +9,7 @@ on:
       - '.ci/pagespec_041_prepare_patch_v2.py'
       - '.ci/pagespec_041_post_patch_fix_v4.py'
       - '.ci/pagespec_041_post_patch_fix_v5.py'
+      - '.ci/pagespec_041_post_patch_fix_v6.py'
       - '.ci/pagespec_041_build.sh'
       - '.ci/pagespec_041_browser_audit.py'
       - '.github/workflows/pagespec_041_release.yml'
@@ -50,6 +51,7 @@ jobs:
               'python /tmp/pagespec_041_patch.py "$PLUGIN_ROOT"\n'
               'python .ci/pagespec_041_post_patch_fix_v4.py "$PLUGIN_ROOT"\n'
               'python .ci/pagespec_041_post_patch_fix_v5.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v6.py "$PLUGIN_ROOT"\n'
           )
           if source.count(old) != 1:
               raise SystemExit(f'patch invocation count={source.count(old)}')
