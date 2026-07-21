@@ -1,9 +1,9 @@
-name: validate-and-package-xzfz-navicat-v3
+name: validate-and-package-xzfz-navicat-v4
 
 on:
   push:
     branches:
-      - xzfz-navicat-plain-sql-v3-20260720
+      - fix-v4-auto-increment-drop
     paths-ignore:
       - 'dist/**'
 
@@ -110,25 +110,27 @@ jobs:
           count_after=$(mariadb --protocol=tcp -h127.0.0.1 -P3306 -uroot -N -e "SELECT COUNT(*) FROM xzfz.huadan")
           test "$count_after" -eq 7
 
-      - name: Static forbidden-syntax audit
+      - name: Static forbidden-syntax and auto-key-order audit
         run: |
           cat package/SQL/*.sql | sed '/\/\*/,/\*\//d' > /tmp/executable-sql.txt
           ! grep -niE '^[[:space:]]*(DELIMITER|BEGIN[[:space:]]+NOT[[:space:]]+ATOMIC|DECLARE[[:space:]]|CREATE[[:space:]]+(OR[[:space:]]+REPLACE[[:space:]]+)?PROCEDURE)' /tmp/executable-sql.txt
           ! grep -niE 'INSERT[[:space:]]+IGNORE|REPLACE[[:space:]]+INTO|ON[[:space:]]+DUPLICATE[[:space:]]+KEY' /tmp/executable-sql.txt
+          ! grep -ni 'DROP INDEX `uq_xzfz_rg_tmp_id`' /tmp/executable-sql.txt
+          test "$(grep -h 'DROP COLUMN `__xzfz_rg_tmp_id`' package/SQL/01_八表完整流程兼容测试_仅临时表.sql package/SQL/02_暂停写入后构建影子表并严格整行去重.sql | wc -l)" -eq 16
           test "$(grep -Rho 'uq_xzfz_rg_fullrow_sha512' package/SQL | wc -l)" -gt 0
 
       - name: Create final ZIP and member hashes
         run: |
           mkdir -p dist
           find package -type f -print0 | sort -z | xargs -0 sha256sum > package/SHA256SUMS.txt
-          zip -r -9 dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip package
-          sha256sum dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip > dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip.sha256.txt
-          unzip -t dist/xzfz_数据库去重防重_Navicat纯SQL修正版V3_20260720.zip
+          zip -r -9 dist/xzfz_数据库去重防重_Navicat纯SQL修正版V4_20260721.zip package
+          sha256sum dist/xzfz_数据库去重防重_Navicat纯SQL修正版V4_20260721.zip > dist/xzfz_数据库去重防重_Navicat纯SQL修正版V4_20260721.zip.sha256.txt
+          unzip -t dist/xzfz_数据库去重防重_Navicat纯SQL修正版V4_20260721.zip
 
       - name: Upload tested ZIP artifact
         uses: actions/upload-artifact@v4
         with:
-          name: xzfz-navicat-plain-sql-v3
+          name: xzfz-navicat-plain-sql-v4
           path: dist/*
           if-no-files-found: error
           retention-days: 30
@@ -138,5 +140,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add dist
-          git commit -m "build: publish tested xzfz Navicat V3 package [skip ci]"
+          git commit -m "build: publish tested xzfz Navicat V4 package [skip ci]"
           git push
