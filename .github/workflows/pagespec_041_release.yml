@@ -8,6 +8,7 @@ on:
       - '.ci/pagespec_041_patch.py'
       - '.ci/pagespec_041_prepare_patch_v2.py'
       - '.ci/pagespec_041_post_patch_fix_v4.py'
+      - '.ci/pagespec_041_post_patch_fix_v5.py'
       - '.ci/pagespec_041_build.sh'
       - '.ci/pagespec_041_browser_audit.py'
       - '.github/workflows/pagespec_041_release.yml'
@@ -45,7 +46,11 @@ jobs:
           from pathlib import Path
           source = Path('.ci/pagespec_041_build.sh').read_text(encoding='utf-8')
           old = 'python .ci/pagespec_041_patch.py "$PLUGIN_ROOT"\n'
-          new = 'python /tmp/pagespec_041_patch.py "$PLUGIN_ROOT"\npython .ci/pagespec_041_post_patch_fix_v4.py "$PLUGIN_ROOT"\n'
+          new = (
+              'python /tmp/pagespec_041_patch.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v4.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v5.py "$PLUGIN_ROOT"\n'
+          )
           if source.count(old) != 1:
               raise SystemExit(f'patch invocation count={source.count(old)}')
           source = source.replace(old, new, 1)
