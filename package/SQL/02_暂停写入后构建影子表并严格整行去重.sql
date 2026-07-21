@@ -11,6 +11,9 @@
   如果极端情况下两个不同整行产生同一 SHA-512，最终唯一索引会失败并阻止换表，
   不会把这两行当作重复删除。
 
+  V4 修复：临时 AUTO_INCREMENT 行号列不再先删除其唯一索引。
+  现在直接 DROP COLUMN，MariaDB 会同时删除只包含该列的索引，避免错误 1075。
+
   本文件没有 DELIMITER、BEGIN NOT ATOMIC、DECLARE、过程、匿名块或循环。
 */
 SET NAMES utf8mb4;
@@ -28,7 +31,7 @@ DROP TABLE IF EXISTS
   `__xzfz_rg_new_butuiyanpan`,
   `__xzfz_rg_new_renyuanguanxi`;
 
-/* ===== huadan ===== */
+/* ===== huadan：复制全部业务列、严格整行去重并建立永久防重索引 ===== */
 SET @xz_table='huadan'; SET @xz_shadow='__xzfz_rg_new_huadan';
 SELECT GROUP_CONCAT(CONCAT('`',REPLACE(`COLUMN_NAME`,'`','``'),'`') ORDER BY `ORDINAL_POSITION` SEPARATOR ',') INTO @xz_cols FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA`='xzfz' AND `TABLE_NAME`=@xz_table AND `COLUMN_NAME` NOT IN ('__xzfz_rg_row_sha512','__xzfz_rg_tmp_id') AND `EXTRA` NOT LIKE '%GENERATED%';
 SELECT GROUP_CONCAT(CONCAT('IF(`',REPLACE(`COLUMN_NAME`,'`','``'),'` IS NULL,''N'',CONCAT(''V'',HEX(BINARY `',REPLACE(`COLUMN_NAME`,'`','``'),'`)))') ORDER BY `ORDINAL_POSITION` SEPARATOR ',''|'',') INTO @xz_hash_parts FROM `information_schema`.`COLUMNS` WHERE `TABLE_SCHEMA`='xzfz' AND `TABLE_NAME`=@xz_table AND `COLUMN_NAME` NOT IN ('__xzfz_rg_row_sha512','__xzfz_rg_tmp_id') AND `EXTRA` NOT LIKE '%GENERATED%';
@@ -38,7 +41,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -54,7 +56,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -70,7 +71,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -86,7 +86,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -102,7 +101,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -118,7 +116,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -134,7 +131,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
@@ -150,7 +146,6 @@ SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_row_sha51
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` ADD COLUMN `__xzfz_rg_tmp_id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT, ADD UNIQUE KEY `uq_xzfz_rg_tmp_id` (`__xzfz_rg_tmp_id`), ADD KEY `ix_xzfz_rg_tmp_hash` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('INSERT INTO `',@xz_shadow,'` (',@xz_cols,') SELECT ',@xz_cols,' FROM `',@xz_table,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DELETE b FROM `',@xz_shadow,'` a JOIN `',@xz_shadow,'` b ON a.`__xzfz_rg_row_sha512`=b.`__xzfz_rg_row_sha512` AND a.`__xzfz_rg_tmp_id`<b.`__xzfz_rg_tmp_id` AND ',@xz_exact); EXECUTE IMMEDIATE @xz_sql;
-SET @xz_sql=CONCAT('DROP INDEX `uq_xzfz_rg_tmp_id` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('ALTER TABLE `',@xz_shadow,'` DROP COLUMN `__xzfz_rg_tmp_id`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('DROP INDEX `ix_xzfz_rg_tmp_hash` ON `',@xz_shadow,'`'); EXECUTE IMMEDIATE @xz_sql;
 SET @xz_sql=CONCAT('CREATE UNIQUE INDEX `uq_xzfz_rg_fullrow_sha512` USING BTREE ON `',@xz_shadow,'` (`__xzfz_rg_row_sha512`)'); EXECUTE IMMEDIATE @xz_sql;
