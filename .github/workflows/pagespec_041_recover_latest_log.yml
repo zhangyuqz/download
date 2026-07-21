@@ -21,7 +21,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8479608503/zip > candidate.zip
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8479712256/zip > candidate.zip
           unzip -q candidate.zip -d recovered
           test -f recovered/pagespec_041_build.log
           test -f recovered/pagespec_041_build.status
@@ -41,9 +41,9 @@ jobs:
             endpoint="repos/${GITHUB_REPOSITORY}/contents/${target}"
             existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
             if [ -n "$existing" ]; then
-              gh api "$endpoint" --method PUT -f message='ci: store bridge-fixed PageSpec 0.4.1 diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+              gh api "$endpoint" --method PUT -f message='ci: store offline-gate PageSpec 0.4.1 diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
             else
-              gh api "$endpoint" --method PUT -f message='ci: store bridge-fixed PageSpec 0.4.1 diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" >/dev/null
+              gh api "$endpoint" --method PUT -f message='ci: store offline-gate PageSpec 0.4.1 diagnostics [skip ci]' -f content="$payload" -f branch="$TARGET_BRANCH" >/dev/null
             fi
           }
           put_file recovered/pagespec_041_build.log .ci/generated/pagespec_041_latest_build.log
