@@ -1,0 +1,293 @@
+{
+  "generated": {
+    "bytes": 16742927,
+    "message": "已生成离线 HTML：pagespec_041_syntax_diagnostic.html\n内容块渲染完成 · 内联库：172 个（vue、d3、mermaid、dayjs、vuetify、vant、vuex、bcryptjs、echarts、chart.js、moment-timezone、moment、element-plus、naive-ui、ant-design-vue、quasar、vue-demi、pinia、vue-router、vue-i18n、@vueuse/core、petite-vue、alpinejs、sjcl、js-sha256、js-md5、tweetnacl、js-sha3、spark-md5、apexcharts、@antv/g2、@antv/g6、cytoscape、fullcalendar、dayjs-antd、lodash、ramda、uuid、qs、underscore、eventemitter3、klona、fraction.js、katex、marked、markdown-it、diff、html2canvas、ajv、ejs、localforage、mitt、dompurify、highlight.js、prismjs、turndown、tinycolor2、preact、htm、dexie、lunr、flexsearch、zepto、papaparse、jszip、pako、js-yaml、json5、protobufjs、@msgpack/msgpack、seedrandom、i18next、file-saver、xstate、autolinker、linkifyjs、fontfaceobserver、pdf-lib、exceljs、colorthief、jquery、wallet-address-validator、@zxing/library、signature_pad、wordcloud、dagre、pinyin-pro、currency.js、accounting、simple-statistics、timeago.js、punycode、viewerjs、jsbarcode、qr-code-styling、countup.js、panzoom、geolib、three、bootstrap、fabric、bulma、semantic-ui-css、lottie-web、quill、codemirror、matter-js、paper、p5、gl-matrix、snapsvg、svg.js、raphael、foundation-sites、pico、uikit、tachyons、milligram、spectre.css、animate.css、interactjs、masonry-layout、dragula、driver.js、focus-trap、tabbable、screenfull、flatpickr、cleave.js、cropperjs、pica、vivus、scrollmagic、aos、canvas-confetti、tsparticles、wangeditor、trix、ag-grid-community、vue@2、chart.js@2、bootstrap@4、react、react-dom、@babel/standalone、phaser、plotly.js、datatables.net、tabulator-tables、fuse.js、handlebars、sweetalert2、sortablejs、lucide、jspdf、exifr、compressorjs、crypto-js、decimal.js、lz-string、libphonenumber-js、validator、tldts、docx、pptxgenjs、mammoth、@popperjs/core、tippy.js、choices.js、nouislider、swiper、howler）· 图片插槽：0 个\n最终 UTF-8 体积：15.97 MiB\n容错三态：归一 0 · 警告 0 · 降级 0"
+  },
+  "status": {
+    "kind": "fail",
+    "text": "Uncaught SyntaxError: Invalid or unexpected token"
+  },
+  "failed_to_parse": [],
+  "runtime_exceptions": [],
+  "console": [
+    {
+      "type": "error",
+      "text": "Error while parsing the 'sandbox' attribute: '${MPt}' is an invalid sandbox flag.",
+      "location": {
+        "url": "blob:null/018ff306-1f74-4ec2-8b70-42057c5b23aa",
+        "line": 4951,
+        "column": 0,
+        "lineNumber": 4951,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Framing '' violates the following Content Security Policy directive: \"frame-src blob:\". The request has been blocked.\n",
+      "location": {
+        "url": "",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "error",
+      "text": "Framing '' violates the following Content Security Policy directive: \"frame-src blob:\". The request has been blocked.\n",
+      "location": {
+        "url": "",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "page_errors": [
+    {
+      "message": "Invalid or unexpected token",
+      "stack": ""
+    }
+  ],
+  "frame_diagnostics": [
+    {
+      "url": "file:///home/runner/work/download/download/pagespec_041_syntax_diagnostic.html",
+      "title": "PageSpec 0.4.1 syntax diagnostic",
+      "events": [],
+      "scripts": [
+        {
+          "index": 1,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 4832,
+          "parseError": "",
+          "prefix": "\nwindow.__ps_catalog_install=function(rootId,dataId){\n var root=document.getElementById(rootId),data=document.getElementById(dataId);if(!root||!data)return;\n var entries=[];try{entries=JSON.parse(data.textContent||'[]')}catch(error){__ps_re",
+          "suffix": "(volume,'无法打开','fail');__ps_record_runtime(rootId,error)}\n }\n root.querySelectorAll('[data-catalog-volume]').forEach(function(button){button.addEventListener('click',function(){openVolume(button.getAttribute('data-catalog-volume'))})});\n};\n"
+        },
+        {
+          "index": 2,
+          "type": "application/json",
+          "nonce": "",
+          "bytes": 16668749,
+          "parseError": "",
+          "prefix": "[{\"volume\":1,\"count\":35,\"token\":\"mJ3qBVC0qFr-lG1ZeIDfCMLUyBi8XmwZ\",\"gzip_b64\":\"H4sIAAAAAAACA9S9W48kS3Im9n5+RfEcjNA9qqiJe15qzmDAkQiJS64okliQOzhYRGZGViU7MzIZEdVddRIlCBAWAgToSdCT3gQ96FVPCyygF/2UBQjpZ8gvcXFzN3OP8K7u08MGz1SGm1uYm39uYe4eHt9v/+y/+",
+          "suffix": "U+Zoan5zKnxifPHlkCt0Dbd1s5OiOO/VScG63yYsS4+JXEeWGpKr4xU6yRKz42XhHBRkN+9iRIwT7ZP7QsaM4/CT918SSdJe8pFDp6M32d+GM2ruk9ag2CgaaXwCK5riGPJA0YauGOCpOs7JZZ7dBqRHIihpCPkYUi7ELRe1NvLyYqyZtpaG2pf4ysoskriO72in+O7J/kE1OR3ftH0T+Gn9Rc270/wDtZL8PiTjiAA==\"}]"
+        },
+        {
+          "index": 3,
+          "type": "application/json",
+          "nonce": "",
+          "bytes": 2,
+          "parseError": "",
+          "prefix": "[]",
+          "suffix": "[]"
+        },
+        {
+          "index": 4,
+          "type": "application/json",
+          "nonce": "",
+          "bytes": 2,
+          "parseError": "",
+          "prefix": "[]",
+          "suffix": "[]"
+        },
+        {
+          "index": 5,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 46859,
+          "parseError": "",
+          "prefix": "/*! pako 2.1.0 https://github.com/nodeca/pako @license (MIT AND Zlib) */\n!function(t,e){\"object\"==typeof exports&&\"undefined\"!=typeof module?e(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],e):e((t=\"undefined\"!=typeof glo",
+          "suffix": ":va,inflate:ya,inflateRaw:xa,ungzip:za,constants:Aa};t.Deflate=ba,t.Inflate=va,t.constants=Aa,t.default=Ea,t.deflate=ga,t.deflateRaw=pa,t.gzip=ka,t.inflate=ya,t.inflateRaw=xa,t.ungzip=za,Object.defineProperty(t,\"__esModule\",{value:!0})}));\n"
+        },
+        {
+          "index": 6,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 5395,
+          "parseError": "",
+          "prefix": "\nwindow.__ps_charts=[];\nwindow.__ps_runtime_errors=[];\nwindow.__ps_record_runtime=function(id,e){try{\n var msg=String((e&&e.message)||e||'未知错误').slice(0,160);\n var item={level:'RUNTIME',where:String(id||'runtime').slice(0,80),message:msg,su",
+          "suffix": "nction(x){if(/^https?:/i.test(x.name))__ps_record_runtime('network','检测到外部资源：'+x.name.slice(0,100));});}catch(e){}\n});\n\ndocument.addEventListener('DOMContentLoaded',function(){\n__ps_catalog_install(\"ps-showcase-1\",\"ps-showcase-data-2\");\n});"
+        }
+      ]
+    },
+    {
+      "url": "blob:null/018ff306-1f74-4ec2-8b70-42057c5b23aa",
+      "title": "全库能力展示·卷01",
+      "events": [
+        {
+          "kind": "error",
+          "message": "Uncaught SyntaxError: Invalid or unexpected token",
+          "filename": "blob:null/018ff306-1f74-4ec2-8b70-42057c5b23aa",
+          "line": 1415,
+          "column": 224768,
+          "stack": "SyntaxError: Invalid or unexpected token"
+        },
+        {
+          "kind": "error",
+          "message": "",
+          "filename": "",
+          "line": 0,
+          "column": 0,
+          "stack": ""
+        },
+        {
+          "kind": "error",
+          "message": "",
+          "filename": "",
+          "line": 0,
+          "column": 0,
+          "stack": ""
+        }
+      ],
+      "scripts": [
+        {
+          "index": 1,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 1108,
+          "parseError": "",
+          "prefix": "(function(){\nvar token=\"mJ3qBVC0qFr-lG1ZeIDfCMLUyBi8XmwZ\",volume=1,last='';\nfunction send(type,extra){parent.postMessage(Object.assign({type:type,token:token,volume:volume},extra||{}),'*')}\nwindow.__PAGESPEC_CATALOG_SEND__=send;send('pagesp",
+          "suffix": "sage:String(event.message||'运行错误').slice(0,180)})});\naddEventListener('unhandledrejection',function(event){var reason=event.reason;send('pagespec-catalog-fail',{message:String(reason&&reason.message||reason||'未处理异常').slice(0,180)})});\n})();"
+        },
+        {
+          "index": 2,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 1209,
+          "parseError": "",
+          "prefix": "window.__LIB_HANDLES__={};window.__CSS_MUTATION_TARGETS__=[];window.__SUITE_BOOT__=performance.now();\nwindow.__RUNTIME_GATE__={errors:[],unhandledrejections:[],console_errors:[]};\nwindow.__RUNTIME_GATE_TRIP__=function(){var s=window.__MEANI",
+          "suffix": "nction(){var args=Array.prototype.slice.call(arguments).map(function(x){return String(x&&x.stack||x)});window.__RUNTIME_GATE__.console_errors.push(args.join(' '));window.__RUNTIME_GATE_TRIP__();return original.apply(console,arguments)}})();"
+        },
+        {
+          "index": 3,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 8663,
+          "parseError": "",
+          "prefix": "\n(function(){\n'use strict';\nvar completed=false,finishing=false;\nfunction str(value){\n  var seen=[];\n  try{return JSON.stringify(value,function(_key,item){\n    if(typeof item==='bigint')return String(item)+'n';\n    if(item&&typeof item==='o",
+          "suffix": "ite.presentation_gate_pass=false;suite.final_gate_pass=false;window.__MEANINGFUL_SUITE__=suite;document.title=document.title.replace(/^PASS\\s+/,'FAIL ')}completed=true})})}else if(value!==true){completed=!!value;finishing=false}\n}});\n})();\n"
+        },
+        {
+          "index": 4,
+          "type": "application/json",
+          "nonce": "",
+          "bytes": 2,
+          "parseError": "",
+          "prefix": "[]",
+          "suffix": "[]"
+        },
+        {
+          "index": 5,
+          "type": "application/json",
+          "nonce": "",
+          "bytes": 2,
+          "parseError": "",
+          "prefix": "[]",
+          "suffix": "[]"
+        },
+        {
+          "index": 6,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 157924,
+          "parseError": "",
+          "prefix": "/**\n* vue v3.5.13\n* (c) 2018-present Yuxi (Evan) You and Vue contributors\n* @license MIT\n**/var Vue=function(e){\"use strict\";var t,n;let r,i,l,s,o,a,c,u,d,p,f,h,m;function g(e){let t=Object.create(null);for(let n of e.split(\",\"))t[n]=1;retu",
+          "suffix": "),l.cacheIndex=r,n[r]=l},e.withModifiers=(e,t)=>{let n=e._withMods||(e._withMods={}),r=t.join(\".\");return n[r]||(n[r]=(n,...r)=>{for(let e=0;e<t.length;e++){let r=l2[t[e]];if(r&&r(n,t))return}return e(n,...r)})},e.withScopeId=e=>ne,e}({});\n"
+        },
+        {
+          "index": 7,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 114,
+          "parseError": "",
+          "prefix": "(function(){var v=window,p=[\"Vue\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"vue\"]=v;})();",
+          "suffix": "(function(){var v=window,p=[\"Vue\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"vue\"]=v;})();"
+        },
+        {
+          "index": 8,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 279706,
+          "parseError": "",
+          "prefix": "// https://d3js.org v7.9.0 Copyright 2010-2023 Mike Bostock\n!function(t,n){\"object\"==typeof exports&&\"undefined\"!=typeof module?n(exports):\"function\"==typeof define&&define.amd?define([\"exports\"],n):n((t=\"undefined\"!=typeof globalThis?globa",
+          "suffix": "on(){var t=h.on.apply(h,arguments);return t===h?v:t},v.clickDistance=function(t){return arguments.length?(g=(t=+t)*t,v):Math.sqrt(g)},v.tapDistance=function(t){return arguments.length?(y=+t,v):y},v},t.zoomIdentity=Mw,t.zoomTransform=Tw}));\n"
+        },
+        {
+          "index": 9,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 112,
+          "parseError": "",
+          "prefix": "(function(){var v=window,p=[\"d3\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"d3\"]=v;})();",
+          "suffix": "(function(){var v=window,p=[\"d3\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"d3\"]=v;})();"
+        },
+        {
+          "index": 10,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 226142,
+          "parseError": "SyntaxError: Invalid or unexpected token\n    at new Function (<anonymous>)\n    at eval (eval at evaluate (:303:30), <anonymous>:5:35)\n    at Array.map (<anonymous>)\n    at eval (eval at evaluate (:303:30), <anonymous>:1:30)\n    at eval (<anonymous>)\n    at UtilityScript.evaluate (<anonymous>:303:30)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+          "prefix": "/*__CHROME109_URL_CAN_PARSE__*/;(function(){if(typeof URL!=='undefined'&&typeof URL.canParse!=='function'){URL.canParse=function(input,base){try{if(arguments.length>1){new URL(input,base)}else{new URL(input)}return true}catch(e){return fals",
+          "suffix": "Date.now()-started>300000){clearInterval(timer);send('pagespec-catalog-fail',{message:'卷内运行超过 300 秒'})}}catch(error){clearInterval(timer);send('pagespec-catalog-fail',{message:String(error&&error.message||error).slice(0,180)})}},250);\n})();"
+        },
+        {
+          "index": 11,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 122,
+          "parseError": "",
+          "prefix": "(function(){var v=window,p=[\"mermaid\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"mermaid\"]=v;})();",
+          "suffix": "(function(){var v=window,p=[\"mermaid\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"mermaid\"]=v;})();"
+        },
+        {
+          "index": 12,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 7160,
+          "parseError": "",
+          "prefix": "!function(t,e){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=e():\"function\"==typeof define&&define.amd?define(e):(t=\"undefined\"!=typeof globalThis?globalThis:t||self).dayjs=e()}(this,(function(){\"use strict\";var t=1e3,",
+          "suffix": "],[\"$y\",h],[\"$D\",d]].forEach((function(t){k[t[1]]=function(e){return this.$g(e,t[0],t[1])}})),O.extend=function(t,e){return t.$i||(t(e,_,O),t.$i=!0),O},O.locale=w,O.isDayjs=S,O.unix=function(t){return O(1e3*t)},O.en=D[g],O.Ls=D,O.p={},O}));"
+        },
+        {
+          "index": 13,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 118,
+          "parseError": "",
+          "prefix": "(function(){var v=window,p=[\"dayjs\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"dayjs\"]=v;})();",
+          "suffix": "(function(){var v=window,p=[\"dayjs\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"dayjs\"]=v;})();"
+        },
+        {
+          "index": 14,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 419910,
+          "parseError": "",
+          "prefix": "/*!\n* Vuetify v3.7.4\n* Forged by John Leider\n* Released under the MIT License.\n*/\n!function(e,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?t(exports,require(\"vue\")):\"function\"==typeof define&&define.amd?define([\"exports\",\"vue\"],t",
+          "suffix": "t=arguments.length>1?arguments[1]:void 0\nconst{props:a,provideSubDefaults:l}=_t(e,t)\nreturn l(),a},e.useDisplay=Nn,e.useGoTo=Bn,e.useLayout=oa,e.useLocale=ya,e.useRtl=Va,e.useTheme=Na,e.version=df}))\n//# sourceMappingURL=vuetify.min.js.map\n"
+        },
+        {
+          "index": 15,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 122,
+          "parseError": "",
+          "prefix": "(function(){var v=window,p=[\"Vuetify\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"vuetify\"]=v;})();",
+          "suffix": "(function(){var v=window,p=[\"Vuetify\"];for(var i=0;i<p.length;i++){v=v&&v[p[i]];}window.__LIB_HANDLES__[\"vuetify\"]=v;})();"
+        },
+        {
+          "index": 16,
+          "type": "",
+          "nonce": "ZiJlnn6FdJPK5eBZRVxzvBPQ",
+          "bytes": 245371,
+          "parseError": "",
+          "prefix": "!function(e,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?t(exports,require(\"vue\")):\"function\"==typeof define&&define.amd?define([\"exports\",\"vue\"],t):t((e=\"undefined\"!=typeof globalThis?globalThis:e||self).vant={},e.Vue)}(this,(fu",
+          "suffix": "psisProps=qp,e.timePickerProps=Jp,e.toastProps=rn,e.treeSelectProps=ov,e.uploaderProps=pv,e.useCurrentLang=()=>Be,e.version=Bv,e.watermarkProps=hv,Object.defineProperties(e,{__esModule:{value:!0},[Symbol.toStringTag]:{value:\"Module\"}})}));\n"
+        }
+      ]
+    }
+  ],
+  "error": null
+}

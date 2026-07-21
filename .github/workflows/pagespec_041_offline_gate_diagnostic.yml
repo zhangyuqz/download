@@ -1,0 +1,70 @@
+name: Diagnose PageSpec 0.4.1 offline gate
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_041_offline_gate_diagnostic.py'
+      - '.github/workflows/pagespec_041_offline_gate_diagnostic.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - name: Download bridge-fixed candidate package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8479608503/zip > candidate.zip
+          unzip -q candidate.zip -d candidate
+          PACKAGE="$(find candidate -type f -name '*.difypkg' | head -n 1)"
+          test -n "$PACKAGE"
+          echo "$PACKAGE" > package_path.txt
+
+      - name: Extract exact offline gate formula
+        shell: bash
+        run: |
+          set -euo pipefail
+          python .ci/pagespec_041_offline_gate_diagnostic.py \
+            --package "$(cat package_path.txt)" \
+            --output offline_gate_diagnostic.json
+
+      - name: Persist diagnostic result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        shell: bash
+        run: |
+          set -euo pipefail
+          content="$(base64 -w0 offline_gate_diagnostic.json)"
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_offline_gate_diagnostic.json"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec offline gate diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+          else
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec offline gate diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.1-offline-gate-diagnostic
+          path: offline_gate_diagnostic.json
+          if-no-files-found: warn
+          retention-days: 7

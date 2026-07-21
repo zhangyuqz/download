@@ -1,0 +1,80 @@
+name: Diagnose PageSpec 0.4.1 browser syntax
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_041_browser_syntax_diagnostic.py'
+      - '.github/workflows/pagespec_041_browser_syntax_diagnostic.yml'
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Download final candidate and install Chromium
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api repos/${GITHUB_REPOSITORY}/actions/artifacts/8479466617/zip > candidate.zip
+          unzip -q candidate.zip -d candidate
+          PACKAGE="$(find candidate -type f -name '*.difypkg' | head -n 1)"
+          test -n "$PACKAGE"
+          echo "$PACKAGE" > package_path.txt
+          python -m pip install --quiet playwright
+          python -m playwright install --with-deps chromium >/dev/null
+
+      - name: Capture exact Chromium parse failure
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACKAGE="$(cat package_path.txt)"
+          python .ci/pagespec_041_browser_syntax_diagnostic.py \
+            --package "$PACKAGE" \
+            --html pagespec_041_syntax_diagnostic.html \
+            --output syntax_diagnostic.json
+
+      - name: Persist diagnostic result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        shell: bash
+        run: |
+          set -euo pipefail
+          content="$(base64 -w0 syntax_diagnostic.json)"
+          endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_browser_syntax_diagnostic.json"
+          existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec browser syntax diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+          else
+            gh api "$endpoint" --method PUT -f message='test: store PageSpec browser syntax diagnostic [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.1-browser-syntax-diagnostic
+          path: |
+            syntax_diagnostic.json
+            pagespec_041_syntax_diagnostic.html
+          if-no-files-found: warn
+          retention-days: 7

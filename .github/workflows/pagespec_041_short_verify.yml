@@ -1,0 +1,13 @@
+name: Verify Generated PageSpec 0.4.1 Source
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Paused while the exact source-test assertion is captured.'

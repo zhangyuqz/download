@@ -1,0 +1,13 @@
+{
+  "identifier": "zhangyu/html_offline_exporter:0.4.1@5bff49350881c7feda49d5bc8da5edaaf8f7abdfd0ebbcd6fa335d2b98b53883",
+  "library": {
+    "bytes": 14307,
+    "maximum_string": 5452,
+    "render_nodes": 1
+  },
+  "phone": {
+    "bytes": 466033,
+    "maximum_string": 25235,
+    "render_nodes": 2
+  }
+}

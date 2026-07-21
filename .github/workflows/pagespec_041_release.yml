@@ -1,0 +1,98 @@
+name: Build PageSpec 0.4.1 Candidate
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.ci/pagespec_041_patch.py'
+      - '.ci/pagespec_041_prepare_patch_v2.py'
+      - '.ci/pagespec_041_post_patch_fix_v4.py'
+      - '.ci/pagespec_041_post_patch_fix_v5.py'
+      - '.ci/pagespec_041_post_patch_fix_v6.py'
+      - '.ci/pagespec_041_build.sh'
+      - '.ci/pagespec_041_browser_audit.py'
+      - '.github/workflows/pagespec_041_release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout PageSpec 0.4.1 scripts
+        uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: |
+            .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Prepare verified non-publishing candidate script
+        shell: bash
+        run: |
+          set -euo pipefail
+          python .ci/pagespec_041_prepare_patch_v2.py \
+            --source .ci/pagespec_041_patch.py \
+            --output /tmp/pagespec_041_patch.py
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('.ci/pagespec_041_build.sh').read_text(encoding='utf-8')
+          old = 'python .ci/pagespec_041_patch.py "$PLUGIN_ROOT"\n'
+          new = (
+              'python /tmp/pagespec_041_patch.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v4.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v5.py "$PLUGIN_ROOT"\n'
+              'python .ci/pagespec_041_post_patch_fix_v6.py "$PLUGIN_ROOT"\n'
+          )
+          if source.count(old) != 1:
+              raise SystemExit(f'patch invocation count={source.count(old)}')
+          source = source.replace(old, new, 1)
+          marker = "echo '[11/11] Publish PageSpec 0.4.1 release and print exact identity'"
+          if marker not in source:
+              raise SystemExit('publish marker missing')
+          source = source.split(marker, 1)[0]
+          source += "echo '[11/11] Candidate build complete; publishing intentionally skipped'\n"
+          source += "sha256sum dist041/* | sort | tee dist041/all_release_sha256.txt\n"
+          source += "echo \"CLI_TAG=$CLI_TAG\"\n"
+          source += "echo \"PACKAGE_BYTES=$(stat -c%s \\\"dist041/$PACKAGE\\\")\"\n"
+          source += "echo \"UNPACKED_BYTES=$UNPACKED_BYTES\"\n"
+          Path('/tmp/pagespec_041_candidate.sh').write_text(source, encoding='utf-8')
+          PY
+          bash -n /tmp/pagespec_041_candidate.sh
+
+      - name: Build, test and browser-audit PageSpec 0.4.1 candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set +e
+          bash /tmp/pagespec_041_candidate.sh > pagespec_041_build.log 2>&1
+          status=$?
+          echo "$status" > pagespec_041_build.status
+          tail -n 200 pagespec_041_build.log
+          exit 0
+
+      - name: Upload candidate, complete log and exit status
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: PageSpec-0.4.1-candidate
+          path: |
+            dist041/*
+            pagespec_041_build.log
+            pagespec_041_build.status
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Enforce candidate result
+        shell: bash
+        run: test "$(cat pagespec_041_build.status)" = 0

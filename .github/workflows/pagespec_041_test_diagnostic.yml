@@ -1,0 +1,76 @@
+name: Diagnose PageSpec 0.4.1 Source Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/pagespec_041_test_diagnostic.yml'
+      - '.ci/pagespec_041_prepare_patch_v2.py'
+      - '.ci/pagespec_041_post_patch_fix_v4.py'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: build/pagespec-0.4.1-20260721
+          sparse-checkout: .ci
+          sparse-checkout-cone-mode: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate source and run all tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir baseline
+          gh release download pagespec-0.4.0 --repo "$GITHUB_REPOSITORY" --pattern '*vendor.zip' --dir baseline
+          SOURCE_ZIP="$(find baseline -type f -name '*.zip' | head -n 1)"
+          test "$(sha256sum "$SOURCE_ZIP" | awk '{print $1}')" = '04096a862e7c9d16d3a430666797b648f68cc74d3332f369b55e17969d189aa6'
+          unzip -q "$SOURCE_ZIP" -d work
+          ROOT="$(dirname "$(find work -type f -name manifest.yaml | head -n 1)")"
+          python -m pip install --quiet pyyaml
+          python .ci/pagespec_041_prepare_patch_v2.py --source .ci/pagespec_041_patch.py --output /tmp/pagespec_041_patch.py
+          python /tmp/pagespec_041_patch.py "$ROOT"
+          python .ci/pagespec_041_post_patch_fix_v4.py "$ROOT"
+          set +e
+          (cd "$ROOT" && python -m unittest discover -s tests -p 'test_*.py') > source_tests.log 2>&1
+          status=$?
+          set -e
+          echo "$status" > source_tests.status
+          tail -n 120 source_tests.log
+      - name: Persist exact test result
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_BRANCH: build/pagespec-0.4.1-20260721
+        run: |
+          set -euo pipefail
+          for file in source_tests.log source_tests.status; do
+            content="$(base64 -w0 "$file")"
+            endpoint="repos/${GITHUB_REPOSITORY}/contents/.ci/generated/pagespec_041_${file}"
+            existing="$(gh api "${endpoint}?ref=${TARGET_BRANCH}" --jq '.sha' 2>/dev/null || true)"
+            if [ -n "$existing" ]; then
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec source-test diagnostics [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" -f sha="$existing" >/dev/null
+            else
+              gh api "$endpoint" --method PUT -f message='test: store PageSpec source-test diagnostics [skip ci]' -f content="$content" -f branch="$TARGET_BRANCH" >/dev/null
+            fi
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: PageSpec-0.4.1-source-tests
+          path: |
+            source_tests.log
+            source_tests.status
+          retention-days: 7
+          if-no-files-found: error
+      - name: Enforce tests
+        run: test "$(cat source_tests.status)" = 0

@@ -1,0 +1,13 @@
+name: Recover PageSpec Candidate Run 14
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Archived after generated-source verification superseded run-14 recovery.'

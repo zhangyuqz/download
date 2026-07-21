@@ -1,0 +1,13 @@
+name: Recover PageSpec 0.4.1 Build Log
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Archived; candidate jobs now retain complete artifacts directly.'

@@ -1,0 +1,13 @@
+name: Diagnose PageSpec 0.4.1 Catalog JavaScript
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Archived after generated-source short verification replaced this diagnostic.'
