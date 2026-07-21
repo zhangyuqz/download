@@ -1,16 +1,4 @@
-dist041/browser_audit.json	48670 bytes
-dist041/html_offline_exporter_PageSpec_0.4.1_Dify1.7.1_SDK0.9plus.difypkg	12852860 bytes
-dist041/official_cli_version.txt	7 bytes
-dist041/pagespec_library_report_full_0.4.1_dify_1.7.1.yml	14307 bytes
-dist041/pagespec_phone_report_full_0.4.1_dify_1.7.1.yml	466033 bytes
-dist041/plugin_identifier.txt	101 bytes
-dist041/sdk_current.log	1582 bytes
-dist041/sdk_minimum.log	1587 bytes
-dist041/sdk_resolved_version.txt	7 bytes
-dist041/sdk_stdio.stderr	0 bytes
-dist041/sdk_stdio.stdout	1596 bytes
 dist041/source_tests.log	0 bytes
-dist041/workflow_audit.json	302 bytes
-pagespec_041_build.log	53621 bytes
+pagespec_041_build.log	2389 bytes
 pagespec_041_build.status	2 bytes
 pagespec_041_candidate_files.txt	0 bytes
